@@ -1,0 +1,135 @@
+﻿<Window x:Class="PDT_WPF.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:local="clr-namespace:PDT_WPF.Views"
+        xmlns:Pages="clr-namespace:PDT_WPF.Views.Pages"
+        mc:Ignorable="d"
+        
+        Title="{Binding ElementName=mainFrame, Path=Content.Title, StringFormat=项导树 - \{0\}}"
+        Height="500"
+        Width="820"
+        DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
+
+    <Window.Resources>
+        <!--欢迎页-->
+        <Pages:WelcomePage x:Key="WelcomePage"/>
+
+        <!--单击用户头像弹出的菜单-->
+        <ContextMenu
+            x:Key="UserContextMenu"
+            Placement="Bottom"
+            DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
+            <MenuItem
+                Header="个人中心"
+                Command="{Binding SwitchPageCmd}"
+                CommandParameter="PersonalCenterPage"/>
+            <Separator/>
+            <MenuItem
+                Header="退出登录"
+                Command="{Binding LogoutCmd}"/>
+        </ContextMenu>
+
+    </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding
+            Key="Esc"
+            Command="{Binding ExitPageCmd}"/>
+    </Window.InputBindings>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180" MinWidth="100" MaxWidth="300"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid
+            Grid.Column="0"
+            Background="White"
+            Effect="{StaticResource EffectShadow2}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button
+                Grid.Row="0"
+                Margin="10"
+                Height="60"
+                BorderThickness="0"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Left"
+                Click="UserButton_Click">
+                <StackPanel
+                    Orientation="Horizontal">
+                    <!--头像-->
+                    <Ellipse
+                        Width="40"
+                        Height="40">
+                        <Ellipse.Fill>
+                            <ImageBrush
+                                ImageSource="{Binding User.Avaurl}"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <!--用户名-->
+                    <TextBlock
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        Text="{Binding User.NickName}"/>
+                </StackPanel>
+            </Button>
+
+            <!--侧边栏-->
+            <hc:SideMenu
+                x:Name="sideMenu"
+                Grid.Row="1">
+                <hc:SideMenuItem
+                    IsSelected="True"
+                    Header="主页"
+                    Command="{Binding SwitchPageCmd}"
+                    CommandParameter="HomePage"/>
+                <hc:SideMenuItem
+                    Header="项目库"
+                    Command="{Binding SwitchPageCmd}"
+                    CommandParameter="ProjectLibraryPage"/>
+                <hc:SideMenuItem
+                    Header="人才库"
+                    Command="{Binding SwitchPageCmd}"
+                    CommandParameter="TalentPoolPage"/>
+                <hc:SideMenuItem
+                    Header="论坛"
+                    Command="{Binding SwitchPageCmd}"
+                    CommandParameter="ForumPage"/>
+                <hc:SideMenuItem
+                    Header="信息"
+                    Command="{Binding SwitchPageCmd}"
+                    CommandParameter="MessagePage"/>
+                <hc:SideMenuItem
+                    Header="个人中心"
+                    Command="{Binding SwitchPageCmd}"
+                    CommandParameter="PersonalCenterPage"/>
+            </hc:SideMenu>
+        </Grid>
+
+
+
+        <GridSplitter
+            Grid.Column="1"
+            Width="10"
+            Background="Transparent"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Center"/>
+
+        <Frame
+            x:Name="mainFrame"
+            Grid.Column="2"
+            Style="{StaticResource BaseStyle}"
+            Content="{Binding CurrentPage, TargetNullValue={StaticResource WelcomePage}}"
+            NavigationUIVisibility="Hidden"/>
+
+    </Grid>
+</Window>
