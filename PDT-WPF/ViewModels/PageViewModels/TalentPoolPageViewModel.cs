@@ -35,12 +35,12 @@ namespace PDT_WPF.ViewModels.PageViewModels
         }
 
 
-        private async void GetPersonnelListAsync(Action<Pdt.GetPersonnelListResponse> callback)
+        private async void GetPersonnelListAsync(Action<PdtV1.GetPersonnelListResponse> callback)
         {
             IsLoading = true;
             try
             {
-                var res = await Task.Run(() => Pdt.GetPersonnelList((++Page).ToString(), "0"));
+                var res = await Task.Run(() => PdtV1.GetPersonnelList((++Page).ToString(), "0"));
                 if (!res.isSuccess)
                     Page--;
                 callback(res);
@@ -48,7 +48,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
             catch (Exception e)
             {
                 Page--;
-                callback(new Pdt.GetPersonnelListResponse
+                callback(new PdtV1.GetPersonnelListResponse
                 {
                     isSuccess = false,
                     mesg = e.Message

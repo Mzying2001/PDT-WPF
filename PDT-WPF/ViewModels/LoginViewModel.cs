@@ -46,10 +46,10 @@ namespace PDT_WPF.ViewModels
             IsLoading = true;
             try
             {
-                var loginRes = await Task.Run(() => Pdt.Login(LocalData.Settings.OpenId));
-                if (loginRes.code == Pdt.LoginResponse.SUCCESS_CODE)
+                var loginRes = await Task.Run(() => PdtV1.Login(LocalData.Settings.OpenId));
+                if (loginRes.code == PdtV1.LoginResponse.SUCCESS_CODE)
                 {
-                    Pdt.Token = loginRes.token;
+                    PdtCommon.Token = loginRes.token;
                     LocalData.Settings.UserId = loginRes.userId;
                 }
                 else
@@ -57,7 +57,7 @@ namespace PDT_WPF.ViewModels
                     return;
                 }
 
-                var res = await Task.Run(() => Pdt.GetUserInfo(LocalData.Settings.OpenId));
+                var res = await Task.Run(() => PdtV1.GetUserInfo(LocalData.Settings.OpenId));
                 if (res.isSuccess)
                 {
                     GlobalData.CurrentUser = res.user;
@@ -79,13 +79,13 @@ namespace PDT_WPF.ViewModels
             try
             {
                 //开始登录
-                Pdt.LoginResponse loginRes;
+                PdtV1.LoginResponse loginRes;
                 if (Regex.IsMatch(Account, "^OPEN_ID{.+}$"))
                 {
                     string openId = Account.Substring(8, Account.Length - 9);
-                    loginRes = await Task.Run(() => Pdt.Login(openId));
+                    loginRes = await Task.Run(() => PdtV1.Login(openId));
 
-                    if (loginRes.code == Pdt.LoginResponse.SUCCESS_CODE)
+                    if (loginRes.code == PdtV1.LoginResponse.SUCCESS_CODE)
                         LocalData.Settings.OpenId = openId;
                 }
                 //else if (Regex.IsMatch(Account, "^ADMIN{.+}$"))
@@ -111,10 +111,10 @@ namespace PDT_WPF.ViewModels
                 }
 
 
-                if (loginRes.code == Pdt.LoginResponse.SUCCESS_CODE)
+                if (loginRes.code == PdtV1.LoginResponse.SUCCESS_CODE)
                 {
                     //登录成功，保存token
-                    Pdt.Token = loginRes.token;
+                    PdtCommon.Token = loginRes.token;
                 }
                 else
                 {
@@ -124,7 +124,7 @@ namespace PDT_WPF.ViewModels
 
 
                 //登录成功，开始获取用户信息
-                var res = await Task.Run(() => Pdt.GetUserInfo(LocalData.Settings.OpenId));
+                var res = await Task.Run(() => PdtV1.GetUserInfo(LocalData.Settings.OpenId));
                 if (res.isSuccess)
                 {
                     //获取用户信息成功，保存用户信息

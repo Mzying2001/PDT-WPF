@@ -2,22 +2,13 @@
 using PDT_WPF.Models;
 using System.Collections.Generic;
 
+using static PDT_WPF.Services.Api.PdtCommon;
+
 namespace PDT_WPF.Services.Api
 {
-    public static class Pdt
+    public static class PdtV1
     {
         public const string BASE_URL = "https://pdt.ojbk.me/api/v1/";
-
-        public static Dictionary<string, string> Headers { get; } = new Dictionary<string, string>
-        {
-            ["Token"] = string.Empty
-        };
-
-        public static string Token
-        {
-            get => Headers["Token"];
-            set => Headers["Token"] = value;
-        }
 
 
         #region 用户

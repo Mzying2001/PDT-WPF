@@ -14,16 +14,16 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
         public RelayCommand<string> ShowAdCmd { get; set; }
 
-        private async void GetAdPhotoAsync(Action<Pdt.GetAdvertisementPhotoResponse> callback)
+        private async void GetAdPhotoAsync(Action<PdtV1.GetAdvertisementPhotoResponse> callback)
         {
             try
             {
-                var res = await Task.Run(() => Pdt.GetAdvertisementPhoto());
+                var res = await Task.Run(() => PdtV1.GetAdvertisementPhoto());
                 callback(res);
             }
             catch
             {
-                callback(new Pdt.GetAdvertisementPhotoResponse
+                callback(new PdtV1.GetAdvertisementPhotoResponse
                 {
                     isSuccess = false
                 });

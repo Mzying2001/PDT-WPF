@@ -36,12 +36,12 @@ namespace PDT_WPF.ViewModels.PageViewModels
             }
         }
 
-        private async void GetProjectListAsync(Action<Pdt.GetProjectListResponse> callback)
+        private async void GetProjectListAsync(Action<PdtV1.GetProjectListResponse> callback)
         {
             IsLoading = true;
             try
             {
-                var res = await Task.Run(() => Pdt.GetProjectList((++Page).ToString(), "0"));
+                var res = await Task.Run(() => PdtV1.GetProjectList((++Page).ToString(), "0"));
                 if (!res.isSuccess)
                     Page--;
                 callback(res);
@@ -49,7 +49,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
             catch (Exception e)
             {
                 Page--;
-                callback(new Pdt.GetProjectListResponse
+                callback(new PdtV1.GetProjectListResponse
                 {
                     isSuccess = false,
                     mesg = e.Message
