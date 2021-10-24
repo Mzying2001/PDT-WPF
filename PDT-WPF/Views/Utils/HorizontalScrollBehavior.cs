@@ -33,15 +33,7 @@ namespace PDT_WPF.Views.Utils
 
             if (items != null && scroll != null)
             {
-                int d = e.Delta;
-                if (d > 0)
-                {
-                    scroll.LineLeft();
-                }
-                else if (d < 0)
-                {
-                    scroll.LineRight();
-                }
+                scroll.ScrollToHorizontalOffset(scroll.HorizontalOffset - e.Delta);
                 scroll.ScrollToTop();
             }
         }
