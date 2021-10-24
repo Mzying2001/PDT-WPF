@@ -14,15 +14,23 @@ namespace PDT_WPF.Models.Converters
 
             if (gap.TotalSeconds < 60)
             {
-                return $"{(int)gap.TotalSeconds}秒前";
+                return $"{gap.Seconds}秒前";
             }
             else if (gap.TotalMinutes < 60)
             {
-                return $"{(int)gap.TotalMinutes}分钟前";
+                return $"{gap.Minutes}分钟前";
             }
             else if (gap.TotalHours < 24)
             {
-                return $"{(int)gap.TotalHours}小时前";
+                return $"{gap.Hours}小时前";
+            }
+            else if ((int)gap.TotalDays == 1)
+            {
+                return "昨天";
+            }
+            else if ((int)gap.TotalDays == 2)
+            {
+                return "前天";
             }
             else if (gap.TotalDays <= 7)
             {
