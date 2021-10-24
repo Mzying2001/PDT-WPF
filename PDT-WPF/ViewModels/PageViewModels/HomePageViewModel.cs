@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using PDT_WPF.Models;
 using PDT_WPF.Services.Api;
 using PDT_WPF.Views.Utils;
 using System;
@@ -10,67 +11,60 @@ namespace PDT_WPF.ViewModels.PageViewModels
 {
     public class HomePageViewModel : ViewModelBase
     {
-        public ObservableCollection<string> AdPhotos { get; set; }
+        public ObservableCollection<BoardPhoto> BoardPhotos { get; set; }
 
-        public RelayCommand<string> ShowAdCmd { get; set; }
+        public RelayCommand<string> OpenLinkCmd { get; set; }
 
-        private async void GetAdPhotoAsync(Action<PdtV1.GetAdvertisementPhotoResponse> callback)
+        private async void GetBoardPhotosAsync(Action<BoardPhoto[]> callback)
         {
             try
             {
-                var res = await Task.Run(() => PdtV1.GetAdvertisementPhoto());
-                callback(res);
+                callback(await Task.Run(() => PdtV2.GetBoardPhotos()));
             }
             catch
             {
-                callback(new PdtV1.GetAdvertisementPhotoResponse
-                {
-                    isSuccess = false
-                });
+                callback(null);
             }
         }
 
-        private void InitAdPhotos()
+        private void LoadBoardPhotos()
         {
-            AdPhotos = new ObservableCollection<string>();
-            GetAdPhotoAsync(result =>
+            if (BoardPhotos == null)
+                BoardPhotos = new ObservableCollection<BoardPhoto>();
+
+            GetBoardPhotosAsync(result =>
             {
-                if (result.isSuccess)
+                if (result != null)
                 {
-                    foreach (var item in result.advertisementPhoto)
+                    foreach (var item in result)
                     {
-                        //if (item.StartsWith("http://") || item.StartsWith("https://"))
-                        //    AdPhotos.Add(item);
-                        //else
-                        //    AdPhotos.Add("https://" + item);
-
-
-                        for (int i = 0; i < 5; i++) //测试
+                        if (!(item.PhotoUrl.StartsWith("http://") || item.PhotoUrl.StartsWith("https://")))
                         {
-                            if (item.StartsWith("http://") || item.StartsWith("https://"))
-                                AdPhotos.Add(item);
-                            else
-                                AdPhotos.Add("https://" + item);
+                            item.PhotoUrl = "https://" + item.PhotoUrl;
                         }
+                        BoardPhotos.Add(item);
                     }
-                }
-                else
-                {
-                    MessageBoxHelper.ShowError("获取主页轮播图失败！");
                 }
             });
         }
 
-        private void ShowAd(string ad)
+        private void OpenLink(string link)
         {
-            MessageBoxHelper.ShowMessage(ad);
+            try
+            {
+                System.Diagnostics.Process.Start(link);
+            }
+            catch (Exception e)
+            {
+                MessageBoxHelper.ShowError(e);
+            }
         }
 
         public HomePageViewModel()
         {
-            ShowAdCmd = new RelayCommand<string>(ShowAd);
+            OpenLinkCmd = new RelayCommand<string>(OpenLink);
 
-            InitAdPhotos();
+            LoadBoardPhotos();
         }
     }
 }

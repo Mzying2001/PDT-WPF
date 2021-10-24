@@ -15,7 +15,7 @@
       DataContext="{Binding Source={StaticResource Locator}, Path=HomePage}">
 
     <Page.Resources>
-        
+
         <!--标题样式-->
         <Style
             x:Key="HeaderStyle"
@@ -23,7 +23,7 @@
             <Setter Property="FontSize" Value="26"/>
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
-        
+
     </Page.Resources>
 
     <Grid>
@@ -40,7 +40,7 @@
                     HorizontalScrollBarVisibility="Auto">
                     <ItemsControl
                         Background="White"
-                        ItemsSource="{Binding AdPhotos}">
+                        ItemsSource="{Binding BoardPhotos}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Horizontal"/>
@@ -48,26 +48,35 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Rectangle
-                                    RadiusX="5"
-                                    RadiusY="5"
-                                    Width="280"
-                                    Height="150"
+                                <Border
                                     Margin="5,10"
                                     Cursor="Hand"
+                                    CornerRadius="5"
                                     Effect="{StaticResource EffectShadow2}">
-                                    <Rectangle.Fill>
-                                        <ImageBrush ImageSource="{Binding}"/>
-                                    </Rectangle.Fill>
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger
-                                            EventName="MouseLeftButtonDown">
-                                            <i:InvokeCommandAction
-                                                Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Page}, Path=DataContext.ShowAdCmd}"
-                                                CommandParameter="{Binding}"/>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </Rectangle>
+                                    <Grid
+                                        Width="280"
+                                        Height="150"
+                                        ToolTip="{Binding Name}">
+                                        <Grid.Clip>
+                                            <RectangleGeometry
+                                                RadiusX="5"
+                                                RadiusY="5"
+                                                Rect="0,0,280,150"/>
+                                        </Grid.Clip>
+                                        <Grid.Background>
+                                            <ImageBrush
+                                                ImageSource="{Binding PhotoUrl}"/>
+                                        </Grid.Background>
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger
+                                                EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction
+                                                    Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Page}, Path=DataContext.OpenLinkCmd}"
+                                                    CommandParameter="{Binding Link}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Grid>
+                                </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
 
