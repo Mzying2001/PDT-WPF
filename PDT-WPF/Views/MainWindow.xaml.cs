@@ -1,5 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
-using PDT_WPF.Models;
+using PDT_WPF.Models.Data;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

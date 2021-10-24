@@ -398,5 +398,32 @@ namespace PDT_WPF.Services.Api
         #endregion
 
 
+        #region 后台管理
+
+        public struct AdministratorLoginResponse
+        {
+            public bool isSuccess;
+            public string mesg;
+        }
+        /// <summary>
+        /// 后台管理员登录
+        /// </summary>
+        /// <param name="administratorId"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public static AdministratorLoginResponse AdministratorLogin(string administratorId, string password)
+        {
+            string url = BASE_URL + "administrator/administratorLogin";
+            string res = Http.Post(url, new Dictionary<string, string>
+            {
+                ["administratorId"] = administratorId,
+                ["password"] = password
+            }, HttpContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<AdministratorLoginResponse>(res);
+        }
+
+        #endregion
+
+
     }
 }

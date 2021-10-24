@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using PDT_WPF.Models;
+using PDT_WPF.Models.Data;
 using PDT_WPF.Services.Api;
 using System;
 using System.Text.RegularExpressions;
@@ -87,6 +88,22 @@ namespace PDT_WPF.ViewModels
                     if (loginRes.code == Pdt.LoginResponse.SUCCESS_CODE)
                         LocalData.Settings.OpenId = openId;
                 }
+                //else if (Regex.IsMatch(Account, "^ADMIN{.+}$"))
+                //{
+                //    var arr = Account.Substring(6, Account.Length - 7).Split('|');
+                //    if (arr.Length != 2)
+                //        throw new Exception("格式错误");
+
+                //    string adminId = arr[0];
+                //    string password = arr[1];
+                //    var adminLoginRes = await Task.Run(() => Pdt.AdministratorLogin(adminId, password));
+
+                //    loginRes = new Pdt.LoginResponse
+                //    {
+                //        code = 0,
+                //        mesg = adminLoginRes.mesg
+                //    };
+                //}
                 else
                 {
                     //await Task.Run(() => System.Threading.Thread.Sleep(3000));

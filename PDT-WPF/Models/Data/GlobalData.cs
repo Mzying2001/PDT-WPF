@@ -1,4 +1,4 @@
-﻿namespace PDT_WPF.Models
+﻿namespace PDT_WPF.Models.Data
 {
     /// <summary>
     /// 全局数据
