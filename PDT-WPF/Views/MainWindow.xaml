@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:hc="https://handyorg.github.io/handycontrol"
         xmlns:local="clr-namespace:PDT_WPF.Views"
+        xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
         xmlns:Pages="clr-namespace:PDT_WPF.Views.Pages"
         mc:Ignorable="d"
         
@@ -91,27 +92,63 @@
                     IsSelected="True"
                     Header="主页"
                     Command="{Binding SwitchPageCmd}"
-                    CommandParameter="HomePage"/>
+                    CommandParameter="HomePage">
+                    <hc:SideMenuItem.Icon>
+                        <svgc:SvgViewbox
+                            Width="18"
+                            Source="/Assets/Images/Svgs/Home.svg"/>
+                    </hc:SideMenuItem.Icon>
+                </hc:SideMenuItem>
                 <hc:SideMenuItem
                     Header="项目库"
                     Command="{Binding SwitchPageCmd}"
-                    CommandParameter="ProjectLibraryPage"/>
+                    CommandParameter="ProjectLibraryPage">
+                    <hc:SideMenuItem.Icon>
+                        <svgc:SvgViewbox
+                            Width="18"
+                            Source="/Assets/Images/Svgs/ProjectLibrary.svg"/>
+                    </hc:SideMenuItem.Icon>
+                </hc:SideMenuItem>
                 <hc:SideMenuItem
                     Header="人才库"
                     Command="{Binding SwitchPageCmd}"
-                    CommandParameter="TalentPoolPage"/>
+                    CommandParameter="TalentPoolPage">
+                    <hc:SideMenuItem.Icon>
+                        <svgc:SvgViewbox
+                            Width="18"
+                            Source="/Assets/Images/Svgs/TalentPool.svg"/>
+                    </hc:SideMenuItem.Icon>
+                </hc:SideMenuItem>
                 <hc:SideMenuItem
                     Header="论坛"
                     Command="{Binding SwitchPageCmd}"
-                    CommandParameter="ForumPage"/>
+                    CommandParameter="ForumPage">
+                    <hc:SideMenuItem.Icon>
+                        <svgc:SvgViewbox
+                            Width="18"
+                            Source="/Assets/Images/Svgs/Forum.svg"/>
+                    </hc:SideMenuItem.Icon>
+                </hc:SideMenuItem>
                 <hc:SideMenuItem
                     Header="信息"
                     Command="{Binding SwitchPageCmd}"
-                    CommandParameter="MessagePage"/>
+                    CommandParameter="MessagePage">
+                    <hc:SideMenuItem.Icon>
+                        <svgc:SvgViewbox
+                            Width="18"
+                            Source="/Assets/Images/Svgs/Message.svg"/>
+                    </hc:SideMenuItem.Icon>
+                </hc:SideMenuItem>
                 <hc:SideMenuItem
                     Header="个人中心"
                     Command="{Binding SwitchPageCmd}"
-                    CommandParameter="PersonalCenterPage"/>
+                    CommandParameter="PersonalCenterPage">
+                    <hc:SideMenuItem.Icon>
+                        <svgc:SvgViewbox
+                            Width="18"
+                            Source="/Assets/Images/Svgs/PersonalCenter.svg"/>
+                    </hc:SideMenuItem.Icon>
+                </hc:SideMenuItem>
             </hc:SideMenu>
         </Grid>
 
