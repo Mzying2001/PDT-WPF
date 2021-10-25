@@ -4,6 +4,7 @@ using PDT_WPF.Models;
 using PDT_WPF.Services.Api;
 using PDT_WPF.Views.Utils;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
     public class HomePageViewModel : ViewModelBase
     {
         public ObservableCollection<BoardPhoto> BoardPhotos { get; set; }
+        public ObservableCollection<List<CompetitionSection>> CompetitionSections { get; set; }
 
         public RelayCommand<string> OpenLinkCmd { get; set; }
 
@@ -36,6 +38,8 @@ namespace PDT_WPF.ViewModels.PageViewModels
             {
                 if (result != null)
                 {
+                    BoardPhotos.Clear();
+
                     foreach (var item in result)
                     {
                         if (!(item.PhotoUrl.StartsWith("http://") || item.PhotoUrl.StartsWith("https://")))
@@ -43,6 +47,40 @@ namespace PDT_WPF.ViewModels.PageViewModels
                             item.PhotoUrl = "https://" + item.PhotoUrl;
                         }
                         BoardPhotos.Add(item);
+                    }
+                }
+            });
+        }
+
+        private async void GetCompetitionSectionsAsync(Action<CompetitionSection[][]> callback)
+        {
+            try
+            {
+                callback(await Task.Run(() => PdtV2.GetCompetitionSections()));
+            }
+            catch
+            {
+                callback(null);
+            }
+        }
+
+        private void LoadCompetitionSections()
+        {
+            if (CompetitionSections == null)
+                CompetitionSections = new ObservableCollection<List<CompetitionSection>>();
+
+            GetCompetitionSectionsAsync(result =>
+            {
+                if (result != null)
+                {
+                    CompetitionSections.Clear();
+
+                    foreach (var arr in result)
+                    {
+                        var list = new List<CompetitionSection>(arr.Length);
+                        foreach (var item in arr)
+                            list.Add(item);
+                        CompetitionSections.Add(list);
                     }
                 }
             });
@@ -65,6 +103,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
             OpenLinkCmd = new RelayCommand<string>(OpenLink);
 
             LoadBoardPhotos();
+            LoadCompetitionSections();
         }
     }
 }

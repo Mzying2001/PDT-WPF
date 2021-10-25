@@ -7,6 +7,7 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:hc="https://handyorg.github.io/handycontrol"
       xmlns:Utils="clr-namespace:PDT_WPF.Views.Utils"
+      xmlns:Models="clr-namespace:PDT_WPF.Models"
       mc:Ignorable="d"
       
       d:DesignHeight="450"
@@ -34,7 +35,6 @@
                     Margin="10,5"
                     Style="{StaticResource HeaderStyle}"
                     Text="推荐"/>
-
                 <hc:ScrollViewer
                     IsInertiaEnabled="True"
                     HorizontalScrollBarVisibility="Auto">
@@ -52,7 +52,7 @@
                                     Margin="5,10"
                                     Cursor="Hand"
                                     CornerRadius="5"
-                                    Effect="{StaticResource EffectShadow2}">
+                                    Effect="{StaticResource EffectShadow1}">
                                     <Grid
                                         Width="280"
                                         Height="150"
@@ -76,6 +76,77 @@
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+
+                        <!--横向滚动-->
+                        <i:Interaction.Behaviors>
+                            <Utils:HorizontalScrollBehavior/>
+                        </i:Interaction.Behaviors>
+                    </ItemsControl>
+                </hc:ScrollViewer>
+
+
+                <TextBlock
+                    Margin="10,10,10,5"
+                    Style="{StaticResource HeaderStyle}"
+                    Text="比赛"/>
+                <hc:ScrollViewer
+                    IsInertiaEnabled="True"
+                    HorizontalScrollBarVisibility="Auto">
+                    <ItemsControl
+                        Background="White"
+                        ItemsSource="{Binding CompetitionSections}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel
+                                    Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    Margin="5"
+                                    Padding="5,10"
+                                    CornerRadius="5"
+                                    Background="White"
+                                    Effect="{StaticResource EffectShadow1}">
+                                    <ItemsControl
+                                        ItemsSource="{Binding}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate
+                                                DataType="{x:Type Models:CompetitionSection}">
+                                                <Button
+                                                    Width="180"
+                                                    Cursor="Hand"
+                                                    BorderThickness="0"
+                                                    HorizontalContentAlignment="Left"
+                                                    ToolTip="{Binding Link}"
+                                                    Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Page}, Path=DataContext.OpenLinkCmd}"
+                                                    CommandParameter="{Binding Link}">
+                                                    <Button.Content>
+                                                        <StackPanel
+                                                            Orientation="Horizontal">
+                                                            <Ellipse
+                                                                Fill="Black"
+                                                                Width="5"
+                                                                Height="5"/>
+                                                            <TextBlock
+                                                                Margin="10,0,0,0"
+                                                                FontSize="14"
+                                                                Text="{Binding Title}"/>
+                                                        </StackPanel>
+                                                    </Button.Content>
+                                                </Button>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
