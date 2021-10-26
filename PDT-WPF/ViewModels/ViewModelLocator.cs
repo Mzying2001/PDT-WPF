@@ -51,6 +51,7 @@ namespace PDT_WPF.ViewModels
             SimpleIoc.Default.Register<ForumPageViewModel>();
             SimpleIoc.Default.Register<MessagePageViewModel>();
             SimpleIoc.Default.Register<PersonalCenterPageViewModel>();
+            SimpleIoc.Default.Register<AdminPageViewModel>();
         }
 
         public MainViewModel Main
@@ -91,6 +92,11 @@ namespace PDT_WPF.ViewModels
         public PersonalCenterPageViewModel PersonalCenterPage
         {
             get => ServiceLocator.Current.GetInstance<PersonalCenterPageViewModel>();
+        }
+
+        public AdminPageViewModel AdminPage
+        {
+            get => ServiceLocator.Current.GetInstance<AdminPageViewModel>();
         }
 
         public static void Cleanup()

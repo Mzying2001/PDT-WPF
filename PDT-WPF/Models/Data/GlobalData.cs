@@ -6,5 +6,6 @@
     public static class GlobalData
     {
         public static User CurrentUser { get; set; }
+        public static bool ShowAdminPage { get; set; }
     }
 }

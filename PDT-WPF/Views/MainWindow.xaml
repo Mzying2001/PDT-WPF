@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:PDT_WPF.Views"
         xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
         xmlns:Pages="clr-namespace:PDT_WPF.Views.Pages"
+        xmlns:Data="clr-namespace:PDT_WPF.Models.Data"
         mc:Ignorable="d"
         
         Title="{Binding ElementName=mainFrame, Path=Content.Title, StringFormat=项导树 - \{0\}}"
@@ -147,6 +148,17 @@
                         <svgc:SvgViewbox
                             Width="18"
                             Source="/Assets/Images/Svgs/PersonalCenter.svg"/>
+                    </hc:SideMenuItem.Icon>
+                </hc:SideMenuItem>
+                <hc:SideMenuItem
+                    Header="后台管理"
+                    Visibility="{Binding Source={x:Static Data:GlobalData.ShowAdminPage}, Converter={StaticResource Boolean2VisibilityConverter}}"
+                    Command="{Binding SwitchPageCmd}"
+                    CommandParameter="AdminPage">
+                    <hc:SideMenuItem.Icon>
+                        <svgc:SvgViewbox
+                            Width="18"
+                            Source="/Assets/Images/Svgs/Admin.svg"/>
                     </hc:SideMenuItem.Icon>
                 </hc:SideMenuItem>
             </hc:SideMenu>
