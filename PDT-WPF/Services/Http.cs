@@ -22,7 +22,7 @@ namespace PDT_WPF.Services
             SERVICE_UNAVAILABLE = 500
         }
 
-        private static string FormatData(IDictionary<string, string> data)
+        public static string BuildQuery(IDictionary<string, string> data)
         {
             if (data == null)
                 return string.Empty;
@@ -33,14 +33,14 @@ namespace PDT_WPF.Services
             {
                 if (i++ > 0)
                     sb.Append("&");
-                sb.AppendFormat("{0}={1}", item.Key, item.Value);
+                sb.AppendFormat("{0}={1}", WebUtility.UrlEncode(item.Key), WebUtility.UrlEncode(item.Value));
             }
             return sb.ToString();
         }
 
-        private static string FormatUrl(string url, IDictionary<string, string> data)
+        public static string AppendData(string url, IDictionary<string, string> data)
         {
-            return data != null && data.Count > 0 ? $"{url}?{FormatData(data)}" : url;
+            return data != null && data.Count > 0 ? $"{url}?{BuildQuery(data)}" : url;
         }
 
         public static string Get(string url, string contentType = null, int timeout = DEFAULT_TIMEOUT)
@@ -55,7 +55,7 @@ namespace PDT_WPF.Services
 
         public static string Get(string url, IDictionary<string, string> data, IDictionary<string, string> headers, string contentType = null, int timeout = DEFAULT_TIMEOUT)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(FormatUrl(url, data));
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(AppendData(url, data));
 
             request.Method = "GET";
             request.Timeout = timeout;
@@ -112,7 +112,7 @@ namespace PDT_WPF.Services
 
             if (data != null)
             {
-                byte[] byteData = Encoding.UTF8.GetBytes(FormatData(data));
+                byte[] byteData = Encoding.UTF8.GetBytes(BuildQuery(data));
                 request.ContentLength = byteData.Length;
                 using (Stream reqStream = request.GetRequestStream())
                 {
@@ -144,7 +144,7 @@ namespace PDT_WPF.Services
 
         public static string Delete(string url, IDictionary<string, string> data, IDictionary<string, string> headers, string contentType = null, int timeout = DEFAULT_TIMEOUT)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(FormatUrl(url, data));
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(AppendData(url, data));
 
             request.Method = "DELETE";
             request.Timeout = timeout;
