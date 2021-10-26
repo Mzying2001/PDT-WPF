@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using PDT_WPF.Models;
 using PDT_WPF.Models.Data;
+using PDT_WPF.Services;
 using PDT_WPF.Services.Api;
 using System;
 using System.Text.RegularExpressions;
@@ -47,7 +48,7 @@ namespace PDT_WPF.ViewModels
             try
             {
                 var loginRes = await Task.Run(() => PdtV1.Login(LocalData.Settings.OpenId));
-                if (loginRes.code == PdtV1.LoginResponse.SUCCESS_CODE)
+                if (loginRes.code == Http.HttpStatus.OK)
                 {
                     PdtCommon.Token = loginRes.token;
                     LocalData.Settings.UserId = loginRes.userId;
@@ -85,7 +86,7 @@ namespace PDT_WPF.ViewModels
                     string openId = Account.Substring(8, Account.Length - 9);
                     loginRes = await Task.Run(() => PdtV1.Login(openId));
 
-                    if (loginRes.code == PdtV1.LoginResponse.SUCCESS_CODE)
+                    if (loginRes.code == Http.HttpStatus.OK)
                         LocalData.Settings.OpenId = openId;
                 }
                 //else if (Regex.IsMatch(Account, "^ADMIN{.+}$"))
@@ -111,7 +112,7 @@ namespace PDT_WPF.ViewModels
                 }
 
 
-                if (loginRes.code == PdtV1.LoginResponse.SUCCESS_CODE)
+                if (loginRes.code == Http.HttpStatus.OK)
                 {
                     //登录成功，保存token
                     PdtCommon.Token = loginRes.token;

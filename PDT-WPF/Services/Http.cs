@@ -9,6 +9,19 @@ namespace PDT_WPF.Services
     {
         public const int DEFAULT_TIMEOUT = 15000;
 
+        /// <summary>
+        /// 常用HttpStatus
+        /// </summary>
+        public enum HttpStatus
+        {
+            OK = 200,
+            BAD_REQUEST = 400,
+            FORBIDDEN = 403,
+            NOT_FOUND = 404,
+            REQUEST_TIMEOUT = 408,
+            SERVICE_UNAVAILABLE = 500
+        }
+
         private static string FormatData(IDictionary<string, string> data)
         {
             if (data == null)

@@ -85,12 +85,10 @@ namespace PDT_WPF.Services.Api
 
         public struct LoginResponse
         {
-            public int code;
+            public Http.HttpStatus code;
             public string mesg;
             public string token;
             public int userId;
-
-            public const int SUCCESS_CODE = 200;
         }
         /// <summary>
         /// 用户登录
