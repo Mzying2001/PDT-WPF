@@ -6,7 +6,6 @@
       xmlns:local="clr-namespace:PDT_WPF.Views.Pages"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:hc="https://handyorg.github.io/handycontrol"
-      xmlns:Utils="clr-namespace:PDT_WPF.Views.Utils"
       xmlns:Models="clr-namespace:PDT_WPF.Models"
       xmlns:Controls="clr-namespace:PDT_WPF.Views.Controls"
       xmlns:Converters="clr-namespace:PDT_WPF.Models.Converters"

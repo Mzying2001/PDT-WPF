@@ -6,7 +6,6 @@
       xmlns:local="clr-namespace:PDT_WPF.Views.Pages"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:hc="https://handyorg.github.io/handycontrol"
-      xmlns:Utils="clr-namespace:PDT_WPF.Views.Utils"
       xmlns:Models="clr-namespace:PDT_WPF.Models"
       mc:Ignorable="d"
       
@@ -40,7 +39,6 @@
                     IsInertiaEnabled="True"
                     HorizontalScrollBarVisibility="Auto">
                     <ItemsControl
-                        Background="White"
                         ItemsSource="{Binding BoardPhotos}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -93,7 +91,6 @@
                     IsInertiaEnabled="True"
                     HorizontalScrollBarVisibility="Auto">
                     <ItemsControl
-                        Background="White"
                         ItemsSource="{Binding CompetitionSections}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
