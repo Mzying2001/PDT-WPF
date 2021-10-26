@@ -131,5 +131,48 @@ namespace PDT_WPF.Services
 
             return result;
         }
+
+        public static string Delete(string url, string contentType = null, int timeout = DEFAULT_TIMEOUT)
+        {
+            return Delete(url, null, null, contentType, timeout);
+        }
+
+        public static string Delete(string url, IDictionary<string, string> data, string contentType = null, int timeout = DEFAULT_TIMEOUT)
+        {
+            return Delete(url, data, null, contentType, timeout);
+        }
+
+        public static string Delete(string url, IDictionary<string, string> data, IDictionary<string, string> headers, string contentType = null, int timeout = DEFAULT_TIMEOUT)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(FormatUrl(url, data));
+
+            request.Method = "DELETE";
+            request.Timeout = timeout;
+            request.ContentType = contentType;
+
+            if (headers != null)
+            {
+                foreach (var item in headers)
+                    request.Headers.Add(item.Key, item.Value);
+            }
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Stream stream = response.GetResponseStream();
+            string result = null;
+
+            try
+            {
+                using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
+                {
+                    result = reader.ReadToEnd();
+                }
+            }
+            finally
+            {
+                stream.Close();
+            }
+
+            return result;
+        }
     }
 }
