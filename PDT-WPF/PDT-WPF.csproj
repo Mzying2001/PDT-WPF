@@ -122,6 +122,7 @@
     <Compile Include="Models\Converters\HcWaterfallGroupsAdapter.cs" />
     <Compile Include="Models\Converters\ValueConverterBase.cs" />
     <Compile Include="Models\Data\GlobalData.cs" />
+    <Compile Include="Models\FileUtility.cs" />
     <Compile Include="Models\KeywordItem.cs" />
     <Compile Include="Models\Data\LocalData.cs" />
     <Compile Include="Models\LoginResult.cs" />

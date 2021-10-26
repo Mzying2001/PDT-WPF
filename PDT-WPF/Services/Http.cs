@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using PDT_WPF.Models;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -38,7 +40,7 @@ namespace PDT_WPF.Services
             return sb.ToString();
         }
 
-        public static string AppendData(string url, IDictionary<string, string> data)
+        public static string AppendQuery(string url, IDictionary<string, string> data)
         {
             return data != null && data.Count > 0 ? $"{url}?{BuildQuery(data)}" : url;
         }
@@ -55,7 +57,7 @@ namespace PDT_WPF.Services
 
         public static string Get(string url, IDictionary<string, string> data, IDictionary<string, string> headers, string contentType = null, int timeout = DEFAULT_TIMEOUT)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(AppendData(url, data));
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(AppendQuery(url, data));
 
             request.Method = "GET";
             request.Timeout = timeout;
@@ -144,7 +146,7 @@ namespace PDT_WPF.Services
 
         public static string Delete(string url, IDictionary<string, string> data, IDictionary<string, string> headers, string contentType = null, int timeout = DEFAULT_TIMEOUT)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(AppendData(url, data));
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(AppendQuery(url, data));
 
             request.Method = "DELETE";
             request.Timeout = timeout;
@@ -170,6 +172,43 @@ namespace PDT_WPF.Services
             finally
             {
                 stream.Close();
+            }
+
+            return result;
+        }
+
+        public static string UploadFile(string url, string filePath, IDictionary<string, string> data, string contentType, int timeout = DEFAULT_TIMEOUT)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(AppendQuery(url, data));
+
+            request.Method = "POST";
+            request.Timeout = timeout;
+
+            string boundary = DateTime.Now.Ticks.ToString("X");
+            request.ContentType = $"{contentType};boundary={boundary}";
+
+            byte[] itemBoundary = Encoding.UTF8.GetBytes($"\r\n--{boundary}\r\n");
+            byte[] endBoundary = Encoding.UTF8.GetBytes($"\r\n--{boundary}--\r\n");
+
+            string name = FileUtility.GetFileName(filePath);
+            byte[] head = Encoding.UTF8.GetBytes($"Content-Disposition:form-data;name=\"file\";filename=\"{name}\"\r\nContent-Type:application/octet-stream\r\n\r\n");
+            byte[] file = FileUtility.ReadBytes(filePath);
+
+            using (Stream reqStream = request.GetRequestStream())
+            {
+                reqStream.Write(itemBoundary, 0, itemBoundary.Length);
+                reqStream.Write(head, 0, head.Length);
+                reqStream.Write(file, 0, file.Length);
+                reqStream.Write(endBoundary, 0, endBoundary.Length);
+            }
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            string result = null;
+            Stream stream = response.GetResponseStream();
+
+            using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
+            {
+                result = reader.ReadToEnd();
             }
 
             return result;
