@@ -27,7 +27,8 @@
     </Page.Resources>
 
     <Grid>
-        <ScrollViewer>
+        <hc:ScrollViewer
+            IsInertiaEnabled="True">
             <StackPanel>
 
                 <TextBlock
@@ -148,6 +149,6 @@
                 </hc:ScrollViewer>
 
             </StackPanel>
-        </ScrollViewer>
+        </hc:ScrollViewer>
     </Grid>
 </Page>
