@@ -36,6 +36,7 @@
                     Style="{StaticResource HeaderStyle}"
                     Text="推荐"/>
                 <hc:ScrollViewer
+                    Orientation="Horizontal"
                     IsInertiaEnabled="True"
                     HorizontalScrollBarVisibility="Auto">
                     <ItemsControl
@@ -79,11 +80,6 @@
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
-
-                        <!--横向滚动-->
-                        <i:Interaction.Behaviors>
-                            <Utils:HorizontalScrollBehavior/>
-                        </i:Interaction.Behaviors>
                     </ItemsControl>
                 </hc:ScrollViewer>
 
@@ -93,6 +89,7 @@
                     Style="{StaticResource HeaderStyle}"
                     Text="比赛"/>
                 <hc:ScrollViewer
+                    Orientation="Horizontal"
                     IsInertiaEnabled="True"
                     HorizontalScrollBarVisibility="Auto">
                     <ItemsControl
@@ -150,11 +147,6 @@
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
-
-                        <!--横向滚动-->
-                        <i:Interaction.Behaviors>
-                            <Utils:HorizontalScrollBehavior/>
-                        </i:Interaction.Behaviors>
                     </ItemsControl>
                 </hc:ScrollViewer>
 

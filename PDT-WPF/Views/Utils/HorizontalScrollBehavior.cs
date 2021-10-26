@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 using System.Windows.Interactivity;
 
 namespace PDT_WPF.Views.Utils
@@ -6,6 +7,7 @@ namespace PDT_WPF.Views.Utils
     /// <summary>
     /// 使组件所在的ScrollViewer实现使用鼠标滚轮横向滚动页面
     /// </summary>
+    [Obsolete("使用HandyControl的ScrollViewer替换")]
     public class HorizontalScrollBehavior : Behavior<Control>
     {
         protected override void OnAttached()

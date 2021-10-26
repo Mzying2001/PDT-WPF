@@ -101,11 +101,11 @@
                                     <!--技术标签-->
                                     <hc:ScrollViewer
                                         Margin="0,10"
+                                        Orientation="Horizontal"
                                         IsInertiaEnabled="True"
                                         HorizontalScrollBarVisibility="Auto">
                                         <ItemsControl
-                                            ItemsSource="{Binding TechnologyTags}"
-                                            Background="White">
+                                            ItemsSource="{Binding TechnologyTags}">
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
                                                     <StackPanel
@@ -120,11 +120,6 @@
                                                         Text="{Binding TechnologyTag}"/>
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
-
-                                            <!--使标签部分可以横向滚动-->
-                                            <i:Interaction.Behaviors>
-                                                <Utils:HorizontalScrollBehavior/>
-                                            </i:Interaction.Behaviors>
                                         </ItemsControl>
                                     </hc:ScrollViewer>
 

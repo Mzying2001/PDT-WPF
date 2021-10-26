@@ -80,11 +80,11 @@
 
                                     <!--关键词标签-->
                                     <hc:ScrollViewer
+                                        Orientation="Horizontal"
                                         IsInertiaEnabled="True"
                                         HorizontalScrollBarVisibility="Auto">
                                         <ItemsControl
-                                            ItemsSource="{Binding Keywords}"
-                                            Background="White">
+                                            ItemsSource="{Binding Keywords}">
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
                                                     <StackPanel
@@ -99,11 +99,6 @@
                                                         Text="{Binding Keyword}"/>
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
-
-                                            <!--使标签部分可以横向滚动-->
-                                            <i:Interaction.Behaviors>
-                                                <Utils:HorizontalScrollBehavior/>
-                                            </i:Interaction.Behaviors>
                                         </ItemsControl>
                                     </hc:ScrollViewer>
 
