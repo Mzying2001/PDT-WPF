@@ -7,7 +7,6 @@
         xmlns:hc="https://handyorg.github.io/handycontrol"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:Utils="clr-namespace:PDT_WPF.Views.Utils"
-        xmlns:Converters="clr-namespace:PDT_WPF.Models.Converters"
         mc:Ignorable="d"
         
         Title="登录"
@@ -18,12 +17,9 @@
 
     <Window.Resources>
 
-        <Converters:BoolNotOperation
-            x:Key="BoolNot"/>
-
     </Window.Resources>
 
-    <Grid IsEnabled="{Binding IsLoading, Converter={StaticResource BoolNot}}">
+    <Grid IsEnabled="{Binding IsLoading, Converter={StaticResource Boolean2BooleanReConverter}}">
 
         <StackPanel
             Width="250"
