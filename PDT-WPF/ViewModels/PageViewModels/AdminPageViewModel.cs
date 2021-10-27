@@ -11,6 +11,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
     public class AdminPageViewModel : ViewModelBase
     {
         public RelayCommand AdminLoginCmd { get; set; }
+        public RelayCommand AdminLogoutCmd { get; set; }
 
 
 
@@ -44,6 +45,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
             {
                 GlobalData.AdminMode = value;
                 RaisePropertyChanged();
+                AdminLoginCmd.RaiseCanExecuteChanged();
             }
         }
 
@@ -100,11 +102,23 @@ namespace PDT_WPF.ViewModels.PageViewModels
             });
         }
 
+        /// <summary>
+        /// 退出管理员账号
+        /// </summary>
+        private void AdminLogout()
+        {
+            if (MessageBoxHelper.ShowQuestion($"是否退出管理员账号“{AdminAccount}”？"))
+            {
+                AdminMode = false;
+            }
+        }
+
 
 
         public AdminPageViewModel()
         {
-            AdminLoginCmd = new RelayCommand(AdminLogin);
+            AdminLoginCmd = new RelayCommand(AdminLogin, () => !AdminMode);
+            AdminLogoutCmd = new RelayCommand(AdminLogout);
         }
     }
 }
