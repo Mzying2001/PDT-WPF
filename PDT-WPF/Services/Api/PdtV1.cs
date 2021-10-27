@@ -391,7 +391,8 @@ namespace PDT_WPF.Services.Api
 
         public struct AdministratorLoginResponse
         {
-            public bool isSuccess;
+            public Http.HttpStatus code;
+            public string token;
             public string mesg;
         }
         /// <summary>
