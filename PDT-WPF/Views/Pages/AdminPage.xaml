@@ -35,15 +35,13 @@
                 <Grid>
                     <!--已登录显示界面-->
                     <TextBlock
-                        Margin="0,20"
-                        HorizontalAlignment="Center"
+                        Margin="10,20"
                         Visibility="{Binding AdminMode, Converter={StaticResource Boolean2VisibilityConverter}}">
                         已登录管理员账号：<Run Text="{Binding AdminAccount}"/> | <Hyperlink Command="{Binding AdminLogoutCmd}">退出</Hyperlink>
                     </TextBlock>
                     <!--未登录显示界面-->
                     <StackPanel
-                        Margin="0,20"
-                        HorizontalAlignment="Center"
+                        Margin="10,20"
                         Orientation="Horizontal"
                         IsEnabled="{Binding IsLoggingIn, Converter={StaticResource Boolean2BooleanReConverter}}"
                         Visibility="{Binding AdminMode, Converter={StaticResource Boolean2VisibilityReConverter}}">
@@ -53,7 +51,7 @@
                             Width="150"
                             Text="{Binding AdminAccount, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock
-                            Margin="20,0,0,0"
+                            Margin="10,0,0,0"
                             Text="密码："/>
                         <PasswordBox
                             Width="150"
@@ -63,10 +61,34 @@
                             </i:Interaction.Behaviors>
                         </PasswordBox>
                         <Button
-                            Margin="20,0,0,0"
+                            Margin="10,0,0,0"
                             Style="{StaticResource ButtonPrimary}"
                             Content="确定"
                             Command="{Binding AdminLoginCmd}"/>
+                    </StackPanel>
+                </Grid>
+            </Expander>
+
+            <Expander
+                Header="人工验证获取验证码"
+                IsExpanded="True">
+                <Grid
+                    IsEnabled="{Binding AdminMode}">
+                    <StackPanel
+                        Margin="10,20"
+                        Orientation="Horizontal"
+                        IsEnabled="{Binding IsGettingVerificationCode, Converter={StaticResource Boolean2BooleanReConverter}}">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Text="学号："/>
+                        <TextBox
+                            x:Name="getVerificationCodeTextBox"
+                            Width="150"/>
+                        <Button
+                            Margin="10,0,0,0"
+                            Content="获取"
+                            Command="{Binding GetVerificationCodeCmd}"
+                            CommandParameter="{Binding ElementName=getVerificationCodeTextBox, Path=Text}"/>
                     </StackPanel>
                 </Grid>
             </Expander>

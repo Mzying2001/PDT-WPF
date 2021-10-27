@@ -12,6 +12,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
     {
         public RelayCommand AdminLoginCmd { get; set; }
         public RelayCommand AdminLogoutCmd { get; set; }
+        public RelayCommand<string> GetVerificationCodeCmd { get; set; }
 
 
 
@@ -57,6 +58,16 @@ namespace PDT_WPF.ViewModels.PageViewModels
         {
             get => _isLoggingIn;
             set => Set(ref _isLoggingIn, value);
+        }
+
+        private bool _isGettingVerificationCode;
+        /// <summary>
+        /// 是否正在获取验证码
+        /// </summary>
+        public bool IsGettingVerificationCode
+        {
+            get => _isGettingVerificationCode;
+            set => Set(ref _isGettingVerificationCode, value);
         }
 
 
@@ -115,12 +126,56 @@ namespace PDT_WPF.ViewModels.PageViewModels
             }
         }
 
+        /// <summary>
+        /// 人工验证获取验证码的异步方法
+        /// </summary>
+        /// <param name="callback"></param>
+        private async void GetVerificationCodeAsync(string schoolId, Action<PdtV1.GetVerificationCodeResponse> callback)
+        {
+            try
+            {
+                IsGettingVerificationCode = true;
+                callback(await Task.Run(() => PdtV1.GetVerificationCode(schoolId)));
+            }
+            catch (Exception e)
+            {
+                callback(new PdtV1.GetVerificationCodeResponse
+                {
+                    isSuccess = false,
+                    mesg = e.Message
+                });
+            }
+            finally
+            {
+                IsGettingVerificationCode = false;
+            }
+        }
+
+        /// <summary>
+        /// 人工验证获取验证码
+        /// </summary>
+        private void GetVerificationCode(string schoolId)
+        {
+            GetVerificationCodeAsync(schoolId, result =>
+            {
+                if (result.isSuccess)
+                {
+                    MessageBoxHelper.ShowMessage($"验证码：{result.code}", "获取成功");
+                }
+                else
+                {
+                    MessageBoxHelper.ShowError(result.mesg, "获取失败");
+                }
+            });
+        }
+
 
 
         public AdminPageViewModel()
         {
             AdminLoginCmd = new RelayCommand(AdminLogin, () => !AdminMode);
             AdminLogoutCmd = new RelayCommand(AdminLogout);
+            GetVerificationCodeCmd = new RelayCommand<string>(GetVerificationCode);
         }
     }
 }

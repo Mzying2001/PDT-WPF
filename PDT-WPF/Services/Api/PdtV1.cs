@@ -412,6 +412,29 @@ namespace PDT_WPF.Services.Api
             return JsonConvert.DeserializeObject<AdministratorLoginResponse>(res);
         }
 
+
+
+        public struct GetVerificationCodeResponse
+        {
+            public string code;
+            public bool isSuccess;
+            public string mesg;
+        }
+        /// <summary>
+        /// 人工验证获取验证码
+        /// </summary>
+        /// <param name="schoolId">学号/工号</param>
+        /// <returns></returns>
+        public static GetVerificationCodeResponse GetVerificationCode(string schoolId)
+        {
+            string url = BASE_URL + "administrator/getCode";
+            string res = Http.Post(url, new Dictionary<string, string>
+            {
+                ["schoolId"] = schoolId
+            }, AdminApiHeaders, HttpContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<GetVerificationCodeResponse>(res);
+        }
+
         #endregion
 
 
