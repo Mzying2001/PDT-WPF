@@ -93,6 +93,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
                 if (result.code == Services.Http.HttpStatus.OK)
                 {
                     AdminMode = true;
+                    PdtCommon.AdminApiToken = result.token;
                     MessageBoxHelper.ShowMessage(result.mesg, "登录成功");
                 }
                 else
@@ -110,6 +111,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
             if (MessageBoxHelper.ShowQuestion($"是否退出管理员账号“{AdminAccount}”？"))
             {
                 AdminMode = false;
+                PdtCommon.AdminApiToken = string.Empty;
             }
         }
 
