@@ -1,6 +1,9 @@
 ﻿using PDT_WPF.Models.Data;
+using PDT_WPF.Views;
+using PDT_WPF.Views.Pages;
 using PDT_WPF.Views.Utils;
 using System.Windows;
+using System.Windows.Media;
 
 namespace PDT_WPF
 {
@@ -13,12 +16,33 @@ namespace PDT_WPF
         {
             base.OnStartup(e);
 
+            bool loadLoginWindow = true;
+
             foreach (var arg in e.Args)
             {
                 switch (arg)
                 {
+                    case "-Admin":
+                        {
+                            //只启动后台管理界面
+                            var window = new Window
+                            {
+                                Title = "后台管理",
+                                Background = new SolidColorBrush(Colors.White),
+                                Content = new AdminPage
+                                {
+                                    Margin = new Thickness(10, 0, 0, 0)
+                                }
+                            };
+
+                            loadLoginWindow = false;
+                            window.Show();
+                        }
+                        break;
+
                     case "-ShowAdminPage":
                         {
+                            //主窗口显示后台管理页面
                             GlobalData.ShowAdminPage = true;
                         }
                         break;
@@ -30,6 +54,9 @@ namespace PDT_WPF
                         break;
                 }
             }
+
+            if (loadLoginWindow)
+                new LoginWindow().Show();
         }
 
         protected override void OnExit(ExitEventArgs e)

@@ -126,6 +126,10 @@ namespace PDT_WPF.ViewModels.PageViewModels
                     AdminMode = true;
                     PdtCommon.AdminApiToken = result.token;
 
+                    //处理以“-Admin”参数启动时Token为空的情况
+                    if (string.IsNullOrEmpty(PdtCommon.Token))
+                        PdtCommon.Token = result.token;
+
                     LoadBoardPhotos(); //获取首页轮播图信息
 
                     MessageBoxHelper.ShowMessage(result.mesg, "登录成功");
