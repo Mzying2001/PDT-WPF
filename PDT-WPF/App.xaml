@@ -16,8 +16,11 @@
                 xmlns:vm="clr-namespace:PDT_WPF.ViewModels"/>
 
             <ResourceDictionary.MergedDictionaries>
+                <!--HandyControl-->
                 <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml"/>
+                <!--Converters-->
+                <ResourceDictionary Source="/Models/Converters/ConverterDic.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>

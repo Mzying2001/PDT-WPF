@@ -8,7 +8,6 @@
       xmlns:hc="https://handyorg.github.io/handycontrol"
       xmlns:Models="clr-namespace:PDT_WPF.Models"
       xmlns:Controls="clr-namespace:PDT_WPF.Views.Controls"
-      xmlns:Converters="clr-namespace:PDT_WPF.Models.Converters"
       mc:Ignorable="d"
       
       d:DesignHeight="450"
@@ -17,15 +16,6 @@
       DataContext="{Binding Source={StaticResource Locator}, Path=ProjectLibraryPage}">
 
     <Page.Resources>
-
-        <!--使HandyControl的流布局自适应组数-->
-        <Converters:HcWaterfallGroupsAdapter
-            x:Key="GroupsAdapter"
-            ItemWidth="300"/>
-
-        <!--格式化日期-->
-        <Converters:DateFormater
-            x:Key="DateFormater"/>
 
     </Page.Resources>
 
