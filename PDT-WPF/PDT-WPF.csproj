@@ -149,7 +149,7 @@
     <Compile Include="ViewModels\PageViewModels\ProjectLibraryPageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\TalentPoolPageViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
-    <Page Include="Models\Converters\ConverterDic.xaml">
+    <Page Include="Models\Converters\Converters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

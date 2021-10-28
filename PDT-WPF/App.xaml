@@ -19,7 +19,7 @@
                 <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml"/>
                 <!--Converters-->
-                <ResourceDictionary Source="/Models/Converters/ConverterDic.xaml"/>
+                <ResourceDictionary Source="/Models/Converters/Converters.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>
