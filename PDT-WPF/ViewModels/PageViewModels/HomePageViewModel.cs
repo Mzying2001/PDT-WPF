@@ -39,15 +39,8 @@ namespace PDT_WPF.ViewModels.PageViewModels
                 if (result != null)
                 {
                     BoardPhotos.Clear();
-
                     foreach (var item in result)
-                    {
-                        if (!(item.PhotoUrl.StartsWith("http://") || item.PhotoUrl.StartsWith("https://")))
-                        {
-                            item.PhotoUrl = "https://" + item.PhotoUrl;
-                        }
                         BoardPhotos.Add(item);
-                    }
                 }
             });
         }

@@ -4,11 +4,15 @@
 
     <!--使HandyControl的流布局自适应组数-->
     <local:HcWaterfallGroupsAdapter
-            x:Key="GroupsAdapter"
-            ItemWidth="300"/>
+        x:Key="GroupsAdapter"
+        ItemWidth="300"/>
 
     <!--格式化日期-->
     <local:DateFormater
-            x:Key="DateFormater"/>
+        x:Key="DateFormater"/>
+
+    <!--网址前补充https-->
+    <local:HttpsUrlFormater
+        x:Key="HttpsUrlFormater"/>
 
 </ResourceDictionary>

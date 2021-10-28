@@ -65,7 +65,7 @@
                                         </Grid.Clip>
                                         <Grid.Background>
                                             <ImageBrush
-                                                ImageSource="{Binding PhotoUrl}"/>
+                                                ImageSource="{Binding PhotoUrl, Converter={StaticResource HttpsUrlFormater}}"/>
                                         </Grid.Background>
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger
