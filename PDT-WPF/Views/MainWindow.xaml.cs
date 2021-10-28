@@ -1,7 +1,9 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
+using PDT_WPF.Models;
 using PDT_WPF.Models.Data;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -26,6 +28,10 @@ namespace PDT_WPF.Views
         public MainWindow()
         {
             InitializeComponent();
+
+            //恢复上次关闭时的位置尺寸
+            if (LocalData.Settings.MainWindowSizeInfo != null)
+                LocalData.Settings.MainWindowSizeInfo.Apply(this);
 
             //切换页面时更新SideMenu选中项
             Messenger.Default.Register<string>(this, MessageTokens.PAGE_CHANGED, UpdateSideMenuSelected);
@@ -71,6 +77,16 @@ namespace PDT_WPF.Views
                 menu.PlacementTarget = sender as UIElement;
                 menu.IsOpen = true;
             }
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            //保存窗口尺寸和位置信息
+            if (WindowState != WindowState.Normal)
+                WindowState = WindowState.Normal;
+            LocalData.Settings.MainWindowSizeInfo = WindowSizeInfo.GetSizeInfo(this);
+
+            base.OnClosing(e);
         }
     }
 }

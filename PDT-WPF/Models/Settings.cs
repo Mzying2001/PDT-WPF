@@ -4,6 +4,7 @@
     {
         public string OpenId { get; set; }
         public int UserId { get; set; }
+        public WindowSizeInfo MainWindowSizeInfo { get; set; }
 
 
         /// <summary>
