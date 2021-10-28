@@ -113,26 +113,33 @@
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn
+                                        Width="50"
                                         Header="ID"
                                         DisplayMemberBinding="{Binding ID}"/>
                                     <GridViewColumn
+                                        Width="100"
                                         Header="名称"
                                         DisplayMemberBinding="{Binding Name}"/>
                                     <GridViewColumn
+                                        Width="100"
                                         Header="创建日期"
-                                        DisplayMemberBinding="{Binding CreatedAt}"/>
+                                        DisplayMemberBinding="{Binding CreatedAt, Converter={StaticResource DateFormater}}"/>
                                     <GridViewColumn
+                                        Width="100"
                                         Header="更新日期"
-                                        DisplayMemberBinding="{Binding UpdatedAt}"/>
+                                        DisplayMemberBinding="{Binding UpdatedAt, Converter={StaticResource DateFormater}}"/>
                                     <GridViewColumn
+                                        Width="100"
                                         Header="删除日期"
-                                        DisplayMemberBinding="{Binding DeletedAt}"/>
+                                        DisplayMemberBinding="{Binding DeletedAt, Converter={StaticResource DateFormater}}"/>
                                     <GridViewColumn
+                                        Width="150"
                                         Header="图片链接">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock>
                                                     <Hyperlink
+                                                        ToolTip="{Binding PhotoUrl}"
                                                         Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListViewItem}, Path=Foreground}"
                                                         Command="{Binding Source={StaticResource Locator}, Path=AdminPage.OpenLinkCmd}"
                                                         CommandParameter="{Binding PhotoUrl}">
@@ -144,11 +151,13 @@
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn
+                                        Width="150"
                                         Header="目标链接">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock>
                                                     <Hyperlink
+                                                        ToolTip="{Binding Link}"
                                                         Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListViewItem}, Path=Foreground}"
                                                         Command="{Binding Source={StaticResource Locator},Path=AdminPage.OpenLinkCmd}"
                                                         CommandParameter="{Binding Link}">
