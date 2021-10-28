@@ -268,13 +268,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Images\Svgs\Admin.svg" />
-    <Resource Include="Assets\Images\Svgs\Forum.svg" />
-    <Resource Include="Assets\Images\Svgs\Home.svg" />
-    <Resource Include="Assets\Images\Svgs\Message.svg" />
-    <Resource Include="Assets\Images\Svgs\PersonalCenter.svg" />
-    <Resource Include="Assets\Images\Svgs\ProjectLibrary.svg" />
-    <Resource Include="Assets\Images\Svgs\TalentPool.svg" />
+    <Resource Include="Assets\Images\SideMenuIcons\Admin.svg" />
+    <Resource Include="Assets\Images\SideMenuIcons\Forum.svg" />
+    <Resource Include="Assets\Images\SideMenuIcons\Home.svg" />
+    <Resource Include="Assets\Images\SideMenuIcons\Message.svg" />
+    <Resource Include="Assets\Images\SideMenuIcons\PersonalCenter.svg" />
+    <Resource Include="Assets\Images\SideMenuIcons\ProjectLibrary.svg" />
+    <Resource Include="Assets\Images\SideMenuIcons\TalentPool.svg" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
