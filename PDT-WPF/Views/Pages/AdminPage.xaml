@@ -9,7 +9,6 @@
       xmlns:Utils="clr-namespace:PDT_WPF.Views.Utils"
       mc:Ignorable="d"
       
-      d:DesignHeight="450"
       d:DesignWidth="800"
       Title="后台管理"
       DataContext="{Binding Source={StaticResource Locator}, Path=AdminPage}">
@@ -98,6 +97,83 @@
                 IsExpanded="True">
                 <Grid
                     IsEnabled="{Binding AdminMode}">
+                    <StackPanel
+                        Margin="10"
+                        IsEnabled="{Binding IsLoadingBoardPhotos, Converter={StaticResource Boolean2BooleanReConverter}}">
+                        <StackPanel
+                            Margin="0,0,0,10"
+                            Orientation="Horizontal">
+                            <Button
+                                Content="获取数据"
+                                Command="{Binding LoadBoardPhotosCmd}"/>
+                        </StackPanel>
+                        <ListView
+                            Height="300"
+                            ItemsSource="{Binding BoardPhotos}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn
+                                        Header="ID"
+                                        DisplayMemberBinding="{Binding ID}"/>
+                                    <GridViewColumn
+                                        Header="名称"
+                                        DisplayMemberBinding="{Binding Name}"/>
+                                    <GridViewColumn
+                                        Header="创建日期"
+                                        DisplayMemberBinding="{Binding CreatedAt}"/>
+                                    <GridViewColumn
+                                        Header="更新日期"
+                                        DisplayMemberBinding="{Binding UpdatedAt}"/>
+                                    <GridViewColumn
+                                        Header="删除日期"
+                                        DisplayMemberBinding="{Binding DeletedAt}"/>
+                                    <GridViewColumn
+                                        Header="图片链接">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock>
+                                                    <Hyperlink
+                                                        Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListViewItem}, Path=Foreground}"
+                                                        Command="{Binding Source={StaticResource Locator}, Path=AdminPage.OpenLinkCmd}"
+                                                        CommandParameter="{Binding PhotoUrl}">
+                                                        <TextBlock
+                                                            Text="{Binding PhotoUrl}"/>
+                                                    </Hyperlink>
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn
+                                        Header="目标链接">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock>
+                                                    <Hyperlink
+                                                        Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListViewItem}, Path=Foreground}"
+                                                        Command="{Binding Source={StaticResource Locator},Path=AdminPage.OpenLinkCmd}"
+                                                        CommandParameter="{Binding Link}">
+                                                        <TextBlock
+                                                            Text="{Binding Link}"/>
+                                                    </Hyperlink>
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn
+                                        Header="操作">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button
+                                                    Content="删除"
+                                                    Command="{Binding Source={StaticResource Locator}, Path=AdminPage.DeleteBoardPhotoCmd}"
+                                                    CommandParameter="{Binding}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
                 </Grid>
             </Expander>
 

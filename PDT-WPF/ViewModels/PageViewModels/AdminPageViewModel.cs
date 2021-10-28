@@ -1,9 +1,12 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using PDT_WPF.Models;
 using PDT_WPF.Models.Data;
 using PDT_WPF.Services.Api;
 using PDT_WPF.Views.Utils;
 using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace PDT_WPF.ViewModels.PageViewModels
@@ -13,6 +16,13 @@ namespace PDT_WPF.ViewModels.PageViewModels
         public RelayCommand AdminLoginCmd { get; set; }
         public RelayCommand AdminLogoutCmd { get; set; }
         public RelayCommand<string> GetVerificationCodeCmd { get; set; }
+        public RelayCommand<string> OpenLinkCmd { get; set; }
+        public RelayCommand LoadBoardPhotosCmd { get; set; }
+        public RelayCommand<BoardPhoto> DeleteBoardPhotoCmd { get; set; }
+
+
+
+        public ObservableCollection<BoardPhoto> BoardPhotos { get; set; }
 
 
 
@@ -70,6 +80,16 @@ namespace PDT_WPF.ViewModels.PageViewModels
             set => Set(ref _isGettingVerificationCode, value);
         }
 
+        private bool _isLoadingBoardPhotos;
+        /// <summary>
+        /// 是否正在获取首页轮播图信息
+        /// </summary>
+        public bool IsLoadingBoardPhotos
+        {
+            get => _isGettingVerificationCode;
+            set => Set(ref _isLoadingBoardPhotos, value);
+        }
+
 
 
 
@@ -105,6 +125,9 @@ namespace PDT_WPF.ViewModels.PageViewModels
                 {
                     AdminMode = true;
                     PdtCommon.AdminApiToken = result.token;
+
+                    LoadBoardPhotos(); //获取首页轮播图信息
+
                     MessageBoxHelper.ShowMessage(result.mesg, "登录成功");
                 }
                 else
@@ -169,6 +192,79 @@ namespace PDT_WPF.ViewModels.PageViewModels
             });
         }
 
+        /// <summary>
+        /// 打开链接
+        /// </summary>
+        /// <param name="link"></param>
+        private void OpenLink(string link)
+        {
+            try
+            {
+                Process.Start(link);
+            }
+            catch (Exception e)
+            {
+                MessageBoxHelper.ShowError(e);
+            }
+        }
+
+        /// <summary>
+        /// 获取首页轮播图的异步方法
+        /// </summary>
+        /// <param name="callback"></param>
+        private async void LoadBoardPhotosAsync(Action<BoardPhoto[]> callback)
+        {
+            try
+            {
+                IsLoadingBoardPhotos = true;
+                callback(await Task.Run(() => PdtV2.GetBoardPhotos()));
+            }
+            catch
+            {
+                callback(null);
+            }
+            finally
+            {
+                IsLoadingBoardPhotos = false;
+            }
+        }
+
+        /// <summary>
+        /// 获取首页轮播图
+        /// </summary>
+        private void LoadBoardPhotos()
+        {
+            if (BoardPhotos == null)
+                BoardPhotos = new ObservableCollection<BoardPhoto>();
+
+            LoadBoardPhotosAsync(result =>
+            {
+                if (result != null)
+                {
+                    BoardPhotos.Clear();
+                    foreach (var item in result)
+                        BoardPhotos.Add(item);
+                    RaisePropertyChanged("BoardPhotos");
+                }
+                else
+                {
+                    MessageBoxHelper.ShowError("获取首页轮播图信息失败！");
+                }
+            });
+        }
+
+        /// <summary>
+        /// 移除轮播图
+        /// </summary>
+        /// <param name="id"></param>
+        private void DeleteBoardPhoto(BoardPhoto boardPhoto)
+        {
+            if (MessageBoxHelper.ShowQuestion($"确定要删除“{boardPhoto.Name}”吗？"))
+            {
+                MessageBoxHelper.ShowMessage("未完成。");
+            }
+        }
+
 
 
         public AdminPageViewModel()
@@ -176,6 +272,9 @@ namespace PDT_WPF.ViewModels.PageViewModels
             AdminLoginCmd = new RelayCommand(AdminLogin, () => !AdminMode);
             AdminLogoutCmd = new RelayCommand(AdminLogout);
             GetVerificationCodeCmd = new RelayCommand<string>(GetVerificationCode);
+            OpenLinkCmd = new RelayCommand<string>(OpenLink);
+            LoadBoardPhotosCmd = new RelayCommand(LoadBoardPhotos);
+            DeleteBoardPhotoCmd = new RelayCommand<BoardPhoto>(DeleteBoardPhoto);
         }
     }
 }
