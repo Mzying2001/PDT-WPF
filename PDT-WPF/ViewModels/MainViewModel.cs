@@ -75,7 +75,6 @@ namespace PDT_WPF.ViewModels
             if (MessageBoxHelper.ShowQuestion($"ÊÇ·ñÍË³öÕËºÅ¡°{User.NickName}¡±£¿"))
             {
                 LocalData.Settings.OpenId = string.Empty;
-                LocalData.Settings.UserId = default;
                 Messenger.Default.Send<object>(null, MessageTokens.LOGOUT);
             }
         }

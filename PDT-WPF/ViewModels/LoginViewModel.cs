@@ -44,14 +44,14 @@ namespace PDT_WPF.ViewModels
             if (string.IsNullOrEmpty(LocalData.Settings.OpenId))
                 return;
 
-            IsLoading = true;
             try
             {
+                IsLoading = true;
+
                 var loginRes = await Task.Run(() => PdtV1.Login(LocalData.Settings.OpenId));
                 if (loginRes.code == Http.HttpStatus.OK)
                 {
                     PdtCommon.Token = loginRes.token;
-                    LocalData.Settings.UserId = loginRes.userId;
                 }
                 else
                 {
@@ -76,9 +76,10 @@ namespace PDT_WPF.ViewModels
 
         private async void LoginAsync(Action<LoginResult> callback)
         {
-            IsLoading = true;
             try
             {
+                IsLoading = true;
+
                 //开始登录
                 PdtV1.LoginResponse loginRes;
                 if (Regex.IsMatch(Account, "^OPEN_ID{.+}$"))
