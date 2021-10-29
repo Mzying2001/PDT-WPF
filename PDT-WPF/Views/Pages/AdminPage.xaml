@@ -124,16 +124,37 @@
                                         DisplayMemberBinding="{Binding Name}"/>
                                     <GridViewColumn
                                         Width="100"
-                                        Header="创建日期"
-                                        DisplayMemberBinding="{Binding CreatedAt, Converter={StaticResource DateFormater}}"/>
+                                        Header="创建日期">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    Text="{Binding CreatedAt, Converter={StaticResource DateFormater}}"
+                                                    ToolTip="{Binding CreatedAt}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
                                     <GridViewColumn
                                         Width="100"
-                                        Header="更新日期"
-                                        DisplayMemberBinding="{Binding UpdatedAt, Converter={StaticResource DateFormater}}"/>
+                                        Header="更新日期">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    Text="{Binding UpdatedAt, Converter={StaticResource DateFormater}}"
+                                                    ToolTip="{Binding UpdatedAt}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
                                     <GridViewColumn
                                         Width="100"
-                                        Header="删除日期"
-                                        DisplayMemberBinding="{Binding DeletedAt, Converter={StaticResource DateFormater}}"/>
+                                        Header="删除日期">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    Text="{Binding DeletedAt, Converter={StaticResource DateFormater}}"
+                                                    ToolTip="{Binding DeletedAt}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
                                     <GridViewColumn
                                         Width="150"
                                         Header="图片链接">
