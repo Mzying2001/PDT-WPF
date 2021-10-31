@@ -200,9 +200,6 @@ namespace PDT_WPF.Services
 
             using (Stream reqStream = request.GetRequestStream())
             {
-                reqStream.Write(itemBoundary, 0, itemBoundary.Length);
-                reqStream.Write(fileHead, 0, fileHead.Length);
-                reqStream.Write(file, 0, file.Length);
                 if (data != null)
                 {
                     foreach (var item in data)
@@ -212,9 +209,11 @@ namespace PDT_WPF.Services
                         reqStream.Write(itemBoundary, 0, itemBoundary.Length);
                         reqStream.Write(head, 0, head.Length);
                         reqStream.Write(content, 0, content.Length);
-                        reqStream.Write(endBoundary, 0, endBoundary.Length);
                     }
                 }
+                reqStream.Write(itemBoundary, 0, itemBoundary.Length);
+                reqStream.Write(fileHead, 0, fileHead.Length);
+                reqStream.Write(file, 0, file.Length);
                 reqStream.Write(endBoundary, 0, endBoundary.Length);
             }
 
