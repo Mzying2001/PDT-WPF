@@ -19,10 +19,13 @@ namespace PDT_WPF.ViewModels.PageViewModels
         public RelayCommand<string> OpenLinkCmd { get; set; }
         public RelayCommand LoadBoardPhotosCmd { get; set; }
         public RelayCommand<BoardPhoto> DeleteBoardPhotoCmd { get; set; }
+        public RelayCommand LoadCompetitionSectionsCmd { get; set; }
+        public RelayCommand<CompetitionSection> DeleteCompetitionSectionCmd { get; set; }
 
 
 
         public ObservableCollection<BoardPhoto> BoardPhotos { get; set; }
+        public ObservableCollection<CompetitionSection> CompetitionSections { get; set; }
 
 
 
@@ -86,8 +89,26 @@ namespace PDT_WPF.ViewModels.PageViewModels
         /// </summary>
         public bool IsLoadingBoardPhotos
         {
-            get => _isGettingVerificationCode;
-            set => Set(ref _isLoadingBoardPhotos, value);
+            get => _isLoadingBoardPhotos;
+            set
+            {
+                Set(ref _isLoadingBoardPhotos, value);
+                LoadBoardPhotosCmd.RaiseCanExecuteChanged();
+            }
+        }
+
+        private bool _isLoadingCompetitionSections;
+        /// <summary>
+        /// 是否正在获取比赛信息
+        /// </summary>
+        public bool IsLoadingCompetitionSections
+        {
+            get => _isLoadingCompetitionSections;
+            set
+            {
+                Set(ref _isLoadingCompetitionSections, value);
+                LoadCompetitionSectionsCmd.RaiseCanExecuteChanged();
+            }
         }
 
 
@@ -131,6 +152,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
                         PdtCommon.Token = result.token;
 
                     LoadBoardPhotos(); //获取首页轮播图信息
+                    LoadCompetitionSections(); //获取比赛信息
 
                     MessageBoxHelper.ShowMessage(result.mesg, "登录成功");
                 }
@@ -216,7 +238,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         /// 获取首页轮播图的异步方法
         /// </summary>
         /// <param name="callback"></param>
-        private async void LoadBoardPhotosAsync(Action<BoardPhoto[]> callback)
+        private async void GetBoardPhotosAsync(Action<BoardPhoto[]> callback)
         {
             try
             {
@@ -241,7 +263,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
             if (BoardPhotos == null)
                 BoardPhotos = new ObservableCollection<BoardPhoto>();
 
-            LoadBoardPhotosAsync(result =>
+            GetBoardPhotosAsync(result =>
             {
                 if (result != null)
                 {
@@ -265,7 +287,67 @@ namespace PDT_WPF.ViewModels.PageViewModels
         {
             if (MessageBoxHelper.ShowQuestion($"确定要删除“{boardPhoto.Name}”吗？"))
             {
-                MessageBoxHelper.ShowMessage("未完成。");
+                MessageBoxHelper.ShowMessage("该功能未完成。");
+            }
+        }
+
+        /// <summary>
+        /// 获取比赛信息的异步方法
+        /// </summary>
+        /// <param name="callback"></param>
+        private async void GetCompetitionSectionsAsync(Action<CompetitionSection[][]> callback)
+        {
+            try
+            {
+                IsLoadingCompetitionSections = true;
+                callback(await Task.Run(() => PdtV2.GetCompetitionSections()));
+            }
+            catch
+            {
+                callback(null);
+            }
+            finally
+            {
+                IsLoadingCompetitionSections = false;
+            }
+        }
+
+        /// <summary>
+        /// 获取比赛信息
+        /// </summary>
+        private void LoadCompetitionSections()
+        {
+            if (CompetitionSections == null)
+                CompetitionSections = new ObservableCollection<CompetitionSection>();
+
+            GetCompetitionSectionsAsync(result =>
+            {
+                if (result != null)
+                {
+                    CompetitionSections.Clear();
+                    foreach (var arr in result)
+                    {
+                        foreach (var item in arr)
+                            CompetitionSections.Add(item);
+                    }
+                    RaisePropertyChanged("CompetitionSections");
+                }
+                else
+                {
+                    MessageBoxHelper.ShowError("获取比赛信息失败！");
+                }
+            });
+        }
+
+        /// <summary>
+        /// 删除比赛信息
+        /// </summary>
+        /// <param name="competitionSection"></param>
+        private void DeleteCompetitionSection(CompetitionSection competitionSection)
+        {
+            if (MessageBoxHelper.ShowQuestion($"确定要删除“{competitionSection.Title}”吗？"))
+            {
+                MessageBoxHelper.ShowMessage("该功能未完成");
             }
         }
 
@@ -277,8 +359,10 @@ namespace PDT_WPF.ViewModels.PageViewModels
             AdminLogoutCmd = new RelayCommand(AdminLogout);
             GetVerificationCodeCmd = new RelayCommand<string>(GetVerificationCode);
             OpenLinkCmd = new RelayCommand<string>(OpenLink);
-            LoadBoardPhotosCmd = new RelayCommand(LoadBoardPhotos);
+            LoadBoardPhotosCmd = new RelayCommand(LoadBoardPhotos, () => !IsLoadingBoardPhotos);
             DeleteBoardPhotoCmd = new RelayCommand<BoardPhoto>(DeleteBoardPhoto);
+            LoadCompetitionSectionsCmd = new RelayCommand(LoadCompetitionSections, () => !IsLoadingCompetitionSections);
+            DeleteCompetitionSectionCmd = new RelayCommand<CompetitionSection>(DeleteCompetitionSection);
         }
     }
 }

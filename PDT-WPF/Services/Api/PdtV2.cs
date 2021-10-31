@@ -78,8 +78,57 @@ namespace PDT_WPF.Services.Api
         public static DeleteBoardPhotoResponse DeleteBoardPhoto(int id)
         {
             string url = $"{BASE_URL}homePage/boardPhoto/{id}";
-            string res = Http.Delete(url);
+            string res = Http.Delete(url, null, AdminApiHeaders);
             return JsonConvert.DeserializeObject<DeleteBoardPhotoResponse>(res);
+        }
+
+
+
+        public struct AddCompetitionSectionResponse
+        {
+            public Http.HttpStatus code;
+            public string mesg;
+            public AddCompetitionSectionErrors errors;
+        }
+        public struct AddCompetitionSectionErrors
+        {
+            public string link;
+        }
+        /// <summary>
+        /// 添加比赛栏信息
+        /// </summary>
+        /// <param name="title">信息标题</param>
+        /// <param name="link">信息详情页链接</param>
+        /// <returns></returns>
+        public static AddCompetitionSectionResponse AddCompetitionSection(string title, string link)
+        {
+            string url = BASE_URL + "homePage/competitionSection";
+            string res = Http.Post(url, new Dictionary<string, string>
+            {
+                ["title"] = title,
+                ["link"] = link
+            }, AdminApiHeaders, HttpContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<AddCompetitionSectionResponse>(res);
+        }
+
+
+
+        public struct DeleteCompetitionSectionResponse
+        {
+            public Http.HttpStatus code;
+            public string mesg;    //成功信息
+            public string message; //失败信息
+        }
+        /// <summary>
+        /// 删除比赛栏信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static DeleteCompetitionSectionResponse DeleteCompetitionSection(int id)
+        {
+            string url = $"{BASE_URL}homePage/competitionSection/{id}";
+            string res = Http.Delete(url, null, AdminApiHeaders);
+            return JsonConvert.DeserializeObject<DeleteCompetitionSectionResponse>(res);
         }
 
         #endregion

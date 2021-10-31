@@ -97,8 +97,7 @@
                 <Grid
                     IsEnabled="{Binding AdminMode}">
                     <StackPanel
-                        Margin="10"
-                        IsEnabled="{Binding IsLoadingBoardPhotos, Converter={StaticResource Boolean2BooleanReConverter}}">
+                        Margin="10">
                         <StackPanel
                             Margin="0,0,0,10"
                             Orientation="Horizontal">
@@ -167,7 +166,8 @@
                                                         Command="{Binding Source={StaticResource Locator}, Path=AdminPage.OpenLinkCmd}"
                                                         CommandParameter="{Binding PhotoUrl, Converter={StaticResource HttpsUrlFormater}}">
                                                         <TextBlock
-                                                            Text="{Binding PhotoUrl}"/>
+                                                            Text="{Binding PhotoUrl}"
+                                                            TextTrimming="CharacterEllipsis"/>
                                                     </Hyperlink>
                                                 </TextBlock>
                                             </DataTemplate>
@@ -185,7 +185,8 @@
                                                         Command="{Binding Source={StaticResource Locator},Path=AdminPage.OpenLinkCmd}"
                                                         CommandParameter="{Binding Link, Converter={StaticResource HttpsUrlFormater}}">
                                                         <TextBlock
-                                                            Text="{Binding Link}"/>
+                                                            Text="{Binding Link}"
+                                                            TextTrimming="CharacterEllipsis"/>
                                                     </Hyperlink>
                                                 </TextBlock>
                                             </DataTemplate>
@@ -214,6 +215,98 @@
                 IsExpanded="True">
                 <Grid
                     IsEnabled="{Binding AdminMode}">
+                    <StackPanel
+                        Margin="10">
+                        <StackPanel
+                            Margin="0,0,0,10"
+                            Orientation="Horizontal">
+                            <Button
+                                Content="更新数据"
+                                Command="{Binding LoadCompetitionSectionsCmd}"/>
+                            <Button
+                                Margin="10,0,0,0"
+                                Content="添加比赛信息"/>
+                        </StackPanel>
+                        <ListView
+                            Height="300"
+                            ItemsSource="{Binding CompetitionSections}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn
+                                        Width="50"
+                                        Header="ID"
+                                        DisplayMemberBinding="{Binding ID}"/>
+                                    <GridViewColumn
+                                        Width="100"
+                                        Header="标题"
+                                        DisplayMemberBinding="{Binding Title}"/>
+                                    <GridViewColumn
+                                        Width="100"
+                                        Header="创建日期">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    Text="{Binding CreatedAt, Converter={StaticResource DateFormater}}"
+                                                    ToolTip="{Binding CreatedAt}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn
+                                        Width="100"
+                                        Header="更新日期">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    Text="{Binding UpdatedAt, Converter={StaticResource DateFormater}}"
+                                                    ToolTip="{Binding UpdatedAt}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn
+                                        Width="100"
+                                        Header="删除日期">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    Text="{Binding DeletedAt, Converter={StaticResource DateFormater}}"
+                                                    ToolTip="{Binding DeletedAt}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn
+                                        Width="150"
+                                        Header="目标链接">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock>
+                                                    <Hyperlink
+                                                        ToolTip="{Binding Link, Converter={StaticResource HttpsUrlFormater}}"
+                                                        Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListViewItem}, Path=Foreground}"
+                                                        Command="{Binding Source={StaticResource Locator},Path=AdminPage.OpenLinkCmd}"
+                                                        CommandParameter="{Binding Link, Converter={StaticResource HttpsUrlFormater}}">
+                                                        <TextBlock
+                                                            Text="{Binding Link}"
+                                                            TextTrimming="CharacterEllipsis"/>
+                                                    </Hyperlink>
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn
+                                        Header="操作">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button
+                                                    Content="删除"
+                                                    Command="{Binding Source={StaticResource Locator}, Path=AdminPage.DeleteCompetitionSectionCmd}"
+                                                    CommandParameter="{Binding}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
                 </Grid>
             </Expander>
         </StackPanel>
