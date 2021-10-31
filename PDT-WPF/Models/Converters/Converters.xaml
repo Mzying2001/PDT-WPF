@@ -15,4 +15,7 @@
     <local:HttpsUrlFormater
         x:Key="HttpsUrlFormater"/>
 
+    <local:StringsNotAllEmpty
+        x:Key="StringNotAllEmpty"/>
+
 </ResourceDictionary>

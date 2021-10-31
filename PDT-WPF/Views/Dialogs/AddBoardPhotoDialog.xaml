@@ -70,7 +70,20 @@
                     Margin="10"
                     MinWidth="100"
                     Content="添加"
-                    Command="{Binding OkCmd}"/>
+                    Command="{Binding OkCmd}">
+                    <Button.IsEnabled>
+                        <MultiBinding
+                            Mode="OneWay"
+                            Converter="{StaticResource StringNotAllEmpty}">
+                            <Binding
+                                Path="Name"/>
+                            <Binding
+                                Path="Link"/>
+                            <Binding
+                                Path="PhotoPath"/>
+                        </MultiBinding>
+                    </Button.IsEnabled>
+                </Button>
             </StackPanel>
 
         </StackPanel>

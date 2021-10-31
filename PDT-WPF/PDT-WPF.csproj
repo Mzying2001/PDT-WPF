@@ -121,6 +121,8 @@
     <Compile Include="Models\Converters\DateFormater.cs" />
     <Compile Include="Models\Converters\HcWaterfallGroupsAdapter.cs" />
     <Compile Include="Models\Converters\HttpsUrlFormater.cs" />
+    <Compile Include="Models\Converters\MultiValueConverterBase.cs" />
+    <Compile Include="Models\Converters\StringsNotAllEmpty.cs" />
     <Compile Include="Models\Converters\ValueConverterBase.cs" />
     <Compile Include="Models\Data\GlobalData.cs" />
     <Compile Include="Models\FileUtility.cs" />
