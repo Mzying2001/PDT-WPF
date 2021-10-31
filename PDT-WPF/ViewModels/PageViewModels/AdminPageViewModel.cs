@@ -288,7 +288,23 @@ namespace PDT_WPF.ViewModels.PageViewModels
         {
             if (MessageBoxHelper.ShowQuestion($"确定要删除“{boardPhoto.Name}”吗？"))
             {
-                MessageBoxHelper.ShowMessage("该功能未完成。");
+                try
+                {
+                    var res = PdtV2.DeleteBoardPhoto(boardPhoto.ID);
+                    if (res.code == Services.Http.HttpStatus.OK)
+                    {
+                        MessageBoxHelper.ShowMessage(res.mesg, "删除成功");
+                        BoardPhotos.Remove(boardPhoto);
+                    }
+                    else
+                    {
+                        throw new Exception(res.message);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBoxHelper.ShowError(e, "删除失败");
+                }
             }
         }
 
