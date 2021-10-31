@@ -54,12 +54,18 @@ namespace PDT_WPF.Services.Api
         /// 添加首页轮播图
         /// </summary>
         /// <param name="name">轮播图名称</param>
-        /// <param name="photo">轮播图</param>
         /// <param name="link">详情页链接</param>
+        /// <param name="filePath">轮播图路径（本地）</param>
         /// <returns></returns>
-        public static AddBoardPhotoResponse AddBoardPhoto(string name, string photo, string link)
+        public static AddBoardPhotoResponse AddBoardPhoto(string name, string link, string filePath)
         {
-            throw new System.Exception("未完成");
+            string url = BASE_URL + "homePage/boardPhoto";
+            string res = Http.UploadFile(url, "photo", filePath, new Dictionary<string, string>
+            {
+                ["name"] = name,
+                ["link"] = link
+            }, AdminApiHeaders, HttpContentType.MULTIPART_FORM_DATA);
+            return JsonConvert.DeserializeObject<AddBoardPhotoResponse>(res);
         }
 
 
