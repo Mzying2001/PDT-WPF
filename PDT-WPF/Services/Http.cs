@@ -69,23 +69,21 @@ namespace PDT_WPF.Services
                     request.Headers.Add(item.Key, item.Value);
             }
 
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            Stream stream = response.GetResponseStream();
-            string result = null;
-
+            HttpWebResponse response;
             try
             {
-                using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
-                {
-                    result = reader.ReadToEnd();
-                }
+                response = (HttpWebResponse)request.GetResponse();
             }
-            finally
+            catch (WebException e)
             {
-                stream.Close();
+                response = (HttpWebResponse)e.Response;
             }
 
-            return result;
+            using (var stream = response.GetResponseStream())
+            using (var reader = new StreamReader(stream, Encoding.UTF8))
+            {
+                return reader.ReadToEnd();
+            }
         }
 
         public static string Post(string url, string contentType = null, int timeout = DEFAULT_TIMEOUT)
@@ -122,16 +120,21 @@ namespace PDT_WPF.Services
                 }
             }
 
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            string result = null;
-            Stream stream = response.GetResponseStream();
-
-            using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
+            HttpWebResponse response;
+            try
             {
-                result = reader.ReadToEnd();
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException e)
+            {
+                response = (HttpWebResponse)e.Response;
             }
 
-            return result;
+            using (var stream = response.GetResponseStream())
+            using (var reader = new StreamReader(stream, Encoding.UTF8))
+            {
+                return reader.ReadToEnd();
+            }
         }
 
         public static string Delete(string url, string contentType = null, int timeout = DEFAULT_TIMEOUT)
@@ -158,23 +161,21 @@ namespace PDT_WPF.Services
                     request.Headers.Add(item.Key, item.Value);
             }
 
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            Stream stream = response.GetResponseStream();
-            string result = null;
-
+            HttpWebResponse response;
             try
             {
-                using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
-                {
-                    result = reader.ReadToEnd();
-                }
+                response = (HttpWebResponse)request.GetResponse();
             }
-            finally
+            catch (WebException e)
             {
-                stream.Close();
+                response = (HttpWebResponse)e.Response;
             }
 
-            return result;
+            using (var stream = response.GetResponseStream())
+            using (var reader = new StreamReader(stream, Encoding.UTF8))
+            {
+                return reader.ReadToEnd();
+            }
         }
 
         public static string UploadFile(string url, string name, string filePath, IDictionary<string, string> data = null, IDictionary<string, string> headers = null, int timeout = DEFAULT_TIMEOUT)
@@ -217,16 +218,21 @@ namespace PDT_WPF.Services
                 reqStream.Write(endBoundary, 0, endBoundary.Length);
             }
 
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            string result = null;
-            Stream stream = response.GetResponseStream();
-
-            using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
+            HttpWebResponse response;
+            try
             {
-                result = reader.ReadToEnd();
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException e)
+            {
+                response = (HttpWebResponse)e.Response;
             }
 
-            return result;
+            using (var stream = response.GetResponseStream())
+            using (var reader = new StreamReader(stream, Encoding.UTF8))
+            {
+                return reader.ReadToEnd();
+            }
         }
     }
 }

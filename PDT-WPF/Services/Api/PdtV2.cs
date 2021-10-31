@@ -98,7 +98,7 @@ namespace PDT_WPF.Services.Api
         }
         public struct AddCompetitionSectionErrors
         {
-            public string link;
+            public string Link;
         }
         /// <summary>
         /// 添加比赛栏信息
