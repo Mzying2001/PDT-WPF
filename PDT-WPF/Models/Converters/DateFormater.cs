@@ -16,7 +16,7 @@ namespace PDT_WPF.Models.Converters
 
                 if (gap.TotalSeconds < 60)
                 {
-                    return $"{gap.Seconds}秒前";
+                    return "刚刚";
                 }
                 else if (gap.TotalMinutes < 60)
                 {
