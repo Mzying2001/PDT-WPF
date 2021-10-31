@@ -177,7 +177,7 @@ namespace PDT_WPF.Services
             return result;
         }
 
-        public static string UploadFile(string url, string name, string filePath, IDictionary<string, string> data = null, IDictionary<string, string> headers = null, string contentType = null, int timeout = DEFAULT_TIMEOUT)
+        public static string UploadFile(string url, string name, string filePath, IDictionary<string, string> data = null, IDictionary<string, string> headers = null, int timeout = DEFAULT_TIMEOUT)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
 
@@ -191,7 +191,7 @@ namespace PDT_WPF.Services
             }
 
             string boundary = DateTime.Now.Ticks.ToString("X");
-            request.ContentType = $"{contentType ?? HttpContentType.MULTIPART_FORM_DATA};boundary={boundary}";
+            request.ContentType = $"multipart/form-data;boundary={boundary}";
 
             byte[] itemBoundary = Encoding.UTF8.GetBytes($"\r\n--{boundary}\r\n");
             byte[] endBoundary = Encoding.UTF8.GetBytes($"\r\n--{boundary}--\r\n");

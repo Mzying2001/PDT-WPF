@@ -137,7 +137,7 @@ namespace PDT_WPF.Services.Api
 
         public struct GetUserInfoResponse
         {
-            public bool isSuccess;
+            public Http.HttpStatus code;
             public string mesg;
             public User user;
         }

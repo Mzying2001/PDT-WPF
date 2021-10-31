@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Command;
 using PDT_WPF.Models;
 using PDT_WPF.Models.Data;
 using PDT_WPF.Services.Api;
+using PDT_WPF.Views.Dialogs;
 using PDT_WPF.Views.Utils;
 using System;
 using System.Collections.ObjectModel;
@@ -155,7 +156,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
                     LoadBoardPhotos(); //获取首页轮播图信息
                     LoadCompetitionSections(); //获取比赛信息
 
-                    MessageBoxHelper.ShowMessage(result.mesg, "登录成功");
+                    //MessageBoxHelper.ShowMessage(result.mesg, "登录成功");
                 }
                 else
                 {
@@ -293,7 +294,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
                     var res = PdtV2.DeleteBoardPhoto(boardPhoto.ID);
                     if (res.code == Services.Http.HttpStatus.OK)
                     {
-                        MessageBoxHelper.ShowMessage(res.mesg, "删除成功");
+                        //MessageBoxHelper.ShowMessage(res.mesg, "删除成功");
                         BoardPhotos.Remove(boardPhoto);
                     }
                     else
@@ -313,7 +314,11 @@ namespace PDT_WPF.ViewModels.PageViewModels
         /// </summary>
         private void AddBoardPhoto()
         {
-
+            AddBoardPhotoDialog.ShowDialog(result =>
+            {
+                if (result)
+                    LoadBoardPhotos();
+            });
         }
 
         /// <summary>

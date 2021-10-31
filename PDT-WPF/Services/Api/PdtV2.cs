@@ -64,7 +64,7 @@ namespace PDT_WPF.Services.Api
             {
                 ["name"] = name,
                 ["link"] = link
-            }, AdminApiHeaders, HttpContentType.MULTIPART_FORM_DATA);
+            }, AdminApiHeaders);
             return JsonConvert.DeserializeObject<AddBoardPhotoResponse>(res);
         }
 

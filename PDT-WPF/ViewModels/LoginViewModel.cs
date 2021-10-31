@@ -59,7 +59,7 @@ namespace PDT_WPF.ViewModels
                 }
 
                 var res = await Task.Run(() => PdtV1.GetUserInfo(LocalData.Settings.OpenId));
-                if (res.isSuccess)
+                if (res.code == Http.HttpStatus.OK)
                 {
                     GlobalData.CurrentUser = res.user;
                     Messenger.Default.Send(new LoginResult { Success = true }, MessageTokens.LOGIN_RESULT);
@@ -127,7 +127,7 @@ namespace PDT_WPF.ViewModels
 
                 //登录成功，开始获取用户信息
                 var res = await Task.Run(() => PdtV1.GetUserInfo(LocalData.Settings.OpenId));
-                if (res.isSuccess)
+                if (res.code == Http.HttpStatus.OK)
                 {
                     //获取用户信息成功，保存用户信息
                     GlobalData.CurrentUser = res.user;
@@ -135,7 +135,7 @@ namespace PDT_WPF.ViewModels
 
                 callback(new LoginResult
                 {
-                    Success = res.isSuccess,
+                    Success = res.code == Http.HttpStatus.OK,
                     Message = res.mesg
                 });
             }

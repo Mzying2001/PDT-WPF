@@ -139,6 +139,7 @@
     <Compile Include="Services\Api\PdtV2.cs" />
     <Compile Include="Services\Http.cs" />
     <Compile Include="Services\HttpContentType.cs" />
+    <Compile Include="ViewModels\DialogViewModels\AddBoardPhotoDialogViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\AdminPageViewModel.cs" />
@@ -157,6 +158,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Dialogs\AddBoardPhotoDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -171,6 +176,9 @@
     </Compile>
     <Compile Include="Views\Controls\Card.cs" />
     <Compile Include="Views\Controls\Tag.cs" />
+    <Compile Include="Views\Dialogs\AddBoardPhotoDialog.xaml.cs">
+      <DependentUpon>AddBoardPhotoDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\AdminPage.xaml.cs">
       <DependentUpon>AdminPage.xaml</DependentUpon>
     </Compile>
