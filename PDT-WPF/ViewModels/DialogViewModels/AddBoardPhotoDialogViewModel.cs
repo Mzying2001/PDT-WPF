@@ -20,7 +20,11 @@ namespace PDT_WPF.ViewModels.DialogViewModels
         public bool IsLoading
         {
             get => _isLoadong;
-            set => Set(ref _isLoadong, value);
+            set
+            {
+                Set(ref _isLoadong, value);
+                OkCmd.RaiseCanExecuteChanged();
+            }
         }
 
         private string _name;
@@ -34,14 +38,22 @@ namespace PDT_WPF.ViewModels.DialogViewModels
         public string Link
         {
             get => _link;
-            set => Set(ref _link, value);
+            set
+            {
+                Set(ref _link, value);
+                OkCmd.RaiseCanExecuteChanged();
+            }
         }
 
         private string _photoPath;
         public string PhotoPath
         {
             get => _photoPath;
-            set => Set(ref _photoPath, value);
+            set
+            {
+                Set(ref _photoPath, value);
+                OkCmd.RaiseCanExecuteChanged();
+            }
         }
 
         private void SelectFile()
@@ -104,10 +116,15 @@ namespace PDT_WPF.ViewModels.DialogViewModels
             Messenger.Default.Send(false, MessageTokens.ADD_BOARD_PHOTO_RESULT);
         }
 
+        private bool OkCmdCanExecute()
+        {
+            return !(string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Link) || string.IsNullOrWhiteSpace(PhotoPath));
+        }
+
         public AddBoardPhotoDialogViewModel()
         {
             SelectFileCmd = new RelayCommand(SelectFile);
-            OkCmd = new RelayCommand(Ok);
+            OkCmd = new RelayCommand(Ok, OkCmdCanExecute);
             CancelCmd = new RelayCommand(Cancel);
         }
     }

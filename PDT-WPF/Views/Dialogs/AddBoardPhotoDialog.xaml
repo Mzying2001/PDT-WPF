@@ -20,7 +20,7 @@
 
     <Grid>
         <StackPanel
-            Width="250"
+            Width="300"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
             IsEnabled="{Binding IsLoading,Converter={StaticResource Boolean2BooleanReConverter}}">
@@ -28,12 +28,12 @@
             <hc:TextBox
                 hc:TitleElement.Title="名称"
                 hc:InfoElement.Placeholder="请输入名称"
-                Text="{Binding Name}"/>
+                Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
 
             <hc:TextBox
                 hc:TitleElement.Title="目标链接"
                 hc:InfoElement.Placeholder="请输入链接"
-                Text="{Binding Link}"/>
+                Text="{Binding Link, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -45,7 +45,7 @@
                     Grid.Column="0"
                     hc:TitleElement.Title="图片路径"
                     hc:InfoElement.Placeholder="请选择图片"
-                    Text="{Binding PhotoPath}"
+                    Text="{Binding PhotoPath, UpdateSourceTrigger=PropertyChanged}"
                     IsReadOnly="True"/>
 
                 <Button
