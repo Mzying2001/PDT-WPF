@@ -19,6 +19,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         public RelayCommand<string> OpenLinkCmd { get; set; }
         public RelayCommand LoadBoardPhotosCmd { get; set; }
         public RelayCommand<BoardPhoto> DeleteBoardPhotoCmd { get; set; }
+        public RelayCommand AddBoardPhotoCmd { get; set; }
         public RelayCommand LoadCompetitionSectionsCmd { get; set; }
         public RelayCommand<CompetitionSection> DeleteCompetitionSectionCmd { get; set; }
 
@@ -292,6 +293,14 @@ namespace PDT_WPF.ViewModels.PageViewModels
         }
 
         /// <summary>
+        /// 添加轮播图
+        /// </summary>
+        private void AddBoardPhoto()
+        {
+
+        }
+
+        /// <summary>
         /// 获取比赛信息的异步方法
         /// </summary>
         /// <param name="callback"></param>
@@ -361,6 +370,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
             OpenLinkCmd = new RelayCommand<string>(OpenLink);
             LoadBoardPhotosCmd = new RelayCommand(LoadBoardPhotos, () => !IsLoadingBoardPhotos);
             DeleteBoardPhotoCmd = new RelayCommand<BoardPhoto>(DeleteBoardPhoto);
+            AddBoardPhotoCmd = new RelayCommand(AddBoardPhoto);
             LoadCompetitionSectionsCmd = new RelayCommand(LoadCompetitionSections, () => !IsLoadingCompetitionSections);
             DeleteCompetitionSectionCmd = new RelayCommand<CompetitionSection>(DeleteCompetitionSection);
         }

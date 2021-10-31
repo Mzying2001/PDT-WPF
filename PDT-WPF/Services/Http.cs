@@ -177,28 +177,43 @@ namespace PDT_WPF.Services
             return result;
         }
 
-        public static string UploadFile(string url, string filePath, IDictionary<string, string> data, string contentType, int timeout = DEFAULT_TIMEOUT)
+        public static string UploadFile(string url, string name, byte[] file, IDictionary<string, string> data = null, IDictionary<string, string> headers = null, string contentType = null, int timeout = DEFAULT_TIMEOUT)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(AppendQuery(url, data));
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
 
             request.Method = "POST";
             request.Timeout = timeout;
 
+            if (headers != null)
+            {
+                foreach (var item in headers)
+                    request.Headers.Add(item.Key, item.Value);
+            }
+
             string boundary = DateTime.Now.Ticks.ToString("X");
-            request.ContentType = $"{contentType};boundary={boundary}";
+            request.ContentType = $"{contentType ?? HttpContentType.MULTIPART_FORM_DATA};boundary={boundary}";
 
             byte[] itemBoundary = Encoding.UTF8.GetBytes($"\r\n--{boundary}\r\n");
             byte[] endBoundary = Encoding.UTF8.GetBytes($"\r\n--{boundary}--\r\n");
-
-            string name = FileUtility.GetFileName(filePath);
-            byte[] head = Encoding.UTF8.GetBytes($"Content-Disposition:form-data;name=\"file\";filename=\"{name}\"\r\nContent-Type:application/octet-stream\r\n\r\n");
-            byte[] file = FileUtility.ReadBytes(filePath);
+            byte[] fileHead = Encoding.UTF8.GetBytes($"Content-Disposition:form-data;name=\"{name}\";filename=\"{name}\"\r\nContent-Type:application/octet-stream\r\n\r\n");
 
             using (Stream reqStream = request.GetRequestStream())
             {
                 reqStream.Write(itemBoundary, 0, itemBoundary.Length);
-                reqStream.Write(head, 0, head.Length);
+                reqStream.Write(fileHead, 0, fileHead.Length);
                 reqStream.Write(file, 0, file.Length);
+                if (data != null)
+                {
+                    foreach (var item in data)
+                    {
+                        byte[] head = Encoding.UTF8.GetBytes($"Content-Disposition:form-data;name=\"{item.Key}\"\r\n\r\n");
+                        byte[] content = Encoding.UTF8.GetBytes(item.Value);
+                        reqStream.Write(itemBoundary, 0, itemBoundary.Length);
+                        reqStream.Write(head, 0, head.Length);
+                        reqStream.Write(content, 0, content.Length);
+                        reqStream.Write(endBoundary, 0, endBoundary.Length);
+                    }
+                }
                 reqStream.Write(endBoundary, 0, endBoundary.Length);
             }
 

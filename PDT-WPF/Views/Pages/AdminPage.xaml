@@ -106,7 +106,8 @@
                                 Command="{Binding LoadBoardPhotosCmd}"/>
                             <Button
                                 Margin="10,0,0,0"
-                                Content="添加轮播图"/>
+                                Content="添加轮播图"
+                                Command="{Binding AddBoardPhotoCmd}"/>
                         </StackPanel>
                         <ListView
                             Height="300"
