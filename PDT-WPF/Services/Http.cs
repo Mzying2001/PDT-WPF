@@ -177,7 +177,7 @@ namespace PDT_WPF.Services
             return result;
         }
 
-        public static string UploadFile(string url, string name, byte[] file, IDictionary<string, string> data = null, IDictionary<string, string> headers = null, string contentType = null, int timeout = DEFAULT_TIMEOUT)
+        public static string UploadFile(string url, string name, string filePath, IDictionary<string, string> data = null, IDictionary<string, string> headers = null, string contentType = null, int timeout = DEFAULT_TIMEOUT)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
 
@@ -195,7 +195,8 @@ namespace PDT_WPF.Services
 
             byte[] itemBoundary = Encoding.UTF8.GetBytes($"\r\n--{boundary}\r\n");
             byte[] endBoundary = Encoding.UTF8.GetBytes($"\r\n--{boundary}--\r\n");
-            byte[] fileHead = Encoding.UTF8.GetBytes($"Content-Disposition:form-data;name=\"{name}\";filename=\"{name}\"\r\nContent-Type:application/octet-stream\r\n\r\n");
+            byte[] fileHead = Encoding.UTF8.GetBytes($"Content-Disposition:form-data;name=\"{name}\";filename=\"{FileUtility.GetFileName(filePath)}\"\r\nContent-Type:application/octet-stream\r\n\r\n");
+            byte[] file = FileUtility.ReadBytes(filePath);
 
             using (Stream reqStream = request.GetRequestStream())
             {
