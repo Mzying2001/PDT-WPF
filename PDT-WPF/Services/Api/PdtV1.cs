@@ -31,7 +31,7 @@ namespace PDT_WPF.Services.Api
             {
                 ["schoolId"] = schoolId,
                 ["password"] = password
-            }, HttpContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            }, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<VerfyUserResponse>(res);
         }
 
@@ -55,7 +55,7 @@ namespace PDT_WPF.Services.Api
             {
                 ["schoolId"] = schoolId,
                 ["code"] = code
-            }, HttpContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            }, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<CheckEmailCodeResponse>(res);
         }
 
@@ -77,7 +77,7 @@ namespace PDT_WPF.Services.Api
             string res = Http.Post(url, new Dictionary<string, string>
             {
                 ["schoolId"] = schoolId
-            }, HttpContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            }, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<SendEmailResponse>(res);
         }
 
@@ -101,7 +101,7 @@ namespace PDT_WPF.Services.Api
             string res = Http.Post(url, new Dictionary<string, string>
             {
                 ["openId"] = openId
-            }, HttpContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            }, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<LoginResponse>(res);
         }
 
@@ -128,7 +128,7 @@ namespace PDT_WPF.Services.Api
                 ["openId"] = openId,
                 ["avaurl"] = avaurl,
                 ["schoolId"] = schoolId
-            }, HttpContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            }, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<SaveUserInfoResponse>(res);
         }
 
@@ -152,7 +152,7 @@ namespace PDT_WPF.Services.Api
             string res = Http.Post(url, new Dictionary<string, string>
             {
                 ["openId"] = openId
-            }, Headers, HttpContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<GetUserInfoResponse>(res);
         }
 
@@ -216,7 +216,7 @@ namespace PDT_WPF.Services.Api
             string res = Http.Post(url, new Dictionary<string, string>
             {
                 ["openId"] = openId
-            }, HttpContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            }, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<IsUserExistResponse>(res);
         }
 
@@ -311,7 +311,7 @@ namespace PDT_WPF.Services.Api
             string res = Http.Post(url, new Dictionary<string, string>
             {
                 ["publisherOpenId"] = publisherOpenId
-            }, Headers, HttpContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<GetUserProjectResponse>(res);
         }
 
@@ -337,7 +337,7 @@ namespace PDT_WPF.Services.Api
             string res = Http.Post(url, new Dictionary<string, string>
             {
                 ["personnelOpenId"] = personnelOpenId
-            }, Headers, HttpContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<GetUserPersonnelResponse>(res);
         }
 
@@ -408,7 +408,7 @@ namespace PDT_WPF.Services.Api
             {
                 ["administratorId"] = administratorId,
                 ["password"] = password
-            }, HttpContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            }, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<AdministratorLoginResponse>(res);
         }
 
@@ -431,7 +431,7 @@ namespace PDT_WPF.Services.Api
             string res = Http.Post(url, new Dictionary<string, string>
             {
                 ["schoolId"] = schoolId
-            }, AdminApiHeaders, HttpContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            }, AdminApiHeaders, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<GetVerificationCodeResponse>(res);
         }
 

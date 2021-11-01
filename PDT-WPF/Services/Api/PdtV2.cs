@@ -113,7 +113,7 @@ namespace PDT_WPF.Services.Api
             {
                 ["title"] = title,
                 ["link"] = link
-            }, AdminApiHeaders, HttpContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            }, AdminApiHeaders, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<AddCompetitionSectionResponse>(res);
         }
 

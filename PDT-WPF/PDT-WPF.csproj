@@ -140,7 +140,6 @@
     <Compile Include="Services\Api\PdtV1.cs" />
     <Compile Include="Services\Api\PdtV2.cs" />
     <Compile Include="Services\Http.cs" />
-    <Compile Include="Services\HttpContentType.cs" />
     <Compile Include="ViewModels\DialogViewModels\AddBoardPhotoDialogViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
