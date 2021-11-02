@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace PDT_WPF.Models.Converters
 {
-    public class StringsNotAllEmpty : MultiValueConverterBase<string, bool>
+    public class StringArrNotAllEmpty : MultiValueConverterBase<string, bool>
     {
         public override bool Convert(string[] values, object parameter, CultureInfo culture)
         {
