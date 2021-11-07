@@ -226,7 +226,8 @@
                                 Command="{Binding LoadCompetitionSectionsCmd}"/>
                             <Button
                                 Margin="10,0,0,0"
-                                Content="添加比赛信息"/>
+                                Content="添加比赛信息"
+                                Command="{Binding AddCompetitionSectionCmd}"/>
                         </StackPanel>
                         <ListView
                             Height="300"

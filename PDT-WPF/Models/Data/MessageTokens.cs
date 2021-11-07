@@ -9,5 +9,7 @@
         public const string LOGOUT = "logout";
 
         public const string ADD_BOARD_PHOTO_RESULT = "add_board_photo_result";
+
+        public const string ADD_COMPETITION_SECTION_RESULT = "add_competition_section_result";
     }
 }

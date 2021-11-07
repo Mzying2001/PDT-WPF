@@ -23,6 +23,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         public RelayCommand AddBoardPhotoCmd { get; set; }
         public RelayCommand LoadCompetitionSectionsCmd { get; set; }
         public RelayCommand<CompetitionSection> DeleteCompetitionSectionCmd { get; set; }
+        public RelayCommand AddCompetitionSectionCmd { get; set; }
 
 
 
@@ -377,8 +378,36 @@ namespace PDT_WPF.ViewModels.PageViewModels
         {
             if (MessageBoxHelper.ShowQuestion($"确定要删除“{competitionSection.Title}”吗？"))
             {
-                MessageBoxHelper.ShowMessage("该功能未完成");
+                try
+                {
+                    var res = PdtV2.DeleteCompetitionSection(competitionSection.ID);
+                    if (res.code == Services.Http.HttpStatus.OK)
+                    {
+                        //MessageBoxHelper.ShowMessage(res.mesg, "删除成功");
+                        CompetitionSections.Remove(competitionSection);
+                    }
+                    else
+                    {
+                        throw new Exception(res.message);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBoxHelper.ShowError(e, "删除失败");
+                }
             }
+        }
+
+        /// <summary>
+        /// 添加比赛栏信息
+        /// </summary>
+        private void AddCompetitionSection()
+        {
+            AddCompetitionSectionDialoog.ShowDialog(result =>
+            {
+                if (result)
+                    LoadCompetitionSections();
+            });
         }
 
 
@@ -394,6 +423,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
             AddBoardPhotoCmd = new RelayCommand(AddBoardPhoto);
             LoadCompetitionSectionsCmd = new RelayCommand(LoadCompetitionSections, () => !IsLoadingCompetitionSections);
             DeleteCompetitionSectionCmd = new RelayCommand<CompetitionSection>(DeleteCompetitionSection);
+            AddCompetitionSectionCmd = new RelayCommand(AddCompetitionSection);
         }
     }
 }
