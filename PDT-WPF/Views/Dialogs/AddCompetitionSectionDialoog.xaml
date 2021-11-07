@@ -9,8 +9,8 @@
         mc:Ignorable="d"
         
         Title="添加比赛栏信息"
-        Height="250"
-        Width="400"
+        Height="500"
+        Width="500"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
 
@@ -21,7 +21,7 @@
     <Grid>
 
         <StackPanel
-            Width="300"
+            Width="450"
             VerticalAlignment="Center"
             HorizontalAlignment="Center">
 
@@ -31,9 +31,14 @@
                 Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
 
             <hc:TextBox
-                hc:TitleElement.Title="目标链接"
-                hc:InfoElement.Placeholder="请输入链接"
-                Text="{Binding Link, UpdateSourceTrigger=PropertyChanged}"/>
+                Height="300"
+                TextWrapping="Wrap"
+                AcceptsReturn="True"
+                VerticalContentAlignment="Top"
+                VerticalScrollBarVisibility="Auto"
+                hc:TitleElement.Title="信息正文"
+                hc:InfoElement.Placeholder="请输入信息正文"
+                Text="{Binding Information, UpdateSourceTrigger=PropertyChanged}"/>
 
             <StackPanel
                 Margin="0,10,0,0"
@@ -57,7 +62,7 @@
                             <Binding
                                 Path="Title"/>
                             <Binding
-                                Path="Link"/>
+                                Path="Information"/>
                         </MultiBinding>
                     </Button.IsEnabled>
                 </Button>

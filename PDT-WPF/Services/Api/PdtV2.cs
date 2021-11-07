@@ -104,15 +104,15 @@ namespace PDT_WPF.Services.Api
         /// 添加比赛栏信息
         /// </summary>
         /// <param name="title">信息标题</param>
-        /// <param name="link">信息详情页链接</param>
+        /// <param name="information">信息正文</param>
         /// <returns></returns>
-        public static AddCompetitionSectionResponse AddCompetitionSection(string title, string link)
+        public static AddCompetitionSectionResponse AddCompetitionSection(string title, string information)
         {
             string url = BASE_URL + "homePage/competitionSection";
             string res = Http.Post(url, new Dictionary<string, string>
             {
                 ["title"] = title,
-                ["link"] = link
+                ["information"] = information
             }, AdminApiHeaders, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<AddCompetitionSectionResponse>(res);
         }

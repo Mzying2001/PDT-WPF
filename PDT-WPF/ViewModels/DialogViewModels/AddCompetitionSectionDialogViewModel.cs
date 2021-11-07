@@ -28,11 +28,11 @@ namespace PDT_WPF.ViewModels.DialogViewModels
             set => Set(ref _title, value);
         }
 
-        private string _link;
-        public string Link
+        private string _information;
+        public string Information
         {
-            get => _link;
-            set => Set(ref _link, value);
+            get => _information;
+            set => Set(ref _information, value);
         }
 
         private async void AddCompetitionSectionAsync(Action<object> callback)
@@ -40,7 +40,7 @@ namespace PDT_WPF.ViewModels.DialogViewModels
             try
             {
                 IsLoading = true;
-                callback(await Task.Run(() => PdtV2.AddCompetitionSection(Title, Link)));
+                callback(await Task.Run(() => PdtV2.AddCompetitionSection(Title, Information)));
             }
             catch (Exception e)
             {
