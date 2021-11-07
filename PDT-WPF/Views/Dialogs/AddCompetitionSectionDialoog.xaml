@@ -11,6 +11,7 @@
         Title="添加比赛栏信息"
         Height="250"
         Width="400"
+        ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
