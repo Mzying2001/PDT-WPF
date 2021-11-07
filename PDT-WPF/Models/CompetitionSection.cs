@@ -10,6 +10,6 @@
         public string UpdatedAt { get; set; }
         public string DeletedAt { get; set; }
         public string Title { get; set; }
-        public string Link { get; set; }
+        public string Information { get; set; }
     }
 }

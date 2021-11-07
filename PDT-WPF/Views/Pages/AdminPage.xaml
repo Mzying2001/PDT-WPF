@@ -276,21 +276,12 @@
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn
-                                        Width="150"
-                                        Header="目标链接">
+                                        Header="内容">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock>
-                                                    <Hyperlink
-                                                        ToolTip="{Binding Link, Converter={StaticResource HttpsUrlFormater}}"
-                                                        Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListViewItem}, Path=Foreground}"
-                                                        Command="{Binding Source={StaticResource Locator},Path=AdminPage.OpenLinkCmd}"
-                                                        CommandParameter="{Binding Link, Converter={StaticResource HttpsUrlFormater}}">
-                                                        <TextBlock
-                                                            Text="{Binding Link}"
-                                                            TextTrimming="CharacterEllipsis"/>
-                                                    </Hyperlink>
-                                                </TextBlock>
+                                                <Button Content="查看"
+                                                        Command="{Binding Source={StaticResource Locator}, Path=HomePage.ShowCompetitionSectionCmd}"
+                                                        CommandParameter="{Binding}"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>

@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Messaging;
 using PDT_WPF.Models;
 using PDT_WPF.Models.Data;
 using PDT_WPF.Services.Api;
+using PDT_WPF.Views.Dialogs;
 using PDT_WPF.Views.Utils;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         public ObservableCollection<List<CompetitionSection>> CompetitionSections { get; set; }
 
         public RelayCommand<string> OpenLinkCmd { get; set; }
+        public RelayCommand<CompetitionSection> ShowCompetitionSectionCmd { get; set; }
 
         private async void GetBoardPhotosAsync(Action<BoardPhoto[]> callback)
         {
@@ -93,6 +95,11 @@ namespace PDT_WPF.ViewModels.PageViewModels
             }
         }
 
+        private void ShowCompetitionSection(CompetitionSection competitionSection)
+        {
+            CompetitionSectionDetailDialog.ShowDialog(competitionSection);
+        }
+
         /// <summary>
         /// 更新主页显示的数据
         /// </summary>
@@ -106,6 +113,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         public HomePageViewModel()
         {
             OpenLinkCmd = new RelayCommand<string>(OpenLink);
+            ShowCompetitionSectionCmd = new RelayCommand<CompetitionSection>(ShowCompetitionSection);
 
             UpdateData();
             Messenger.Default.Register<object>(this, MessageTokens.HOMEPAGE_DATA_UPDATED, UpdateData);

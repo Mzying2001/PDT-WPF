@@ -118,13 +118,12 @@
                                             <DataTemplate
                                                 DataType="{x:Type Models:CompetitionSection}">
                                                 <Button
-                                                    Width="180"
                                                     Cursor="Hand"
                                                     BorderThickness="0"
                                                     HorizontalContentAlignment="Left"
-                                                    ToolTip="{Binding Link}"
-                                                    Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Page}, Path=DataContext.OpenLinkCmd}"
-                                                    CommandParameter="{Binding Link}">
+                                                    ToolTip="{Binding Title}"
+                                                    Command="{Binding Source={StaticResource Locator}, Path=HomePage.ShowCompetitionSectionCmd}"
+                                                    CommandParameter="{Binding}">
                                                     <Button.Content>
                                                         <StackPanel
                                                             Orientation="Horizontal">
@@ -134,7 +133,9 @@
                                                                 Height="5"/>
                                                             <TextBlock
                                                                 Margin="10,0,0,0"
+                                                                Width="200"
                                                                 FontSize="14"
+                                                                TextTrimming="CharacterEllipsis"
                                                                 Text="{Binding Title}"/>
                                                         </StackPanel>
                                                     </Button.Content>
