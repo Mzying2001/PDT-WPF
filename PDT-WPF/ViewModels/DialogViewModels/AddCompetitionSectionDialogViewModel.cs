@@ -66,7 +66,7 @@ namespace PDT_WPF.ViewModels.DialogViewModels
                         }
                         else
                         {
-                            throw new Exception(result.errors.Link);
+                            throw new Exception(result.mesg);
                         }
                     }
                     else
