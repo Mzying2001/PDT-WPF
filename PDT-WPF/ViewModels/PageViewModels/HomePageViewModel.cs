@@ -1,6 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using PDT_WPF.Models;
+using PDT_WPF.Models.Data;
 using PDT_WPF.Services.Api;
 using PDT_WPF.Views.Utils;
 using System;
@@ -91,12 +93,27 @@ namespace PDT_WPF.ViewModels.PageViewModels
             }
         }
 
+        /// <summary>
+        /// 更新主页显示的数据
+        /// </summary>
+        /// <param name="obj"></param>
+        private void UpdateData(object obj = null)
+        {
+            LoadBoardPhotos();
+            LoadCompetitionSections();
+        }
+
         public HomePageViewModel()
         {
             OpenLinkCmd = new RelayCommand<string>(OpenLink);
 
-            LoadBoardPhotos();
-            LoadCompetitionSections();
+            UpdateData();
+            Messenger.Default.Register<object>(this, MessageTokens.HOMEPAGE_DATA_UPDATED, UpdateData);
+        }
+
+        ~HomePageViewModel()
+        {
+            Messenger.Default.Unregister(this);
         }
     }
 }

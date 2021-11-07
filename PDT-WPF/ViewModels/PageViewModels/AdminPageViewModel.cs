@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using PDT_WPF.Models;
 using PDT_WPF.Models.Data;
 using PDT_WPF.Services.Api;
@@ -112,6 +113,17 @@ namespace PDT_WPF.ViewModels.PageViewModels
                 Set(ref _isLoadingCompetitionSections, value);
                 LoadCompetitionSectionsCmd.RaiseCanExecuteChanged();
             }
+        }
+
+
+
+
+        /// <summary>
+        /// 通知主页更新数据
+        /// </summary>
+        private void NotifyHomepageDataUpdated()
+        {
+            Messenger.Default.Send<object>(null, MessageTokens.HOMEPAGE_DATA_UPDATED);
         }
 
 
@@ -297,6 +309,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
                     {
                         //MessageBoxHelper.ShowMessage(res.mesg, "删除成功");
                         BoardPhotos.Remove(boardPhoto);
+                        NotifyHomepageDataUpdated();
                     }
                     else
                     {
@@ -318,7 +331,10 @@ namespace PDT_WPF.ViewModels.PageViewModels
             AddBoardPhotoDialog.ShowDialog(result =>
             {
                 if (result)
+                {
                     LoadBoardPhotos();
+                    NotifyHomepageDataUpdated();
+                }
             });
         }
 
@@ -385,6 +401,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
                     {
                         //MessageBoxHelper.ShowMessage(res.mesg, "删除成功");
                         CompetitionSections.Remove(competitionSection);
+                        NotifyHomepageDataUpdated();
                     }
                     else
                     {
@@ -406,7 +423,10 @@ namespace PDT_WPF.ViewModels.PageViewModels
             AddCompetitionSectionDialoog.ShowDialog(result =>
             {
                 if (result)
+                {
                     LoadCompetitionSections();
+                    NotifyHomepageDataUpdated();
+                }
             });
         }
 
