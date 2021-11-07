@@ -120,14 +120,22 @@
                                         DisplayMemberBinding="{Binding ID}"/>
                                     <GridViewColumn
                                         Width="100"
-                                        Header="名称"
-                                        DisplayMemberBinding="{Binding Name}"/>
+                                        Header="名称">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    TextTrimming="CharacterEllipsis"
+                                                    Text="{Binding Name}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
                                     <GridViewColumn
                                         Width="100"
                                         Header="创建日期">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock
+                                                    TextTrimming="CharacterEllipsis"
                                                     Text="{Binding CreatedAt, Converter={StaticResource DateFormater}}"
                                                     ToolTip="{Binding CreatedAt}"/>
                                             </DataTemplate>
@@ -139,6 +147,7 @@
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock
+                                                    TextTrimming="CharacterEllipsis"
                                                     Text="{Binding UpdatedAt, Converter={StaticResource DateFormater}}"
                                                     ToolTip="{Binding UpdatedAt}"/>
                                             </DataTemplate>
@@ -150,6 +159,7 @@
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock
+                                                    TextTrimming="CharacterEllipsis"
                                                     Text="{Binding DeletedAt, Converter={StaticResource DateFormater}}"
                                                     ToolTip="{Binding DeletedAt}"/>
                                             </DataTemplate>
@@ -240,14 +250,22 @@
                                         DisplayMemberBinding="{Binding ID}"/>
                                     <GridViewColumn
                                         Width="100"
-                                        Header="标题"
-                                        DisplayMemberBinding="{Binding Title}"/>
+                                        Header="标题">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    TextTrimming="CharacterEllipsis"
+                                                    Text="{Binding Title}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
                                     <GridViewColumn
                                         Width="100"
                                         Header="创建日期">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock
+                                                    TextTrimming="CharacterEllipsis"
                                                     Text="{Binding CreatedAt, Converter={StaticResource DateFormater}}"
                                                     ToolTip="{Binding CreatedAt}"/>
                                             </DataTemplate>
@@ -259,6 +277,7 @@
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock
+                                                    TextTrimming="CharacterEllipsis"
                                                     Text="{Binding UpdatedAt, Converter={StaticResource DateFormater}}"
                                                     ToolTip="{Binding UpdatedAt}"/>
                                             </DataTemplate>
@@ -270,6 +289,7 @@
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock
+                                                    TextTrimming="CharacterEllipsis"
                                                     Text="{Binding DeletedAt, Converter={StaticResource DateFormater}}"
                                                     ToolTip="{Binding DeletedAt}"/>
                                             </DataTemplate>

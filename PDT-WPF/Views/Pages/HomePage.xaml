@@ -118,6 +118,7 @@
                                             <DataTemplate
                                                 DataType="{x:Type Models:CompetitionSection}">
                                                 <Button
+                                                    Height="40"
                                                     Cursor="Hand"
                                                     BorderThickness="0"
                                                     HorizontalContentAlignment="Left"
