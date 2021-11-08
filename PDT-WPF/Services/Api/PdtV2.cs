@@ -56,14 +56,16 @@ namespace PDT_WPF.Services.Api
         /// <param name="name">轮播图名称</param>
         /// <param name="link">详情页链接</param>
         /// <param name="filePath">轮播图路径（本地）</param>
+        /// <param name="jump">转跳类型参数</param>
         /// <returns></returns>
-        public static AddBoardPhotoResponse AddBoardPhoto(string name, string link, string filePath)
+        public static AddBoardPhotoResponse AddBoardPhoto(string name, string link, string filePath, BoardPhoto.JumpType jump)
         {
             string url = BASE_URL + "homePage/boardPhoto";
             string res = Http.UploadFile(url, "photo", filePath, new Dictionary<string, string>
             {
                 ["name"] = name,
-                ["link"] = link
+                ["link"] = link,
+                ["jump"] = ((int)jump).ToString()
             }, AdminApiHeaders);
             return JsonConvert.DeserializeObject<AddBoardPhotoResponse>(res);
         }

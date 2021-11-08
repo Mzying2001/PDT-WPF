@@ -7,6 +7,7 @@ using PDT_WPF.Models.Data;
 using PDT_WPF.Services.Api;
 using PDT_WPF.Views.Utils;
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace PDT_WPF.ViewModels.DialogViewModels
@@ -14,8 +15,16 @@ namespace PDT_WPF.ViewModels.DialogViewModels
     public class AddBoardPhotoDialogViewModel : ViewModelBase
     {
         public RelayCommand SelectFileCmd { get; set; }
-        public RelayCommand OkCmd { get; set; }
+        public RelayCommand<BoardPhoto.JumpType> OkCmd { get; set; }
         public RelayCommand CancelCmd { get; set; }
+
+        public ObservableCollection<EnumDescription<BoardPhoto.JumpType>> JumpTypes { get; }
+            = new ObservableCollection<EnumDescription<BoardPhoto.JumpType>>
+            {
+                new EnumDescription<BoardPhoto.JumpType>(BoardPhoto.JumpType.NoJump, "不跳转"),
+                new EnumDescription<BoardPhoto.JumpType>(BoardPhoto.JumpType.JumpLink, "跳转到链接"),
+                new EnumDescription<BoardPhoto.JumpType>(BoardPhoto.JumpType.JumpMiniProgram, "跳转到其他小程序")
+            };
 
         private bool _isLoadong;
         public bool IsLoading
@@ -54,12 +63,12 @@ namespace PDT_WPF.ViewModels.DialogViewModels
             }
         }
 
-        private async void AddBoardPhotoAsync(Action<object> callback)
+        private async void AddBoardPhotoAsync(BoardPhoto.JumpType jumpType, Action<object> callback)
         {
             try
             {
                 IsLoading = true;
-                callback(await Task.Run(() => PdtV2.AddBoardPhoto(Name, Link, PhotoPath)));
+                callback(await Task.Run(() => PdtV2.AddBoardPhoto(Name, Link ?? string.Empty, PhotoPath, jumpType)));
             }
             catch (Exception e)
             {
@@ -71,9 +80,9 @@ namespace PDT_WPF.ViewModels.DialogViewModels
             }
         }
 
-        private void Ok()
+        private void Ok(BoardPhoto.JumpType jumpType)
         {
-            AddBoardPhotoAsync(obj =>
+            AddBoardPhotoAsync(jumpType, obj =>
             {
                 try
                 {
@@ -108,7 +117,7 @@ namespace PDT_WPF.ViewModels.DialogViewModels
         public AddBoardPhotoDialogViewModel()
         {
             SelectFileCmd = new RelayCommand(SelectFile);
-            OkCmd = new RelayCommand(Ok);
+            OkCmd = new RelayCommand<BoardPhoto.JumpType>(Ok);
             CancelCmd = new RelayCommand(Cancel);
         }
     }

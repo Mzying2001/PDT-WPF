@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         
         Title="添加轮播图"
-        Height="350"
+        Height="400"
         Width="400"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
@@ -30,9 +30,17 @@
                 hc:InfoElement.Placeholder="请输入名称"
                 Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
 
+            <hc:ComboBox
+                x:Name="jumpTypesComboBox"
+                hc:TitleElement.Title="跳转类型"
+                ItemsSource="{Binding JumpTypes}"
+                DisplayMemberPath="Description"
+                SelectedValuePath="Value"
+                SelectedIndex="1"/>
+
             <hc:TextBox
                 hc:TitleElement.Title="目标链接"
-                hc:InfoElement.Placeholder="请输入链接"
+                hc:InfoElement.Placeholder="详情页链接（可选）"
                 Text="{Binding Link, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Grid>
@@ -70,15 +78,16 @@
                     Margin="10"
                     MinWidth="100"
                     Content="添加"
-                    Command="{Binding OkCmd}">
+                    Command="{Binding OkCmd}"
+                    CommandParameter="{Binding ElementName=jumpTypesComboBox, Path=SelectedValue}">
                     <Button.IsEnabled>
                         <MultiBinding
                             Mode="OneWay"
                             Converter="{StaticResource StringArrNotAllEmpty}">
                             <Binding
                                 Path="Name"/>
-                            <Binding
-                                Path="Link"/>
+                            <!--<Binding
+                                Path="Link"/>-->
                             <Binding
                                 Path="PhotoPath"/>
                         </MultiBinding>

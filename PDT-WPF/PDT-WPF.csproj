@@ -261,6 +261,7 @@
     <Compile Include="Models\Converters\StringArrNotAllEmpty.cs" />
     <Compile Include="Models\Converters\ValueConverterBase.cs" />
     <Compile Include="Models\Data\GlobalData.cs" />
+    <Compile Include="Models\EnumDescription.cs" />
     <Compile Include="Models\ErrorFormater.cs" />
     <Compile Include="Models\FileUtility.cs" />
     <Compile Include="Models\KeywordItem.cs" />
