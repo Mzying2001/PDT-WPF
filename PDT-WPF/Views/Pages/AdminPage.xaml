@@ -125,7 +125,8 @@
                                             <DataTemplate>
                                                 <TextBlock
                                                     TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding Name}"/>
+                                                    Text="{Binding Name}"
+                                                    ToolTip="{Binding Name}"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
@@ -255,7 +256,8 @@
                                             <DataTemplate>
                                                 <TextBlock
                                                     TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding Title}"/>
+                                                    Text="{Binding Title}"
+                                                    ToolTip="{Binding Title}"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
