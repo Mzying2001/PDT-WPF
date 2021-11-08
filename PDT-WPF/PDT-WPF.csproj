@@ -255,6 +255,8 @@
     <Compile Include="Models\CompetitionSection.cs" />
     <Compile Include="Models\Converters\BoolNotOperation.cs" />
     <Compile Include="Models\Converters\DateFormater.cs" />
+    <Compile Include="Models\Converters\EnumToInt.cs" />
+    <Compile Include="Models\Converters\BoardPhotoJumpTypeToString.cs" />
     <Compile Include="Models\Converters\HcWaterfallGroupsAdapter.cs" />
     <Compile Include="Models\Converters\HttpsUrlFormater.cs" />
     <Compile Include="Models\Converters\MultiValueConverterBase.cs" />

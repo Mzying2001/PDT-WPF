@@ -205,6 +205,18 @@
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn
+                                        Width="75"
+                                        Header="跳转类型">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    TextTrimming="CharacterEllipsis"
+                                                    Text="{Binding Jump, Converter={StaticResource BoardPhotoJumpTypeToString}}"
+                                                    ToolTip="{Binding Jump, Converter={StaticResource EnumToInt}}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn
                                         Header="操作">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>

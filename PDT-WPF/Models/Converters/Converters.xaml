@@ -15,6 +15,15 @@
     <local:HttpsUrlFormater
         x:Key="HttpsUrlFormater"/>
 
+    <!--枚举转整数-->
+    <local:EnumToInt
+        x:Key="EnumToInt"/>
+    
+    <!--获取轮播图跳转类型名称-->
+    <local:BoardPhotoJumpTypeToString
+        x:Key="BoardPhotoJumpTypeToString"/>
+
+    <!--判断多个字符串不为空-->
     <local:StringArrNotAllEmpty
         x:Key="StringArrNotAllEmpty"/>
 
