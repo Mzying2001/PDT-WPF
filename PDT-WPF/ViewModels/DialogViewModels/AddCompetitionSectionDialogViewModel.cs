@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using PDT_WPF.Models;
 using PDT_WPF.Models.Data;
 using PDT_WPF.Services.Api;
 using PDT_WPF.Views.Utils;
@@ -66,7 +67,7 @@ namespace PDT_WPF.ViewModels.DialogViewModels
                         }
                         else
                         {
-                            throw new Exception(result.mesg);
+                            throw new Exception($"{result.mesg}\n{ErrorFormater.GetString(result.errors)}".Trim());
                         }
                     }
                     else
