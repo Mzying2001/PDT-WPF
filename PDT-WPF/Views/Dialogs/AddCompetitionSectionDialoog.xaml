@@ -40,8 +40,12 @@
                 hc:InfoElement.Placeholder="请输入信息正文"
                 Text="{Binding Information, UpdateSourceTrigger=PropertyChanged}"/>
 
+            <TextBlock
+                Margin="3"
+                Foreground="Gray"
+                Text="* 注：建议段落之间空一行以获得更佳的阅读体验。"/>
+
             <StackPanel
-                Margin="0,10,0,0"
                 Orientation="Horizontal"
                 HorizontalAlignment="Center">
                 <Button
