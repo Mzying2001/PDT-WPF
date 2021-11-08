@@ -14,7 +14,7 @@ namespace PDT_WPF.Models
             var sb = new StringBuilder();
             foreach (var item in json)
             {
-                if (item.Value != null)
+                if (item.Value != null && !string.IsNullOrEmpty(item.Value.ToString()))
                     sb.AppendFormat("{0}: {1}\n", item.Key, item.Value.ToString());
             }
             return sb.ToString().Trim();

@@ -49,6 +49,7 @@ namespace PDT_WPF.Services.Api
         public struct AddBoardPhotoErrors
         {
             public string Link;
+            public string Jump;
         }
         /// <summary>
         /// 添加首页轮播图
