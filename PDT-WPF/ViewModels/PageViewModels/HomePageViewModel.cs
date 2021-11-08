@@ -101,7 +101,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
                     case BoardPhoto.JumpType.JumpMiniProgram:
                         {
-                            MessageBoxHelper.ShowMessage($"该链接用于打开另外一个小程序，需要在微信小程序里打开。\n\n目标链接：{boardPhoto.Link}");
+                            MessageBoxHelper.ShowMessage($"该链接用于打开另外一个小程序，需要在微信小程序里打开。\n\n目标链接：\n{boardPhoto.Link}");
                         }
                         break;
                 }
