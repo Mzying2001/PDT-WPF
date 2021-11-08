@@ -71,8 +71,8 @@
                                             <i:EventTrigger
                                                 EventName="MouseLeftButtonDown">
                                                 <i:InvokeCommandAction
-                                                    Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Page}, Path=DataContext.OpenLinkCmd}"
-                                                    CommandParameter="{Binding Link}"/>
+                                                    Command="{Binding Source={StaticResource Locator}, Path=HomePage.OpenBoardPhotoLinkCmd}"
+                                                    CommandParameter="{Binding}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Grid>

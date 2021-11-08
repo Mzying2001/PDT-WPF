@@ -9,6 +9,7 @@ using PDT_WPF.Views.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace PDT_WPF.ViewModels.PageViewModels
@@ -18,7 +19,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         public ObservableCollection<BoardPhoto> BoardPhotos { get; set; }
         public ObservableCollection<List<CompetitionSection>> CompetitionSections { get; set; }
 
-        public RelayCommand<string> OpenLinkCmd { get; set; }
+        public RelayCommand<BoardPhoto> OpenBoardPhotoLinkCmd { get; set; }
         public RelayCommand<CompetitionSection> ShowCompetitionSectionCmd { get; set; }
 
         private async void GetBoardPhotosAsync(Action<BoardPhoto[]> callback)
@@ -83,11 +84,27 @@ namespace PDT_WPF.ViewModels.PageViewModels
             });
         }
 
-        private void OpenLink(string link)
+        private void OpenBoardPhotoLink(BoardPhoto boardPhoto)
         {
             try
             {
-                System.Diagnostics.Process.Start(link);
+                switch (boardPhoto.Jump)
+                {
+                    case BoardPhoto.JumpType.NoJump:
+                        break;
+
+                    case BoardPhoto.JumpType.JumpLink:
+                        {
+                            Process.Start(boardPhoto.Link);
+                        }
+                        break;
+
+                    case BoardPhoto.JumpType.JumpMiniProgram:
+                        {
+                            MessageBoxHelper.ShowMessage($"该链接用于打开另外一个小程序，需要在微信小程序里打开。\n\n目标链接：{boardPhoto.Link}");
+                        }
+                        break;
+                }
             }
             catch (Exception e)
             {
@@ -112,7 +129,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
         public HomePageViewModel()
         {
-            OpenLinkCmd = new RelayCommand<string>(OpenLink);
+            OpenBoardPhotoLinkCmd = new RelayCommand<BoardPhoto>(OpenBoardPhotoLink);
             ShowCompetitionSectionCmd = new RelayCommand<CompetitionSection>(ShowCompetitionSection);
 
             UpdateData();
