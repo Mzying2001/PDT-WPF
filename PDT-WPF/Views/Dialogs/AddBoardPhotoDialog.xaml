@@ -83,7 +83,7 @@
                     <Button.IsEnabled>
                         <MultiBinding
                             Mode="OneWay"
-                            Converter="{StaticResource StringArrNotAllEmpty}">
+                            Converter="{StaticResource StringArrNotAnyEmpty}">
                             <Binding
                                 Path="Name"/>
                             <!--<Binding
