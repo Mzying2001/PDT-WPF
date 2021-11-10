@@ -88,6 +88,9 @@ namespace PDT_WPF.ViewModels.PageViewModels
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(boardPhoto.Link))
+                    return;
+
                 switch (boardPhoto.Jump)
                 {
                     case BoardPhoto.JumpType.NoJump:
