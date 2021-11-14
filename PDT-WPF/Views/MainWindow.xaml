@@ -11,8 +11,10 @@
         mc:Ignorable="d"
         
         Title="{Binding ElementName=mainFrame, Path=Content.Title, StringFormat=项导树 - \{0\}}"
+        Width="800"
         Height="500"
-        Width="820"
+        MinWidth="600"
+        MinHeight="400"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
 
     <Window.Resources>
