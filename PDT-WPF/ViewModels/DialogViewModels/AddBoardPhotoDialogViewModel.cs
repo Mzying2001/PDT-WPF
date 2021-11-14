@@ -21,9 +21,9 @@ namespace PDT_WPF.ViewModels.DialogViewModels
         public ObservableCollection<EnumDescription<BoardPhoto.JumpType>> JumpTypes { get; }
             = new ObservableCollection<EnumDescription<BoardPhoto.JumpType>>
             {
-                new EnumDescription<BoardPhoto.JumpType>(BoardPhoto.JumpType.NoJump, BoardPhoto.GetJumpTypeName(BoardPhoto.JumpType.NoJump)),
                 new EnumDescription<BoardPhoto.JumpType>(BoardPhoto.JumpType.JumpLink, BoardPhoto.GetJumpTypeName(BoardPhoto.JumpType.JumpLink)),
-                new EnumDescription<BoardPhoto.JumpType>(BoardPhoto.JumpType.JumpMiniProgram, BoardPhoto.GetJumpTypeName(BoardPhoto.JumpType.JumpMiniProgram))
+                new EnumDescription<BoardPhoto.JumpType>(BoardPhoto.JumpType.JumpMiniProgram, BoardPhoto.GetJumpTypeName(BoardPhoto.JumpType.JumpMiniProgram)),
+                new EnumDescription<BoardPhoto.JumpType>(BoardPhoto.JumpType.NoJump, BoardPhoto.GetJumpTypeName(BoardPhoto.JumpType.NoJump)),
             };
 
         private bool _isLoadong;

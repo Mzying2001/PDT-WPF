@@ -37,7 +37,7 @@
                 ItemsSource="{Binding JumpTypes}"
                 DisplayMemberPath="Description"
                 SelectedValuePath="Value"
-                SelectedIndex="1"/>
+                SelectedIndex="0"/>
 
             <hc:TextBox
                 Margin="0,10,0,0"

@@ -19,11 +19,6 @@
         public enum JumpType
         {
             /// <summary>
-            /// 不转跳
-            /// </summary>
-            NoJump = 0,
-
-            /// <summary>
             /// 转跳链接
             /// </summary>
             JumpLink = 1,
@@ -31,7 +26,12 @@
             /// <summary>
             /// 转跳其他小程序
             /// </summary>
-            JumpMiniProgram = 2
+            JumpMiniProgram = 2,
+
+            /// <summary>
+            /// 不转跳
+            /// </summary>
+            NoJump = 3,
         }
 
         public static string GetJumpTypeName(JumpType jumpType)
@@ -42,7 +42,7 @@
                     return "不跳转";
 
                 case JumpType.JumpLink:
-                    return "链接";
+                    return "公众号推文";
 
                 case JumpType.JumpMiniProgram:
                     return "小程序";
