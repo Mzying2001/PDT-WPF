@@ -7,6 +7,7 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:hc="https://handyorg.github.io/handycontrol"
       xmlns:Models="clr-namespace:PDT_WPF.Models"
+      xmlns:Panels="clr-namespace:PDT_WPF.Views.Panels"
       xmlns:Controls="clr-namespace:PDT_WPF.Views.Controls"
       mc:Ignorable="d"
       
@@ -47,9 +48,8 @@
 
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <hc:WaterfallPanel
-                                Groups="{Binding RelativeSource={RelativeSource Mode=Self}, Path=ActualWidth, Converter={StaticResource GroupsAdapter}}"
-                                Orientation="Horizontal"/>
+                            <Panels:WaterFallPanel
+                                ItemMinWidth="300"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
 
@@ -58,7 +58,6 @@
                             DataType="{x:Type Models:Personnel}">
                             <Controls:Card
                                 Margin="10,15"
-                                Width="280"
                                 Cursor="Hand">
                                 <StackPanel>
                                     <StackPanel
