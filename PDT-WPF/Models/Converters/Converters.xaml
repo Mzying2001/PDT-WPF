@@ -3,9 +3,9 @@
                     xmlns:local="clr-namespace:PDT_WPF.Models.Converters">
 
     <!--使HandyControl的流布局自适应组数-->
-    <local:HcWaterfallGroupsAdapter
+    <!--<local:HcWaterfallGroupsAdapter
         x:Key="GroupsAdapter"
-        ItemWidth="300"/>
+        ItemWidth="300"/>-->
 
     <!--格式化日期-->
     <local:DateFormater

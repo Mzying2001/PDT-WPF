@@ -6,6 +6,7 @@ namespace PDT_WPF.Models.Converters
     /// <summary>
     /// 用于实现HandyControl的流式布局组数的自适应（ActualWidth -> Groups）
     /// </summary>
+    [Obsolete("使用Views.Panels.WaterFallPanel获得更佳的效果")]
     public class HcWaterfallGroupsAdapter : ValueConverterBase<double, int>
     {
         public double ItemWidth { get; set; }
