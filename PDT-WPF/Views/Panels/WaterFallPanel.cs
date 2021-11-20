@@ -41,7 +41,7 @@ namespace PDT_WPF.Views.Panels
         {
             Size size = new Size();
 
-            if (double.IsNaN(availableSize.Width))
+            if (double.IsPositiveInfinity(availableSize.Width))
             {
                 var infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
                 var widthSum = 0d;
@@ -73,6 +73,9 @@ namespace PDT_WPF.Views.Panels
 
                 size = new Size(availableSize.Width, bottoms.Max());
             }
+
+            if (!double.IsPositiveInfinity(availableSize.Height))
+                size.Height = Math.Max(availableSize.Height, size.Height);
 
             return size;
         }
