@@ -48,35 +48,28 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border
-                                    Margin="5,10"
+                                <Button
+                                    Width="360"
+                                    Height="180"
                                     Cursor="Hand"
-                                    CornerRadius="5"
-                                    Effect="{StaticResource EffectShadow1}">
-                                    <Grid
-                                        Width="280"
-                                        Height="150"
-                                        ToolTip="{Binding Name}">
-                                        <Grid.Clip>
-                                            <RectangleGeometry
-                                                RadiusX="5"
-                                                RadiusY="5"
-                                                Rect="0,0,280,150"/>
-                                        </Grid.Clip>
-                                        <Grid.Background>
-                                            <ImageBrush
-                                                ImageSource="{Binding PhotoUrl, Converter={StaticResource HttpsUrlFormater}}"/>
-                                        </Grid.Background>
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger
-                                                EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction
-                                                    Command="{Binding Source={StaticResource Locator}, Path=HomePage.OpenBoardPhotoLinkCmd}"
-                                                    CommandParameter="{Binding}"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </Grid>
-                                </Border>
+                                    ToolTip="{Binding Name}"
+                                    Command="{Binding Source={StaticResource Locator}, Path=HomePage.OpenBoardPhotoLinkCmd}"
+                                    CommandParameter="{Binding}">
+                                    <Button.Template>
+                                        <ControlTemplate
+                                            TargetType="Button">
+                                            <Border
+                                                Margin="5,10"
+                                                CornerRadius="5"
+                                                Effect="{StaticResource EffectShadow1}">
+                                                <Border.Background>
+                                                    <ImageBrush
+                                                        ImageSource="{Binding PhotoUrl, Converter={StaticResource HttpsUrlFormater}}"/>
+                                                </Border.Background>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
