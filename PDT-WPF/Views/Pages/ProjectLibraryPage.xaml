@@ -55,9 +55,19 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate
                             DataType="{x:Type Models:Project}">
-                            <Controls:Card
+                            <Button
                                 Margin="10,15"
-                                Cursor="Hand">
+                                Cursor="Hand"
+                                Style="{StaticResource BaseStyle}"
+                                Command="{Binding Source={StaticResource Locator}, Path=ProjectLibraryPage.ShowProjectCmd}"
+                                CommandParameter="{Binding}">
+                                <Button.Template>
+                                    <ControlTemplate
+                                        TargetType="Button">
+                                        <Controls:Card
+                                            Content="{TemplateBinding Content}"/>
+                                    </ControlTemplate>
+                                </Button.Template>
                                 <StackPanel>
                                     <!--项目标题-->
                                     <TextBlock
@@ -130,17 +140,7 @@
                                             Text="{Binding CreatedAt, Converter={StaticResource DateFormater}}"/>
                                     </Grid>
                                 </StackPanel>
-
-                                <!--绑定事件-->
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger
-                                        EventName="MouseLeftButtonDown">
-                                        <i:InvokeCommandAction
-                                            Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Page}, Path=DataContext.ShowProjectCmd}"
-                                            CommandParameter="{Binding}"/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </Controls:Card>
+                            </Button>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

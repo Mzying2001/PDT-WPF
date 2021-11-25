@@ -56,9 +56,19 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate
                             DataType="{x:Type Models:Personnel}">
-                            <Controls:Card
+                            <Button
                                 Margin="10,15"
-                                Cursor="Hand">
+                                Cursor="Hand"
+                                Style="{StaticResource BaseStyle}"
+                                Command="{Binding Source={StaticResource Locator}, Path=TalentPoolPage.ShowPersonnelCmd}"
+                                CommandParameter="{Binding}">
+                                <Button.Template>
+                                    <ControlTemplate
+                                        TargetType="Button">
+                                        <Controls:Card
+                                            Content="{TemplateBinding Content}"/>
+                                    </ControlTemplate>
+                                </Button.Template>
                                 <StackPanel>
                                     <StackPanel
                                         Orientation="Horizontal">
@@ -120,16 +130,7 @@
                                         TextWrapping="Wrap"
                                         Text="{Binding BriefIntroduction}"/>
                                 </StackPanel>
-
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger
-                                        EventName="MouseLeftButtonDown">
-                                        <i:InvokeCommandAction
-                                            Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Page}, Path=DataContext.ShowPersonnelCmd}"
-                                            CommandParameter="{Binding}"/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </Controls:Card>
+                            </Button>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -141,6 +142,7 @@
                     HorizontalAlignment="Center"
                     Content="加载更多..."
                     Command="{Binding LoadMorePersonnelsCmd}"/>
+
             </StackPanel>
         </hc:ScrollViewer>
 
