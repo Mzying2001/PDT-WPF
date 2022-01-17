@@ -14,6 +14,7 @@ namespace PDT_WPF.ViewModels
     public class LoginViewModel : ViewModelBase
     {
         public RelayCommand LoginCmd { get; set; }
+        public RelayCommand AdminLoginCmd { get; set; }
 
         private bool _isLoading;
         public bool IsLoading
@@ -90,26 +91,10 @@ namespace PDT_WPF.ViewModels
                     if (loginRes.code == Http.HttpStatus.OK)
                         LocalData.Settings.OpenId = openId;
                 }
-                //else if (Regex.IsMatch(Account, "^ADMIN{.+}$"))
-                //{
-                //    var arr = Account.Substring(6, Account.Length - 7).Split('|');
-                //    if (arr.Length != 2)
-                //        throw new Exception("格式错误");
-
-                //    string adminId = arr[0];
-                //    string password = arr[1];
-                //    var adminLoginRes = await Task.Run(() => Pdt.AdministratorLogin(adminId, password));
-
-                //    loginRes = new Pdt.LoginResponse
-                //    {
-                //        code = 0,
-                //        mesg = adminLoginRes.mesg
-                //    };
-                //}
                 else
                 {
                     //await Task.Run(() => System.Threading.Thread.Sleep(3000));
-                    throw new Exception("暂不支持使用此方式登录。");
+                    throw new Exception("后端没给接口啊~");
                 }
 
 
@@ -161,9 +146,66 @@ namespace PDT_WPF.ViewModels
             });
         }
 
+        private async void AdminLoginAsync(Action<LoginResult> callback)
+        {
+            try
+            {
+                IsLoading = true;
+
+                var loginRes = await Task.Run(() => PdtV1.AdministratorLogin(Account, Password));
+
+                if (loginRes.code == Http.HttpStatus.OK)
+                {
+                    //登录成功
+                    PdtCommon.Token = loginRes.token;
+                }
+                else
+                {
+                    //登录失败
+                    throw new Exception(loginRes.mesg);
+                }
+
+                GlobalData.AdminMode = true;
+                GlobalData.ShowAdminPage = true;
+
+                GlobalData.CurrentUser = new User
+                {
+                    NickName = $"管理员: {Account}",
+                    Avaurl = "/Assets/Images/DefaultAvatar.png"
+                };
+
+                callback(new LoginResult
+                {
+                    Success = true,
+                    Message = loginRes.mesg
+                });
+            }
+            catch (Exception e)
+            {
+                callback(new LoginResult
+                {
+                    Success = false,
+                    Message = e.Message
+                });
+            }
+            finally
+            {
+                IsLoading = false;
+            }
+        }
+
+        private void AdminLogin()
+        {
+            AdminLoginAsync(result =>
+            {
+                Messenger.Default.Send(result, MessageTokens.LOGIN_RESULT);
+            });
+        }
+
         public LoginViewModel()
         {
             LoginCmd = new RelayCommand(Login);
+            AdminLoginCmd = new RelayCommand(AdminLogin);
 
             AutoLoginAsync();
         }

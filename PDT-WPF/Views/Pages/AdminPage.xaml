@@ -19,7 +19,8 @@
 
         <StackPanel
             Margin="0,10,10,10">
-            <Expander
+
+            <!--<Expander
                 Header="管理员登录"
                 IsExpanded="True">
                 <Expander.Resources>
@@ -31,13 +32,11 @@
                     </Style>
                 </Expander.Resources>
                 <Grid>
-                    <!--已登录显示界面-->
                     <TextBlock
                         Margin="10,20"
                         Visibility="{Binding AdminMode, Converter={StaticResource Boolean2VisibilityConverter}}">
                         已登录管理员账号：<Run Text="{Binding AdminAccount}"/> | <Hyperlink Command="{Binding AdminLogoutCmd}">退出</Hyperlink>
                     </TextBlock>
-                    <!--未登录显示界面-->
                     <StackPanel
                         Margin="10,20"
                         Orientation="Horizontal"
@@ -65,7 +64,7 @@
                             Command="{Binding AdminLoginCmd}"/>
                     </StackPanel>
                 </Grid>
-            </Expander>
+            </Expander>-->
 
             <Expander
                 Header="人工验证获取验证码"

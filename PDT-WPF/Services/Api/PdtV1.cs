@@ -431,7 +431,7 @@ namespace PDT_WPF.Services.Api
             string res = Http.Post(url, new Dictionary<string, string>
             {
                 ["schoolId"] = schoolId
-            }, AdminApiHeaders, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<GetVerificationCodeResponse>(res);
         }
 

@@ -67,7 +67,7 @@ namespace PDT_WPF.Services.Api
                 ["name"] = name,
                 ["link"] = link,
                 ["jump"] = ((int)jump).ToString()
-            }, AdminApiHeaders);
+            }, Headers);
             return JsonConvert.DeserializeObject<AddBoardPhotoResponse>(res);
         }
 
@@ -87,7 +87,7 @@ namespace PDT_WPF.Services.Api
         public static DeleteBoardPhotoResponse DeleteBoardPhoto(int id)
         {
             string url = $"{BASE_URL}homePage/boardPhoto/{id}";
-            string res = Http.Delete(url, null, AdminApiHeaders);
+            string res = Http.Delete(url, null, Headers);
             return JsonConvert.DeserializeObject<DeleteBoardPhotoResponse>(res);
         }
 
@@ -116,7 +116,7 @@ namespace PDT_WPF.Services.Api
             {
                 ["title"] = title,
                 ["information"] = information
-            }, AdminApiHeaders, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<AddCompetitionSectionResponse>(res);
         }
 
@@ -136,7 +136,7 @@ namespace PDT_WPF.Services.Api
         public static DeleteCompetitionSectionResponse DeleteCompetitionSection(int id)
         {
             string url = $"{BASE_URL}homePage/competitionSection/{id}";
-            string res = Http.Delete(url, null, AdminApiHeaders);
+            string res = Http.Delete(url, null, Headers);
             return JsonConvert.DeserializeObject<DeleteCompetitionSectionResponse>(res);
         }
 
