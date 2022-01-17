@@ -76,19 +76,13 @@ namespace PDT_WPF.ViewModels
         {
             if (MessageBoxHelper.ShowQuestion($"是否退出账号“{User.NickName}”？"))
             {
-                if (GlobalData.AdminMode)
-                {
-                    //管理员模式下重启应用
-                    LocalData.Settings.OpenId = string.Empty;
-                    LocalData.SaveAllData();
-                    Process.Start(Process.GetCurrentProcess().MainModule.FileName);
-                    Application.Current.Shutdown();
-                }
-                else
-                {
-                    LocalData.Settings.OpenId = string.Empty;
-                    Messenger.Default.Send<object>(null, MessageTokens.LOGOUT);
-                }
+                LocalData.Settings.OpenId = string.Empty;
+                LocalData.SaveAllData();
+                Process.Start(Process.GetCurrentProcess().MainModule.FileName);
+                Application.Current.Shutdown();
+
+                //LocalData.Settings.OpenId = string.Empty;
+                //Messenger.Default.Send<object>(null, MessageTokens.LOGOUT);
             }
         }
 

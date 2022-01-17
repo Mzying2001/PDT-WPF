@@ -37,9 +37,9 @@ namespace PDT_WPF.Views
             Messenger.Default.Register<string>(this, MessageTokens.PAGE_CHANGED, UpdateSideMenuSelected);
             Unloaded += (s, e) => Messenger.Default.Unregister<string>(this);
 
-            //退出登录时View层响应
-            Messenger.Default.Register<object>(this, MessageTokens.LOGOUT, Logout);
-            Unloaded += (s, e) => Messenger.Default.Unregister<object>(this);
+            ////退出登录时View层响应
+            //Messenger.Default.Register<object>(this, MessageTokens.LOGOUT, Logout);
+            //Unloaded += (s, e) => Messenger.Default.Unregister<object>(this);
         }
 
         /// <summary>
@@ -55,15 +55,15 @@ namespace PDT_WPF.Views
             }
         }
 
-        /// <summary>
-        /// 退出登录时View层响应
-        /// </summary>
-        /// <param name="obj"></param>
-        private void Logout(object obj)
-        {
-            new LoginWindow().Show();
-            Close();
-        }
+        ///// <summary>
+        ///// 退出登录时View层响应
+        ///// </summary>
+        ///// <param name="obj"></param>
+        //private void Logout(object obj)
+        //{
+        //    new LoginWindow().Show();
+        //    Close();
+        //}
 
         /// <summary>
         /// 左上角用户头像单击事件
