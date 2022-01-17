@@ -28,6 +28,7 @@
             DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
             <MenuItem
                 Header="个人中心"
+                IsEnabled="{Binding Source={x:Static Data:GlobalData.AdminMode}, Converter={StaticResource Boolean2BooleanReConverter}}"
                 Command="{Binding SwitchPageCmd}"
                 CommandParameter="PersonalCenterPage"/>
             <Separator/>
@@ -144,6 +145,7 @@
                 </hc:SideMenuItem>
                 <hc:SideMenuItem
                     Header="个人中心"
+                    Visibility="{Binding Source={x:Static Data:GlobalData.AdminMode}, Converter={StaticResource Boolean2VisibilityReConverter}}"
                     Command="{Binding SwitchPageCmd}"
                     CommandParameter="PersonalCenterPage">
                     <hc:SideMenuItem.Icon>
