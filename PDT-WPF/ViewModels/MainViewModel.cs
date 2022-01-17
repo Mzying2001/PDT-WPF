@@ -20,8 +20,7 @@ namespace PDT_WPF.ViewModels
             { "ForumPage",          new ForumPage()          }, //论坛
             { "MessagePage",        new MessagePage()        }, //信息
             { "PersonalCenterPage", new PersonalCenterPage() }, //个人中心
-
-            /*后台管理界面只有在添加“-ShowAdminPage”参数时会添加*/
+            { "AdminPage",          new AdminPage()          }, //后台管理
         };
 
 
@@ -87,10 +86,6 @@ namespace PDT_WPF.ViewModels
             LogoutCmd = new RelayCommand(Logout);
 
             SwitchPage("HomePage");
-
-            //判断是否要添加后台管理界面
-            if (GlobalData.ShowAdminPage)
-                Pages.Add("AdminPage", new AdminPage());
         }
     }
 }
