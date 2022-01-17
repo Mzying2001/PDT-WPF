@@ -5,7 +5,10 @@ using PDT_WPF.Models;
 using PDT_WPF.Models.Data;
 using PDT_WPF.Views.Pages;
 using PDT_WPF.Views.Utils;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace PDT_WPF.ViewModels
@@ -73,8 +76,19 @@ namespace PDT_WPF.ViewModels
         {
             if (MessageBoxHelper.ShowQuestion($"是否退出账号“{User.NickName}”？"))
             {
-                LocalData.Settings.OpenId = string.Empty;
-                Messenger.Default.Send<object>(null, MessageTokens.LOGOUT);
+                if (GlobalData.AdminMode)
+                {
+                    //管理员模式下重启应用
+                    LocalData.Settings.OpenId = string.Empty;
+                    LocalData.SaveAllData();
+                    Process.Start(Process.GetCurrentProcess().MainModule.FileName);
+                    Application.Current.Shutdown();
+                }
+                else
+                {
+                    LocalData.Settings.OpenId = string.Empty;
+                    Messenger.Default.Send<object>(null, MessageTokens.LOGOUT);
+                }
             }
         }
 
