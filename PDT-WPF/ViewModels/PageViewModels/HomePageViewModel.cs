@@ -75,6 +75,9 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
                     foreach (var arr in result)
                     {
+                        if (arr.Length == 0)
+                            continue;
+
                         var list = new List<CompetitionSection>(arr.Length);
                         foreach (var item in arr)
                             list.Add(item);
