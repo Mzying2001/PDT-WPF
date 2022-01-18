@@ -20,11 +20,20 @@
     </Window.Resources>
 
     <Grid IsEnabled="{Binding IsLoading, Converter={StaticResource Boolean2BooleanReConverter}}">
+        
+        <!--加载中的界面-->
+        <TextBlock
+            Text="登录中..."
+            FontSize="20"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Visibility="{Binding IsLoading, Converter={StaticResource Boolean2VisibilityConverter}}"/>
 
         <StackPanel
             Width="250"
             HorizontalAlignment="Center"
-            VerticalAlignment="Center">
+            VerticalAlignment="Center"
+            Visibility="{Binding IsLoading, Converter={StaticResource Boolean2VisibilityReConverter}}">
 
             <TextBlock
                 Margin="10,0,10,5"
