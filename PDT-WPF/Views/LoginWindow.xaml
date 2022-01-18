@@ -28,14 +28,16 @@
 
             <TextBlock
                 Margin="10,0,10,5"
-                Text="学号/工号"/>
+                Text="账号"/>
             <TextBox
+                x:Name="accountBox"
                 Text="{Binding Account, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock
                 Margin="10,10,10,5"
                 Text="密码"/>
             <PasswordBox
+                x:Name="passwordBox"
                 Utils:PasswordBoxHelper.Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <i:Interaction.Behaviors>
                     <Utils:PasswordBoxBehavior/>
@@ -47,13 +49,29 @@
                 Style="{StaticResource ButtonPrimary}"
                 HorizontalAlignment="Stretch"
                 Content="登录"
-                Command="{Binding LoginCmd}"/>
+                Command="{Binding LoginCmd}">
+                <Button.IsEnabled>
+                    <MultiBinding
+                        Converter="{StaticResource StringArrNotAnyEmpty}">
+                        <Binding Path="Text" ElementName="accountBox"/>
+                        <Binding Path="(Utils:PasswordBoxHelper.Password)" ElementName="passwordBox"/>
+                    </MultiBinding>
+                </Button.IsEnabled>
+            </Button>
 
             <Button
                 Margin="0,10,0,0"
                 HorizontalAlignment="Stretch"
                 Content="管理员登录"
-                Command="{Binding AdminLoginCmd}"/>
+                Command="{Binding AdminLoginCmd}">
+                <Button.IsEnabled>
+                    <MultiBinding
+                        Converter="{StaticResource StringArrNotAnyEmpty}">
+                        <Binding Path="Text" ElementName="accountBox"/>
+                        <Binding Path="(Utils:PasswordBoxHelper.Password)" ElementName="passwordBox"/>
+                    </MultiBinding>
+                </Button.IsEnabled>
+            </Button>
         </StackPanel>
 
     </Grid>
