@@ -109,7 +109,6 @@
                                 Command="{Binding AddBoardPhotoCmd}"/>
                         </StackPanel>
                         <ListView
-                            Height="300"
                             ItemsSource="{Binding BoardPhotos}">
                             <ListView.View>
                                 <GridView>
@@ -252,7 +251,6 @@
                                 Command="{Binding AddCompetitionSectionCmd}"/>
                         </StackPanel>
                         <ListView
-                            Height="300"
                             ItemsSource="{Binding CompetitionSections}">
                             <ListView.View>
                                 <GridView>
