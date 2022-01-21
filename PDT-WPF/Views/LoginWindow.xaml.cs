@@ -27,6 +27,9 @@ namespace PDT_WPF.Views
         {
             InitializeComponent();
 
+            accountBox.Focus();
+            accountBox.SelectAll();
+
             Messenger.Default.Register<LoginResult>(this, MessageTokens.LOGIN_RESULT, ProcessLoginResult);
             Unloaded += (s, e) => Messenger.Default.Unregister(this);
         }
