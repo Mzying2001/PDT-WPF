@@ -260,7 +260,9 @@ namespace PDT_WPF.Services.Api
         /// <returns></returns>
         public static GetProjectListResponse GetProjectList(string page, string sortRule)
         {
-            string url = BASE_URL + "project/getProjectList";
+            //string url = BASE_URL + "project/getProjectList";
+            //后端bug: 使用管理员账号时获取的json格式不正确，暂时使用就接口替代
+            string url = "https://pdt.ojbk.me/project/getProjectList";
             string res = Http.Get(url, new Dictionary<string, string>
             {
                 ["page"] = page,
@@ -357,7 +359,9 @@ namespace PDT_WPF.Services.Api
         /// <returns></returns>
         public static GetPersonnelListResponse GetPersonnelList(string page, string sortRule)
         {
-            string url = BASE_URL + "personnel/getPersonnelList";
+            //string url = BASE_URL + "personnel/getPersonnelList";
+            //后端bug: 使用管理员账号时获取的json格式不正确，暂时使用就接口替代
+            string url = "https://pdt.ojbk.me/personnel/getPersonnelList";
             string res = Http.Get(url, new Dictionary<string, string>
             {
                 ["page"] = page,
