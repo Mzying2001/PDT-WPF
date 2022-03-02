@@ -5,18 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PDT_WPF.Views.Dialogs"
         xmlns:hc="https://handyorg.github.io/handycontrol"
-        xmlns:DialogViewModels="clr-namespace:PDT_WPF.ViewModels.DialogViewModels"
         mc:Ignorable="d"
         
         Title="添加轮播图"
         Height="400"
         Width="400"
         ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen">
-
-    <Window.DataContext>
-        <DialogViewModels:AddBoardPhotoDialogViewModel/>
-    </Window.DataContext>
+        WindowStartupLocation="CenterScreen"
+        DataContext="{Binding Source={StaticResource Locator}, Path=AddBoardPhotoDialog, Mode=OneTime}">
 
     <Grid>
         <StackPanel

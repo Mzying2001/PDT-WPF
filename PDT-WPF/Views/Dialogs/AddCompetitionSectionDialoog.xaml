@@ -5,18 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PDT_WPF.Views.Dialogs"
         xmlns:hc="https://handyorg.github.io/handycontrol"
-        xmlns:DialogViewModels="clr-namespace:PDT_WPF.ViewModels.DialogViewModels"
         mc:Ignorable="d"
         
         Title="添加比赛栏信息"
         Height="500"
         Width="500"
         ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen">
-
-    <Window.DataContext>
-        <DialogViewModels:AddCompetitionSectionDialogViewModel/>
-    </Window.DataContext>
+        WindowStartupLocation="CenterScreen"
+        DataContext="{Binding Source={StaticResource Locator}, Path=AddCompetitionSectionDialog, Mode=OneTime}">
 
     <Grid>
 

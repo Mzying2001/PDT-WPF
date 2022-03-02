@@ -15,6 +15,7 @@
 using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using PDT_WPF.ViewModels.DialogViewModels;
 using PDT_WPF.ViewModels.PageViewModels;
 
 namespace PDT_WPF.ViewModels
@@ -97,6 +98,16 @@ namespace PDT_WPF.ViewModels
         public AdminPageViewModel AdminPage
         {
             get => ServiceLocator.Current.GetInstance<AdminPageViewModel>();
+        }
+
+        public AddBoardPhotoDialogViewModel AddBoardPhotoDialog
+        {
+            get => new AddBoardPhotoDialogViewModel();
+        }
+
+        public AddCompetitionSectionDialogViewModel AddCompetitionSectionDialog
+        {
+            get => new AddCompetitionSectionDialogViewModel();
         }
 
         public static void Cleanup()
