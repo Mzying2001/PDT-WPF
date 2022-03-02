@@ -264,6 +264,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Log\Logger.cs" />
     <Compile Include="Models\BoardPhoto.cs" />
     <Compile Include="Models\CompetitionSection.cs" />
     <Compile Include="Models\Converters\BoolNotOperation.cs" />

@@ -1,4 +1,5 @@
-﻿using PDT_WPF.Models.Data;
+﻿using PDT_WPF.Log;
+using PDT_WPF.Models.Data;
 using PDT_WPF.Views;
 using PDT_WPF.Views.Utils;
 using System.Windows;
@@ -14,8 +15,10 @@ namespace PDT_WPF
         {
             base.OnStartup(e);
 
-            bool loadLoginWindow = true;
+            Logger.Open(); //打开Log
+            Logger.WriteLine("打开程序");
 
+            bool loadLoginWindow = true;
             foreach (var arg in e.Args)
             {
                 switch (arg)
@@ -61,6 +64,9 @@ namespace PDT_WPF
         {
             base.OnExit(e);
             LocalData.SaveAllData();
+
+            Logger.WriteLine("退出程序");
+            Logger.Close(); //关闭Log
         }
     }
 }
