@@ -26,11 +26,6 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
 
 
-        public ObservableCollection<BoardPhoto> BoardPhotos { get; set; }
-        public ObservableCollection<CompetitionSection> CompetitionSections { get; set; }
-
-
-
         /// <summary>
         /// 是否处于管理员模式
         /// </summary>
@@ -45,6 +40,34 @@ namespace PDT_WPF.ViewModels.PageViewModels
             }
         }
 
+        /// <summary>
+        /// 通知主页更新数据
+        /// </summary>
+        private void NotifyHomepageDataUpdated()
+        {
+            Messenger.Default.Send<object>(null, MessageTokens.HOMEPAGE_DATA_UPDATED);
+        }
+
+        /// <summary>
+        /// 打开链接
+        /// </summary>
+        /// <param name="link"></param>
+        private void OpenLink(string link)
+        {
+            try
+            {
+                Process.Start(link);
+            }
+            catch (Exception e)
+            {
+                MessageBoxHelper.ShowError(e);
+            }
+        }
+
+
+
+        #region 人工验证获取验证码
+
         private bool _isGettingVerificationCode;
         /// <summary>
         /// 是否正在获取验证码
@@ -54,48 +77,6 @@ namespace PDT_WPF.ViewModels.PageViewModels
             get => _isGettingVerificationCode;
             set => Set(ref _isGettingVerificationCode, value);
         }
-
-        private bool _isLoadingBoardPhotos;
-        /// <summary>
-        /// 是否正在获取首页轮播图信息
-        /// </summary>
-        public bool IsLoadingBoardPhotos
-        {
-            get => _isLoadingBoardPhotos;
-            set
-            {
-                Set(ref _isLoadingBoardPhotos, value);
-                LoadBoardPhotosCmd.RaiseCanExecuteChanged();
-            }
-        }
-
-        private bool _isLoadingCompetitionSections;
-        /// <summary>
-        /// 是否正在获取比赛信息
-        /// </summary>
-        public bool IsLoadingCompetitionSections
-        {
-            get => _isLoadingCompetitionSections;
-            set
-            {
-                Set(ref _isLoadingCompetitionSections, value);
-                LoadCompetitionSectionsCmd.RaiseCanExecuteChanged();
-            }
-        }
-
-
-
-
-        /// <summary>
-        /// 通知主页更新数据
-        /// </summary>
-        private void NotifyHomepageDataUpdated()
-        {
-            Messenger.Default.Send<object>(null, MessageTokens.HOMEPAGE_DATA_UPDATED);
-        }
-
-
-
 
         /// <summary>
         /// 人工验证获取验证码的异步方法
@@ -140,19 +121,23 @@ namespace PDT_WPF.ViewModels.PageViewModels
             });
         }
 
+        #endregion
+
+        #region 首页轮播图管理
+
+        public ObservableCollection<BoardPhoto> BoardPhotos { get; set; }
+
+        private bool _isLoadingBoardPhotos;
         /// <summary>
-        /// 打开链接
+        /// 是否正在获取首页轮播图信息
         /// </summary>
-        /// <param name="link"></param>
-        private void OpenLink(string link)
+        public bool IsLoadingBoardPhotos
         {
-            try
+            get => _isLoadingBoardPhotos;
+            set
             {
-                Process.Start(link);
-            }
-            catch (Exception e)
-            {
-                MessageBoxHelper.ShowError(e);
+                Set(ref _isLoadingBoardPhotos, value);
+                LoadBoardPhotosCmd.RaiseCanExecuteChanged();
             }
         }
 
@@ -243,6 +228,26 @@ namespace PDT_WPF.ViewModels.PageViewModels
                     NotifyHomepageDataUpdated();
                 }
             });
+        }
+
+        #endregion
+
+        #region 比赛信息管理
+
+        public ObservableCollection<CompetitionSection> CompetitionSections { get; set; }
+
+        private bool _isLoadingCompetitionSections;
+        /// <summary>
+        /// 是否正在获取比赛信息
+        /// </summary>
+        public bool IsLoadingCompetitionSections
+        {
+            get => _isLoadingCompetitionSections;
+            set
+            {
+                Set(ref _isLoadingCompetitionSections, value);
+                LoadCompetitionSectionsCmd.RaiseCanExecuteChanged();
+            }
         }
 
         /// <summary>
@@ -336,6 +341,8 @@ namespace PDT_WPF.ViewModels.PageViewModels
                 }
             });
         }
+
+        #endregion
 
 
 
