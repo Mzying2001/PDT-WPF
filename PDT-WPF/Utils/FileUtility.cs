@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace PDT_WPF.Models
+namespace PDT_WPF.Utils
 {
     /// <summary>
     /// 处理文件

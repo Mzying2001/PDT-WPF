@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.Text;
 
-namespace PDT_WPF.Models
+namespace PDT_WPF.Utils
 {
     /// <summary>
     /// 用于展示错误信息时获取结构体中的所有值
