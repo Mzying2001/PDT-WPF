@@ -16,7 +16,7 @@ namespace PDT_WPF.Utils
             try
             {
                 stream = new FileStream(LogFileName, FileMode.Append);
-                writer = new StreamWriter(stream);
+                writer = new StreamWriter(stream, System.Text.Encoding.GetEncoding("GB2312"));
                 opened = true;
                 return true;
             }
