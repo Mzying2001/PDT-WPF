@@ -279,7 +279,7 @@
     <Compile Include="Models\EnumDescription.cs" />
     <Compile Include="Models\ErrorFormater.cs" />
     <Compile Include="Models\FileUtility.cs" />
-    <Compile Include="Models\KeywordItem.cs" />
+    <Compile Include="Models\ProjectKeyword.cs" />
     <Compile Include="Models\Data\LocalData.cs" />
     <Compile Include="Models\LoginResult.cs" />
     <Compile Include="Models\Data\MessageTokens.cs" />
