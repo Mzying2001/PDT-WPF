@@ -2,6 +2,8 @@
 using PDT_WPF.Utils;
 using PDT_WPF.Views;
 using PDT_WPF.Views.Utils;
+using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 
 namespace PDT_WPF
@@ -14,6 +16,14 @@ namespace PDT_WPF
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            if (CheckStarted())
+            {
+                //阻止多开
+                MessageBoxHelper.ShowMessage("程序已启动");
+                Current.Shutdown();
+                return;
+            }
 
             Logger.Open(); //打开Log
             Logger.WriteLine("打开程序");
@@ -67,6 +77,12 @@ namespace PDT_WPF
 
             Logger.WriteLine("退出程序");
             Logger.Close(); //关闭Log
+        }
+
+        private static bool CheckStarted()
+        {
+            Process cur = Process.GetCurrentProcess();
+            return (from p in Process.GetProcesses() where p.ProcessName == cur.ProcessName && p.Id != cur.Id select p).Any();
         }
     }
 }
