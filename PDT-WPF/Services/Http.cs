@@ -104,7 +104,9 @@ namespace PDT_WPF.Services
             using (var stream = response.GetResponseStream())
             using (var reader = new StreamReader(stream, Encoding.UTF8))
             {
-                return reader.ReadToEnd();
+                var result = reader.ReadToEnd();
+                Logger.WriteLine(result, $"GET:{url}");
+                return result;
             }
         }
 
@@ -155,7 +157,9 @@ namespace PDT_WPF.Services
             using (var stream = response.GetResponseStream())
             using (var reader = new StreamReader(stream, Encoding.UTF8))
             {
-                return reader.ReadToEnd();
+                var result = reader.ReadToEnd();
+                Logger.WriteLine(result, $"POST:{url}");
+                return result;
             }
         }
 
@@ -206,7 +210,9 @@ namespace PDT_WPF.Services
             using (var stream = response.GetResponseStream())
             using (var reader = new StreamReader(stream, Encoding.UTF8))
             {
-                return reader.ReadToEnd();
+                var result = reader.ReadToEnd();
+                Logger.WriteLine(result, $"PUT:{url}");
+                return result;
             }
         }
 
@@ -247,7 +253,9 @@ namespace PDT_WPF.Services
             using (var stream = response.GetResponseStream())
             using (var reader = new StreamReader(stream, Encoding.UTF8))
             {
-                return reader.ReadToEnd();
+                var result = reader.ReadToEnd();
+                Logger.WriteLine(result, $"DELETE:{url}");
+                return result;
             }
         }
 
@@ -304,7 +312,9 @@ namespace PDT_WPF.Services
             using (var stream = response.GetResponseStream())
             using (var reader = new StreamReader(stream, Encoding.UTF8))
             {
-                return reader.ReadToEnd();
+                var result = reader.ReadToEnd();
+                Logger.WriteLine(result, $"UPLOAD_FILE:{url}");
+                return result;
             }
         }
     }
