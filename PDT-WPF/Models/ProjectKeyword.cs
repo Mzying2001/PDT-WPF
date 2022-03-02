@@ -1,6 +1,9 @@
 ﻿namespace PDT_WPF.Models
 {
-    public class KeywordItem
+    /// <summary>
+    /// 项目主要技术
+    /// </summary>
+    public class ProjectKeyword
     {
         public string KeywordId { get; set; }
         public string CreatedAt { get; set; }
