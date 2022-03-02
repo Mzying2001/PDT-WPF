@@ -38,7 +38,7 @@ namespace PDT_WPF.Utils
 
         private static string UnshiftTime(string value)
         {
-            return string.Format("[{0}] {1}", DateTime.Now.ToString(), value);
+            return string.Format(">> [{0}] {1}", DateTime.Now.ToString(), value);
         }
 
         public static void WriteLine(object value, string type = null)
@@ -58,7 +58,10 @@ namespace PDT_WPF.Utils
 
         public static void WriteError(object value)
         {
-            WriteLine(value, "ERROR");
+            if (opened)
+            {
+                WriteLine(value, "ERROR");
+            }
         }
     }
 }
