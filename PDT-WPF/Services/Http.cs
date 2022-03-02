@@ -159,6 +159,57 @@ namespace PDT_WPF.Services
             }
         }
 
+        public static string Put(string url, string contentType = null, int timeout = DEFAULT_TIMEOUT)
+        {
+            return Put(url, null, null, contentType, timeout);
+        }
+
+        public static string Put(string url, IDictionary<string, string> data, string contentType = null, int timeout = DEFAULT_TIMEOUT)
+        {
+            return Put(url, data, null, contentType, timeout);
+        }
+
+        public static string Put(string url, IDictionary<string, string> data, IDictionary<string, string> headers, string contentType = null, int timeout = DEFAULT_TIMEOUT)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+
+            request.Method = "PUT";
+            request.Timeout = timeout;
+            request.ContentType = contentType;
+
+            if (headers != null)
+            {
+                foreach (var item in headers)
+                    request.Headers.Add(item.Key, item.Value);
+            }
+
+            if (data != null)
+            {
+                byte[] byteData = Encoding.UTF8.GetBytes(BuildQuery(data));
+                request.ContentLength = byteData.Length;
+                using (Stream reqStream = request.GetRequestStream())
+                {
+                    reqStream.Write(byteData, 0, byteData.Length);
+                }
+            }
+
+            HttpWebResponse response;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException e)
+            {
+                response = (HttpWebResponse)e.Response;
+            }
+
+            using (var stream = response.GetResponseStream())
+            using (var reader = new StreamReader(stream, Encoding.UTF8))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+
         public static string Delete(string url, string contentType = null, int timeout = DEFAULT_TIMEOUT)
         {
             return Delete(url, null, null, contentType, timeout);
