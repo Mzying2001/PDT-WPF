@@ -68,7 +68,6 @@
 
             <Expander
                 Header="人工验证获取验证码"
-                IsExpanded="True"
                 Margin="0,10,0,0">
                 <Grid
                     IsEnabled="{Binding AdminMode}">
@@ -93,7 +92,6 @@
 
             <Expander
                 Header="轮播图"
-                IsExpanded="True"
                 Margin="0,5,0,0">
                 <Grid
                     IsEnabled="{Binding AdminMode}">
@@ -236,7 +234,6 @@
 
             <Expander
                 Header="比赛栏"
-                IsExpanded="True"
                 Margin="0,5,0,0">
                 <Grid
                     IsEnabled="{Binding AdminMode}">
