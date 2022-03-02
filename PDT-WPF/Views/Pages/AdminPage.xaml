@@ -16,7 +16,6 @@
     <hc:ScrollViewer
         IsInertiaEnabled="True"
         VerticalScrollBarVisibility="Auto">
-
         <StackPanel
             Margin="0,0,10,0">
 
@@ -91,7 +90,7 @@
             </Expander>
 
             <Expander
-                Header="轮播图"
+                Header="轮播图管理"
                 Margin="0,5,0,0">
                 <Grid
                     IsEnabled="{Binding AdminMode}">
@@ -233,7 +232,7 @@
             </Expander>
 
             <Expander
-                Header="比赛栏"
+                Header="比赛栏管理"
                 Margin="0,5,0,0">
                 <Grid
                     IsEnabled="{Binding AdminMode}">
@@ -333,7 +332,61 @@
                     </StackPanel>
                 </Grid>
             </Expander>
-        </StackPanel>
 
+            <Expander
+                Header="项目主要技术标签管理"
+                Margin="0,5,0,0">
+                <Grid
+                    IsEnabled="{Binding AdminMode}">
+                    <TextBlock>开发中...</TextBlock>
+                </Grid>
+            </Expander>
+
+            <Expander
+                Header="项目类型标签管理"
+                Margin="0,5,0,0">
+                <Grid
+                    IsEnabled="{Binding AdminMode}">
+                    <TextBlock>开发中...</TextBlock>
+                </Grid>
+            </Expander>
+
+            <Expander
+                Header="项目赛事标签管理"
+                Margin="0,5,0,0">
+                <Grid
+                    IsEnabled="{Binding AdminMode}">
+                    <TextBlock>开发中...</TextBlock>
+                </Grid>
+            </Expander>
+
+            <Expander
+                Header="人才技能标签管理"
+                Margin="0,5,0,0">
+                <Grid
+                    IsEnabled="{Binding AdminMode}">
+                    <TextBlock>开发中...</TextBlock>
+                </Grid>
+            </Expander>
+
+            <Expander
+                Header="后台管理账号"
+                Margin="0,5,0,0">
+                <Grid
+                    IsEnabled="{Binding AdminMode}">
+                    <TextBlock>开发中...</TextBlock>
+                </Grid>
+            </Expander>
+
+            <Expander
+                Header="用户管理"
+                Margin="0,5,0,10">
+                <Grid
+                    IsEnabled="{Binding AdminMode}">
+                    <TextBlock>开发中...</TextBlock>
+                </Grid>
+            </Expander>
+
+        </StackPanel>
     </hc:ScrollViewer>
 </Page>
