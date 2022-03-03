@@ -17,12 +17,19 @@ namespace PDT_WPF.ViewModels.PageViewModels
     {
         public RelayCommand<string> GetVerificationCodeCmd { get; set; }
         public RelayCommand<string> OpenLinkCmd { get; set; }
+
         public RelayCommand LoadBoardPhotosCmd { get; set; }
         public RelayCommand<BoardPhoto> DeleteBoardPhotoCmd { get; set; }
         public RelayCommand AddBoardPhotoCmd { get; set; }
+
         public RelayCommand LoadCompetitionSectionsCmd { get; set; }
         public RelayCommand<CompetitionSection> DeleteCompetitionSectionCmd { get; set; }
         public RelayCommand AddCompetitionSectionCmd { get; set; }
+
+        public RelayCommand LoadProjectMainTechnologiesCmd { get; set; }
+        public RelayCommand AddProjectMainTechnologyCmd { get; set; }
+        public RelayCommand<ProjectMainTechnology> DeleteProjectMainTechnologyCmd { get; set; }
+        public RelayCommand<ProjectMainTechnology> ChangeProjectMainTechnologyCmd { get; set; }
 
 
 
@@ -344,23 +351,182 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
         #endregion
 
+        #region 项目主要技术标签管理
+
+        public ObservableCollection<ProjectMainTechnology> ProjectMainTechnologies { get; set; }
+
+        private bool _isLoadingProjectMainTechnologies;
+        /// <summary>
+        /// 是否正在加载项目主要技术标签
+        /// </summary>
+        public bool IsLoadingProjectMainTechnologies
+        {
+            get => _isLoadingProjectMainTechnologies;
+            set
+            {
+                _isLoadingProjectMainTechnologies = value;
+                LoadProjectMainTechnologiesCmd.RaiseCanExecuteChanged();
+            }
+        }
+
+        /// <summary>
+        /// 加载项目主要技术标签的异步方法
+        /// </summary>
+        /// <param name="callback"></param>
+        public async void LoadProjectMainTechnologiesAsync(Action<PdtV1.GetProjectMainTechnologyResponse> callback)
+        {
+            try
+            {
+                IsLoadingProjectMainTechnologies = true;
+                callback(await Task.Run(() => PdtV1.GetProjectMainTechnology()));
+            }
+            catch
+            {
+                callback(default);
+            }
+            finally
+            {
+                IsLoadingProjectMainTechnologies = false;
+            }
+        }
+
+        /// <summary>
+        /// 加载项目主要技术标签
+        /// </summary>
+        public void LoadProjectMainTechnologies()
+        {
+            if (ProjectMainTechnologies == null)
+                ProjectMainTechnologies = new ObservableCollection<ProjectMainTechnology>();
+
+            LoadProjectMainTechnologiesAsync(result =>
+            {
+                if (result.code == Services.Http.HttpStatus.OK)
+                {
+                    ProjectMainTechnologies.Clear();
+                    foreach (var item in result.mainTechnologys)
+                        ProjectMainTechnologies.Add(item);
+                    RaisePropertyChanged("ProjectMainTechnologies");
+                }
+                else
+                {
+                    MessageBoxHelper.ShowError("获取项目主要技术标签失败！");
+                }
+            });
+        }
+
+        /// <summary>
+        /// 添加项目主要技术标签
+        /// </summary>
+        public void AddProjectMainTechnology()
+        {
+            InputStringDialog.ShowDialog((success, input) =>
+            {
+                if (success)
+                {
+                    try
+                    {
+                        var res = PdtV1.AddProjectMainTechnology(input);
+                        if (res.code == Services.Http.HttpStatus.OK)
+                        {
+                            LoadProjectMainTechnologies();
+                        }
+                        else
+                        {
+                            throw new Exception(res.mesg);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBoxHelper.ShowError(e);
+                    }
+                }
+            }, "请输入新的技术标签");
+        }
+
+        /// <summary>
+        /// 删除项目主要技术标签
+        /// </summary>
+        /// <param name="mainTechnology"></param>
+        public void DeleteProjectMainTechnology(ProjectMainTechnology mainTechnology)
+        {
+            if (MessageBoxHelper.ShowQuestion($"确定要删除“{mainTechnology.MainTechnology}”吗？"))
+            {
+                try
+                {
+                    var res = PdtV1.DeleteProjectMainTechnology(mainTechnology.ID);
+                    if (res.code == Services.Http.HttpStatus.OK)
+                    {
+                        LoadProjectMainTechnologies();
+                    }
+                    else
+                    {
+                        throw new Exception(res.mesg);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBoxHelper.ShowError(e, "删除失败");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 修改项目主要技术标签
+        /// </summary>
+        /// <param name="mainTechnology"></param>
+        public void ChangeProjectMainTechnology(ProjectMainTechnology mainTechnology)
+        {
+            InputStringDialog.ShowDialog((success, input) =>
+            {
+                if (success)
+                {
+                    try
+                    {
+                        var res = PdtV1.ChangeProjectMainTechnology(mainTechnology.ID, input);
+                        if (res.code == Services.Http.HttpStatus.OK)
+                        {
+                            LoadProjectMainTechnologies();
+                        }
+                        else
+                        {
+                            throw new Exception(res.mesg);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBoxHelper.ShowError(e);
+                    }
+                }
+            }, "修改技术标签", mainTechnology.MainTechnology);
+        }
+
+        #endregion
+
 
 
         public AdminPageViewModel()
         {
             GetVerificationCodeCmd = new RelayCommand<string>(GetVerificationCode);
             OpenLinkCmd = new RelayCommand<string>(OpenLink);
+
             LoadBoardPhotosCmd = new RelayCommand(LoadBoardPhotos, () => !IsLoadingBoardPhotos);
             DeleteBoardPhotoCmd = new RelayCommand<BoardPhoto>(DeleteBoardPhoto);
             AddBoardPhotoCmd = new RelayCommand(AddBoardPhoto);
+
             LoadCompetitionSectionsCmd = new RelayCommand(LoadCompetitionSections, () => !IsLoadingCompetitionSections);
             DeleteCompetitionSectionCmd = new RelayCommand<CompetitionSection>(DeleteCompetitionSection);
             AddCompetitionSectionCmd = new RelayCommand(AddCompetitionSection);
+
+            LoadProjectMainTechnologiesCmd = new RelayCommand(LoadProjectMainTechnologies, () => !IsLoadingProjectMainTechnologies);
+            AddProjectMainTechnologyCmd = new RelayCommand(AddProjectMainTechnology);
+            DeleteProjectMainTechnologyCmd = new RelayCommand<ProjectMainTechnology>(DeleteProjectMainTechnology);
+            ChangeProjectMainTechnologyCmd = new RelayCommand<ProjectMainTechnology>(ChangeProjectMainTechnology);
 
             if (GlobalData.AdminMode)
             {
                 LoadBoardPhotos();
                 LoadCompetitionSections();
+                LoadProjectMainTechnologies();
             }
         }
     }
