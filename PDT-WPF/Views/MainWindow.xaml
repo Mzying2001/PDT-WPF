@@ -156,7 +156,7 @@
                 </hc:SideMenuItem>
                 <hc:SideMenuItem
                     Header="后台管理"
-                    Visibility="{Binding Source={x:Static Data:GlobalData.ShowAdminPage}, Converter={StaticResource Boolean2VisibilityConverter}}"
+                    Visibility="{Binding Source={x:Static Data:GlobalData.AdminMode}, Converter={StaticResource Boolean2VisibilityConverter}}"
                     Command="{Binding SwitchPageCmd}"
                     CommandParameter="AdminPage">
                     <hc:SideMenuItem.Icon>

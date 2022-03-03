@@ -166,8 +166,6 @@ namespace PDT_WPF.ViewModels
                 }
 
                 GlobalData.AdminMode = true;
-                GlobalData.ShowAdminPage = true;
-
                 GlobalData.CurrentUser = new User
                 {
                     NickName = $"管理员: {Account}",
