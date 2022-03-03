@@ -19,13 +19,13 @@
         <StackPanel
             x:Name="containerPanel"
             Margin="0,0,10,0"
-            IsEnabled="{Binding AdminMode}">
+            IsEnabled="{Binding AdminMode}"
+            Expander.Expanded="ExpanderExpanded"
+            Expander.Collapsed="ExpanderCollapsed">
 
             <Expander
                 Header="人工验证获取验证码"
-                Margin="0,5,0,0"
-                Expanded="ExpanderExpanded"
-                Collapsed="ExpanderCollapsed">
+                Margin="0,5,0,0">
                 <StackPanel
                     Margin="10,20"
                     Orientation="Horizontal"
@@ -46,9 +46,7 @@
 
             <Expander
                 Header="轮播图管理"
-                Margin="0,5,0,0"
-                Expanded="ExpanderExpanded"
-                Collapsed="ExpanderCollapsed">
+                Margin="0,5,0,0">
                 <StackPanel
                     Margin="10">
                     <StackPanel
@@ -188,9 +186,7 @@
 
             <Expander
                 Header="比赛栏管理"
-                Margin="0,5,0,0"
-                Expanded="ExpanderExpanded"
-                Collapsed="ExpanderCollapsed">
+                Margin="0,5,0,0">
                 <StackPanel
                     Margin="10">
                     <StackPanel
@@ -290,9 +286,7 @@
 
             <Expander
                 Header="项目主要技术标签管理"
-                Margin="0,5,0,0"
-                Expanded="ExpanderExpanded"
-                Collapsed="ExpanderCollapsed">
+                Margin="0,5,0,0">
                 <StackPanel
                     Margin="10">
                     <StackPanel
@@ -390,9 +384,7 @@
 
             <Expander
                 Header="项目类型标签管理"
-                Margin="0,5,0,0"
-                Expanded="ExpanderExpanded"
-                Collapsed="ExpanderCollapsed">
+                Margin="0,5,0,0">
                 <StackPanel
                     Margin="10">
                     <StackPanel
@@ -490,9 +482,7 @@
 
             <Expander
                 Header="项目赛事标签管理"
-                Margin="0,5,0,0"
-                Expanded="ExpanderExpanded"
-                Collapsed="ExpanderCollapsed">
+                Margin="0,5,0,0">
                 <StackPanel
                     Margin="10">
                     <StackPanel
@@ -590,9 +580,7 @@
 
             <Expander
                 Header="人才技能标签管理"
-                Margin="0,5,0,0"
-                Expanded="ExpanderExpanded"
-                Collapsed="ExpanderCollapsed">
+                Margin="0,5,0,0">
                 <StackPanel
                     Margin="10">
                     <StackPanel
@@ -690,9 +678,7 @@
 
             <Expander
                 Header="后台管理账号"
-                Margin="0,5,0,0"
-                Expanded="ExpanderExpanded"
-                Collapsed="ExpanderCollapsed">
+                Margin="0,5,0,0">
                 <Grid
                     Margin="10,30">
                     <GroupBox
@@ -756,9 +742,7 @@
 
             <Expander
                 Header="用户管理"
-                Margin="0,5,0,0"
-                Expanded="ExpanderExpanded"
-                Collapsed="ExpanderCollapsed">
+                Margin="0,5,0,0">
                 <StackPanel
                     Margin="10"
                     Orientation="Horizontal">

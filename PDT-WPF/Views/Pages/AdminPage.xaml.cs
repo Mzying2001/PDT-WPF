@@ -35,7 +35,7 @@ namespace PDT_WPF.Views.Pages
         {
             foreach (var item in GetExpanders())
             {
-                if (!ReferenceEquals(sender, item))
+                if (!ReferenceEquals(e.Source, item))
                 {
                     item.Visibility = Visibility.Collapsed;
                 }
