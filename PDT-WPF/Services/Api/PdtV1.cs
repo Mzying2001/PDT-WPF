@@ -620,6 +620,70 @@ namespace PDT_WPF.Services.Api
             return JsonConvert.DeserializeObject<ChangeProjectTypeResponse>(res);
         }
 
+
+
+        public struct AddProejctMatchResponse
+        {
+            public Http.HttpStatus code;
+            public string mesg;
+        }
+        /// <summary>
+        /// 添加项目赛事标签
+        /// </summary>
+        /// <param name="matchName">项目赛事</param>
+        /// <returns></returns>
+        public static AddProejctMatchResponse AddProejctMatch(string matchName)
+        {
+            string url = BASE_URL + "project/ProejctMatch";
+            string res = Http.Post(url, new Dictionary<string, string>
+            {
+                ["matchName"] = matchName
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<AddProejctMatchResponse>(res);
+        }
+
+
+
+        public struct DeleteProejctMatchResponse
+        {
+            public Http.HttpStatus code;
+            public string mesg;
+        }
+        /// <summary>
+        /// 删除项目赛事标签
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static DeleteProejctMatchResponse DeleteProejctMatch(int id)
+        {
+            string url = BASE_URL + $"project/ProejctMatch/{id}";
+            string res = Http.Delete(url, null, Headers);
+            return JsonConvert.DeserializeObject<DeleteProejctMatchResponse>(res);
+        }
+
+
+
+        public struct ChangeProejctMatchResponse
+        {
+            public Http.HttpStatus code;
+            public string mesg;
+        }
+        /// <summary>
+        /// 修改项目赛事标签
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="matchName">项目赛事标签</param>
+        /// <returns></returns>
+        public static ChangeProejctMatchResponse ChangeProejctMatch(int id, string matchName)
+        {
+            string url = BASE_URL + $"project/ProejctMatch/{id}";
+            string res = Http.Put(url, new Dictionary<string, string>
+            {
+                ["matchName"] = matchName
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<ChangeProejctMatchResponse>(res);
+        }
+
         #endregion
 
 
