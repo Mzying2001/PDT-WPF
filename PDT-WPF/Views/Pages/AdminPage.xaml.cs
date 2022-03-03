@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PDT_WPF.Views.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,30 @@ namespace PDT_WPF.Views.Pages
         public AdminPage()
         {
             InitializeComponent();
+        }
+
+        private Expander[] GetExpanders()
+        {
+            return MyVisualTreeHelper.GetChildren<Expander>(containerPanel);
+        }
+
+        private void ExpanderExpanded(object sender, RoutedEventArgs e)
+        {
+            foreach (var item in GetExpanders())
+            {
+                if (!ReferenceEquals(sender, item))
+                {
+                    item.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        private void ExpanderCollapsed(object sender, RoutedEventArgs e)
+        {
+            foreach (var item in GetExpanders())
+            {
+                item.Visibility = Visibility.Visible;
+            }
         }
     }
 }
