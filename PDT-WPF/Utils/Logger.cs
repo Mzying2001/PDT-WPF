@@ -5,11 +5,13 @@ namespace PDT_WPF.Utils
 {
     internal static class Logger
     {
-        private const string LogFileName = "./Log.txt";
+        private const string LogFileName = "./Data/Log.txt";
 
         private static bool opened;
         private static FileStream stream;
         private static StreamWriter writer;
+
+        public static bool Opened => opened;
 
         public static bool Open()
         {

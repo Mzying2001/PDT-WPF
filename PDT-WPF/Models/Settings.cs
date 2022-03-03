@@ -3,6 +3,7 @@
     public class Settings
     {
         public string OpenId { get; set; }
+        public bool EnableLog { get; set; }
         public WindowSizeInfo MainWindowSizeInfo { get; set; }
 
 
@@ -13,7 +14,12 @@
         {
             get => new Settings
             {
-                OpenId = string.Empty
+                OpenId = string.Empty,
+#if DEBUG
+                EnableLog = true,
+#else
+                EnableLog = false,
+#endif
             };
         }
     }

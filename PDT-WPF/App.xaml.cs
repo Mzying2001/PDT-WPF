@@ -25,10 +25,11 @@ namespace PDT_WPF
                 return;
             }
 
-#if DEBUG
-            Logger.Open(); //打开Log
-            Logger.WriteLine("打开程序");
-#endif
+            if (LocalData.Settings.EnableLog)
+            {
+                Logger.Open(); //打开Log
+                Logger.WriteLine("打开程序");
+            }
 
             bool loadLoginWindow = true;
             foreach (var arg in e.Args)
@@ -77,10 +78,11 @@ namespace PDT_WPF
             base.OnExit(e);
             LocalData.SaveAllData();
 
-#if DEBUG
-            Logger.WriteLine("退出程序");
-            Logger.Close(); //关闭Log
-#endif
+            if (Logger.Opened)
+            {
+                Logger.WriteLine("退出程序");
+                Logger.Close(); //关闭Log
+            }
         }
 
         private static bool CheckStarted()
