@@ -39,12 +39,13 @@ namespace PDT_WPF.Views.Dialogs
             Close();
         }
 
-        public static void ShowDialog(Action<bool, string> callback, string title = null)
+        public static void ShowDialog(Action<bool, string> callback, string title = null, string defaultText = null)
         {
             new InputStringDialog()
             {
                 _callback = callback,
-                Title = title ?? "请输入文本"
+                Title = title ?? "请输入文本",
+                Input = defaultText
             }.ShowDialog();
         }
     }
