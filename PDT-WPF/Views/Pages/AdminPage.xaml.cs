@@ -26,14 +26,14 @@ namespace PDT_WPF.Views.Pages
             InitializeComponent();
         }
 
-        private Expander[] GetExpanders()
+        private Expander[] GetExpanders(DependencyObject parent)
         {
-            return MyVisualTreeHelper.GetChildren<Expander>(containerPanel);
+            return MyVisualTreeHelper.GetChildren<Expander>(parent);
         }
 
         private void ExpanderExpanded(object sender, RoutedEventArgs e)
         {
-            foreach (var item in GetExpanders())
+            foreach (var item in GetExpanders(sender as DependencyObject))
             {
                 if (!ReferenceEquals(e.Source, item))
                 {
@@ -44,7 +44,7 @@ namespace PDT_WPF.Views.Pages
 
         private void ExpanderCollapsed(object sender, RoutedEventArgs e)
         {
-            foreach (var item in GetExpanders())
+            foreach (var item in GetExpanders(sender as DependencyObject))
             {
                 item.Visibility = Visibility.Visible;
             }

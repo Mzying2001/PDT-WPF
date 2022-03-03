@@ -17,7 +17,6 @@
         IsInertiaEnabled="True"
         VerticalScrollBarVisibility="Auto">
         <StackPanel
-            x:Name="containerPanel"
             Margin="0,0,10,0"
             IsEnabled="{Binding AdminMode}"
             Expander.Expanded="ExpanderExpanded"
