@@ -622,7 +622,7 @@ namespace PDT_WPF.Services.Api
 
 
 
-        public struct AddProejctMatchResponse
+        public struct AddProjectMatchResponse
         {
             public Http.HttpStatus code;
             public string mesg;
@@ -632,19 +632,19 @@ namespace PDT_WPF.Services.Api
         /// </summary>
         /// <param name="matchName">项目赛事</param>
         /// <returns></returns>
-        public static AddProejctMatchResponse AddProejctMatch(string matchName)
+        public static AddProjectMatchResponse AddProjectMatch(string matchName)
         {
             string url = BASE_URL + "project/ProejctMatch";
             string res = Http.Post(url, new Dictionary<string, string>
             {
                 ["matchName"] = matchName
             }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
-            return JsonConvert.DeserializeObject<AddProejctMatchResponse>(res);
+            return JsonConvert.DeserializeObject<AddProjectMatchResponse>(res);
         }
 
 
 
-        public struct DeleteProejctMatchResponse
+        public struct DeleteProjectMatchResponse
         {
             public Http.HttpStatus code;
             public string mesg;
@@ -654,16 +654,16 @@ namespace PDT_WPF.Services.Api
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static DeleteProejctMatchResponse DeleteProejctMatch(int id)
+        public static DeleteProjectMatchResponse DeleteProjectMatch(int id)
         {
             string url = BASE_URL + $"project/ProejctMatch/{id}";
             string res = Http.Delete(url, null, Headers);
-            return JsonConvert.DeserializeObject<DeleteProejctMatchResponse>(res);
+            return JsonConvert.DeserializeObject<DeleteProjectMatchResponse>(res);
         }
 
 
 
-        public struct ChangeProejctMatchResponse
+        public struct ChangeProjectMatchResponse
         {
             public Http.HttpStatus code;
             public string mesg;
@@ -674,14 +674,14 @@ namespace PDT_WPF.Services.Api
         /// <param name="id"></param>
         /// <param name="matchName">项目赛事标签</param>
         /// <returns></returns>
-        public static ChangeProejctMatchResponse ChangeProejctMatch(int id, string matchName)
+        public static ChangeProjectMatchResponse ChangeProjectMatch(int id, string matchName)
         {
             string url = BASE_URL + $"project/ProejctMatch/{id}";
             string res = Http.Put(url, new Dictionary<string, string>
             {
                 ["matchName"] = matchName
             }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
-            return JsonConvert.DeserializeObject<ChangeProejctMatchResponse>(res);
+            return JsonConvert.DeserializeObject<ChangeProjectMatchResponse>(res);
         }
 
         #endregion
