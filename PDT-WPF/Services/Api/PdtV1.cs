@@ -492,6 +492,70 @@ namespace PDT_WPF.Services.Api
             return JsonConvert.DeserializeObject<GetVerificationCodeResponse>(res);
         }
 
+
+
+        public struct AddProjectMainTechnologyResponse
+        {
+            public Http.HttpStatus code;
+            public string mesg;
+        }
+        /// <summary>
+        /// 添加项目主要技术标签
+        /// </summary>
+        /// <param name="mainTechnology">项目主要技术</param>
+        /// <returns></returns>
+        public static AddProjectMainTechnologyResponse AddProjectMainTechnology(string mainTechnology)
+        {
+            string url = BASE_URL + "project/ProjectMainTechnology";
+            string res = Http.Post(url, new Dictionary<string, string>
+            {
+                ["mainTechnology"] = mainTechnology
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<AddProjectMainTechnologyResponse>(res);
+        }
+
+
+
+        public struct DeleteProjectMainTechnologyResponse
+        {
+            public Http.HttpStatus code;
+            public string mesg;
+        }
+        /// <summary>
+        /// 删除项目主要技术标签
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static DeleteProjectMainTechnologyResponse DeleteProjectMainTechnology(int id)
+        {
+            string url = BASE_URL + $"project/ProjectMainTechnology/{id}";
+            string res = Http.Delete(url, null, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<DeleteProjectMainTechnologyResponse>(res);
+        }
+
+
+
+        public struct ChangeProjectMainTechnologyResponse
+        {
+            public Http.HttpStatus code;
+            public string mesg;
+        }
+        /// <summary>
+        /// 修改项目主要技术标签
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="mainTechnology">项目主要技术</param>
+        /// <returns></returns>
+        public static ChangeProjectMainTechnologyResponse ChangeProjectMainTechnology(int id, string mainTechnology)
+        {
+            string url = BASE_URL + $"project/ProjectMainTechnology/{id}";
+            string res = Http.Put(url, new Dictionary<string, string>
+            {
+                ["mainTechnology"] = mainTechnology
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<ChangeProjectMainTechnologyResponse>(res);
+        }
+
         #endregion
 
 
