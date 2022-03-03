@@ -184,7 +184,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
                     BoardPhotos.Clear();
                     foreach (var item in result)
                         BoardPhotos.Add(item);
-                    RaisePropertyChanged("BoardPhotos");
+                    RaisePropertyChanged(nameof(BoardPhotos));
                 }
                 else
                 {
@@ -296,7 +296,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
                         foreach (var item in arr)
                             CompetitionSections.Add(item);
                     }
-                    RaisePropertyChanged("CompetitionSections");
+                    RaisePropertyChanged(nameof(CompetitionSections));
                 }
                 else
                 {
@@ -405,7 +405,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
                     ProjectMainTechnologies.Clear();
                     foreach (var item in result.mainTechnologys)
                         ProjectMainTechnologies.Add(item);
-                    RaisePropertyChanged("ProjectMainTechnologies");
+                    RaisePropertyChanged(nameof(ProjectMainTechnologies));
                 }
                 else
                 {
