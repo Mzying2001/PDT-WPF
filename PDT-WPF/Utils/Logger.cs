@@ -36,11 +36,6 @@ namespace PDT_WPF.Utils
             }
         }
 
-        private static string UnshiftTime(string value)
-        {
-            return string.Format(">> [{0}] {1}", DateTime.Now.ToString(), value);
-        }
-
         public static void WriteLine(object value, string type = null)
         {
             if (!opened)
@@ -48,14 +43,10 @@ namespace PDT_WPF.Utils
 
             lock (writer)
             {
-                if (type == null)
-                {
-                    writer.WriteLine(UnshiftTime(value?.ToString() ?? "null"));
-                }
-                else
-                {
-                    writer.WriteLine(UnshiftTime($"[{type}] {value?.ToString() ?? "null"}"));
-                }
+                writer.Write(">> [{0}] ", DateTime.Now.ToString());
+                writer.Write(type == null ? "" : $"[{type}] ");
+                writer.WriteLine(value?.ToString()?.Replace('\n', ' ') ?? "null");
+                writer.WriteLine();
             }
         }
 
