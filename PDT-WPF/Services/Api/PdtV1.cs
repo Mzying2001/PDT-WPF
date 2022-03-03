@@ -427,8 +427,9 @@ namespace PDT_WPF.Services.Api
 
         public struct GetPersonnelTechnologyTagsResponse
         {
-            public bool isSuccess;
-            public TechnologyTagItem[] technologyTags;
+            public Http.HttpStatus code;
+            public TechnologyTagItem[] mainTechnologys;
+            public string mesg;
         }
         /// <summary>
         /// 获取人才技能标签数组
@@ -436,8 +437,8 @@ namespace PDT_WPF.Services.Api
         /// <returns></returns>
         public static GetPersonnelTechnologyTagsResponse GetPersonnelTechnologyTags()
         {
-            string url = BASE_URL + "personnel/getPersonnelTechnologyTags";
-            string res = Http.Get(url);
+            string url = BASE_URL + "personnel/PersonnelTechnologyTag";
+            string res = Http.Get(url, null, Headers);
             return JsonConvert.DeserializeObject<GetPersonnelTechnologyTagsResponse>(res);
         }
 
@@ -682,6 +683,70 @@ namespace PDT_WPF.Services.Api
                 ["matchName"] = matchName
             }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<ChangeProjectMatchResponse>(res);
+        }
+
+
+
+        public struct AddPersonnelTechnologyTagResponse
+        {
+            public Http.HttpStatus code;
+            public string mesg;
+        }
+        /// <summary>
+        /// 添加人才技能标签
+        /// </summary>
+        /// <param name="technologyTag">人才技能标签</param>
+        /// <returns></returns>
+        public static AddPersonnelTechnologyTagResponse AddPersonnelTechnologyTag(string technologyTag)
+        {
+            string url = BASE_URL + "personnel/PersonnelTechnologyTag";
+            string res = Http.Post(url, new Dictionary<string, string>
+            {
+                ["technologyTag"] = technologyTag
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<AddPersonnelTechnologyTagResponse>(res);
+        }
+
+
+
+        public struct DeletePersonnelTechnologyTagResponse
+        {
+            public Http.HttpStatus code;
+            public string mesg;
+        }
+        /// <summary>
+        /// 删除人才技能标签
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static DeletePersonnelTechnologyTagResponse DeletePersonnelTechnologyTag(int id)
+        {
+            string url = BASE_URL + $"personnel/PersonnelTechnologyTag/{id}";
+            string res = Http.Delete(url, null, Headers);
+            return JsonConvert.DeserializeObject<DeletePersonnelTechnologyTagResponse>(res);
+        }
+
+
+
+        public struct ChangePersonnelTechnologyTagResponse
+        {
+            public Http.HttpStatus code;
+            public string mesg;
+        }
+        /// <summary>
+        /// 修改人才技能标签
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="technologyTag">人才技能标签</param>
+        /// <returns></returns>
+        public static ChangePersonnelTechnologyTagResponse ChangePersonnelTechnologyTag(int id, string technologyTag)
+        {
+            string url = BASE_URL + $"personnel/PersonnelTechnologyTag/{id}";
+            string res = Http.Put(url, new Dictionary<string, string>
+            {
+                ["technologyTag"] = technologyTag
+            }, Headers, Http.ContentType.MULTIPART_FORM_DATA);
+            return JsonConvert.DeserializeObject<ChangePersonnelTechnologyTagResponse>(res);
         }
 
         #endregion
