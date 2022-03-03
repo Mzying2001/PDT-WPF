@@ -445,6 +445,28 @@ namespace PDT_WPF.Services.Api
         #endregion
 
 
+        #region 论坛
+
+        public struct GetForumTalkTagResponse
+        {
+            public bool isSuccess;
+            public TalkTagItem[] talkTags;
+            public string mesg;
+        }
+        /// <summary>
+        /// 获取全部的话题标签
+        /// </summary>
+        /// <returns></returns>
+        public static GetForumTalkTagResponse GetForumTalkTag()
+        {
+            string url = BASE_URL + "forum/getForumTalkTaga";
+            string res = Http.Get(url, null, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<GetForumTalkTagResponse>(res);
+        }
+
+        #endregion
+
+
         #region 后台管理
 
         public struct AdministratorLoginResponse
@@ -749,6 +771,8 @@ namespace PDT_WPF.Services.Api
             return JsonConvert.DeserializeObject<ChangePersonnelTechnologyTagResponse>(res);
         }
 
+
+
         public struct AddAdministratorResponse
         {
             public Http.HttpStatus code;
@@ -771,6 +795,95 @@ namespace PDT_WPF.Services.Api
                 ["description"] = description
             }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<AddAdministratorResponse>(res);
+        }
+
+
+
+        public struct GetForumTalkTagApplyListResponse
+        {
+            public bool isSuccess;
+            public string mesg;
+            public TalkTagItem[] talkTags;
+        }
+        /// <summary>
+        /// 获取未同意的话题标签
+        /// </summary>
+        /// <returns></returns>
+        public static GetForumTalkTagApplyListResponse GetForumTalkTagApplyList()
+        {
+            string url = BASE_URL + "forum/getForumTalkTagb";
+            string res = Http.Get(url, null, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<GetForumTalkTagApplyListResponse>(res);
+        }
+
+
+
+        public struct ProcessTalkTagAppyResponse
+        {
+            public bool isSuccess;
+            public string mesg;
+        }
+        /// <summary>
+        /// 同意话题申请
+        /// </summary>
+        /// <param name="talkTagId">话题标签id</param>
+        /// <param name="agree">是否同意</param>
+        /// <returns></returns>
+        public static ProcessTalkTagAppyResponse ProcessTalkTagAppy(int talkTagId, bool agree)
+        {
+            string url = BASE_URL + "forum/agreeTalkTag";
+            string res = Http.Post(url, new Dictionary<string, string>
+            {
+                ["talkTagId"] = talkTagId.ToString(),
+                ["code"] = agree ? "1" : "0"
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<ProcessTalkTagAppyResponse>(res);
+        }
+
+
+
+        public struct AddForumTalkTagResponse
+        {
+            public bool isSuccess;
+            public string mesg;
+        }
+        /// <summary>
+        /// 增加话题标签
+        /// </summary>
+        /// <param name="talkTag">话题标签</param>
+        /// <param name="apply">一句话介绍</param>
+        /// <returns></returns>
+        public static AddForumTalkTagResponse AddForumTalkTag(string talkTag, string apply)
+        {
+            string url = BASE_URL + "forum/addForumTalkTagb";
+            string res = Http.Post(url, new Dictionary<string, string>
+            {
+                ["talkTag"] = talkTag,
+                ["apply"] = apply
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<AddForumTalkTagResponse>(res);
+        }
+
+
+
+        public struct DeleteForumTalkTagResponse
+        {
+            public bool isSuccess;
+            public string mesg;
+        }
+        /// <summary>
+        /// 删除话题标签
+        /// </summary>
+        /// <param name="talkTagId">话题标签id</param>
+        /// <returns></returns>
+        public static DeleteForumTalkTagResponse DeleteForumTalkTag(int talkTagId)
+        {
+            string url = BASE_URL + "forum/deleteForumTalkTagb";
+            string res = Http.Post(url, new Dictionary<string, string>
+            {
+                ["talkTagId"] = talkTagId.ToString()
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<DeleteForumTalkTagResponse>(res);
         }
 
         #endregion
