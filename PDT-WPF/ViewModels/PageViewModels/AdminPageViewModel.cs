@@ -36,6 +36,11 @@ namespace PDT_WPF.ViewModels.PageViewModels
         public RelayCommand<ProjectTypeItem> DeleteProjectTypeCmd { get; set; }
         public RelayCommand<ProjectTypeItem> ChangeProjectTypeCmd { get; set; }
 
+        public RelayCommand LoadProjectMatchesCmd { get; set; }
+        public RelayCommand AddProjectMatchCmd { get; set; }
+        public RelayCommand<ProjectMatch> DeleteProjectMatchCmd { get; set; }
+        public RelayCommand<ProjectMatch> ChangeProjectMatchCmd { get; set; }
+
 
 
         /// <summary>
@@ -658,6 +663,157 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
         #endregion
 
+        #region 项目赛事标签管理
+
+        public ObservableCollection<ProjectMatch> ProjectMatches { get; set; }
+
+        private bool _isLoadingProjectMatches;
+        /// <summary>
+        /// 是否正在加载项目赛事标签
+        /// </summary>
+        public bool IsLoadingProjectMatches
+        {
+            get => _isLoadingProjectMatches;
+            set
+            {
+                _isLoadingProjectMatches = value;
+                LoadProjectMatchesCmd.RaiseCanExecuteChanged();
+            }
+        }
+
+        /// <summary>
+        /// 加载项目赛事标签的异步方法
+        /// </summary>
+        /// <param name="callback"></param>
+        private async void LoadProjectMatchesAsync(Action<PdtV1.GetProjectMatchResponse> callback)
+        {
+            try
+            {
+                IsLoadingProjectMatches = true;
+                callback(await Task.Run(() => PdtV1.GetProjectMatch()));
+            }
+            catch
+            {
+                callback(default);
+            }
+            finally
+            {
+                IsLoadingProjectMatches = false;
+            }
+        }
+
+        /// <summary>
+        /// 加载项目赛事标签
+        /// </summary>
+        private void LoadProjectMatches()
+        {
+            if (ProjectMatches == null)
+                ProjectMatches = new ObservableCollection<ProjectMatch>();
+
+            LoadProjectMatchesAsync(result =>
+            {
+                if (result.code == Services.Http.HttpStatus.OK)
+                {
+                    ProjectMatches.Clear();
+                    foreach (var item in result.projectMatch)
+                        ProjectMatches.Add(item);
+                    RaisePropertyChanged(nameof(ProjectMatches));
+                }
+                else
+                {
+                    MessageBoxHelper.ShowError("获取项目赛事标签失败！");
+                }
+            });
+        }
+
+        /// <summary>
+        /// 添加项目赛事标签
+        /// </summary>
+        private void AddProjectMatch()
+        {
+            InputStringDialog.ShowDialog((success, input) =>
+            {
+                if (success)
+                {
+                    try
+                    {
+                        var res = PdtV1.AddProjectMatch(input);
+                        if (res.code == Services.Http.HttpStatus.OK)
+                        {
+                            LoadProjectMatches();
+                        }
+                        else
+                        {
+                            throw new Exception(res.mesg);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBoxHelper.ShowError(e);
+                    }
+                }
+            }, "请输入新的项目赛事");
+        }
+
+        /// <summary>
+        /// 删除项目赛事标签
+        /// </summary>
+        /// <param name="projectMatch"></param>
+        private void DeleteProjectMatch(ProjectMatch projectMatch)
+        {
+            if (MessageBoxHelper.ShowQuestion($"确定要删除“{projectMatch.MatchName}”吗？"))
+            {
+                try
+                {
+                    var res = PdtV1.DeleteProjectMatch(projectMatch.MatchId);
+                    if (res.code == Services.Http.HttpStatus.OK)
+                    {
+                        LoadProjectMatches();
+                    }
+                    else
+                    {
+                        throw new Exception(res.mesg);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBoxHelper.ShowError(e, "删除失败");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 修改项目赛事标签
+        /// </summary>
+        /// <param name="projectMatch"></param>
+        private void ChangeProjectMatch(ProjectMatch projectMatch)
+        {
+            InputStringDialog.ShowDialog((success, input) =>
+            {
+                if (success)
+                {
+                    try
+                    {
+                        var res = PdtV1.ChangeProjectMatch(projectMatch.MatchId, input);
+                        if (res.code == Services.Http.HttpStatus.OK)
+                        {
+                            LoadProjectMatches();
+                        }
+                        else
+                        {
+                            throw new Exception(res.mesg);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBoxHelper.ShowError(e);
+                    }
+                }
+            }, "修改项目赛事", projectMatch.MatchName);
+        }
+
+        #endregion
+
 
 
         public AdminPageViewModel()
@@ -683,6 +839,11 @@ namespace PDT_WPF.ViewModels.PageViewModels
             DeleteProjectTypeCmd = new RelayCommand<ProjectTypeItem>(DeleteProjectType);
             ChangeProjectTypeCmd = new RelayCommand<ProjectTypeItem>(ChangeProjectType);
 
+            LoadProjectMatchesCmd = new RelayCommand(LoadProjectMatches, () => !IsLoadingProjectMatches);
+            AddProjectMatchCmd = new RelayCommand(AddProjectMatch);
+            DeleteProjectMatchCmd = new RelayCommand<ProjectMatch>(DeleteProjectMatch);
+            ChangeProjectMatchCmd = new RelayCommand<ProjectMatch>(ChangeProjectMatch);
+
 
             if (GlobalData.AdminMode)
             {
@@ -690,6 +851,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
                 LoadCompetitionSections();
                 LoadProjectMainTechnologies();
                 LoadProjectTypes();
+                LoadProjectMatches();
             }
         }
     }
