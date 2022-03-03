@@ -1,11 +1,12 @@
-﻿using System;
+﻿using PDT_WPF.Models.Data;
+using System;
 using System.IO;
 
 namespace PDT_WPF.Utils
 {
     internal static class Logger
     {
-        private const string LogFileName = "./Data/Log.txt";
+        private const string LogFileName = LocalData.DATA_PATH + "/Log.txt";
 
         private static bool opened;
         private static FileStream stream;
