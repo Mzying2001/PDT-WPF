@@ -315,6 +315,63 @@ namespace PDT_WPF.Services.Api
             return JsonConvert.DeserializeObject<GetUserProjectResponse>(res);
         }
 
+
+
+        public struct GetProjectMatchResponse
+        {
+            public Http.HttpStatus code;
+            public ProjectMatch[] projectMatch;
+            public string mesg;
+        }
+        /// <summary>
+        /// 获取项目赛事数组
+        /// </summary>
+        /// <returns></returns>
+        public static GetProjectMatchResponse GetProjectMatch()
+        {
+            string url = BASE_URL + "project/ProjectMatch";
+            string res = Http.Get(url, null, Headers);
+            return JsonConvert.DeserializeObject<GetProjectMatchResponse>(res);
+        }
+
+
+
+        public struct GetProjectMainTechnologyResponse
+        {
+            public Http.HttpStatus code;
+            public ProjectMainTechnology[] mainTechnologys;
+            public string mesg;
+        }
+        /// <summary>
+        /// 获取项目主要技术数组
+        /// </summary>
+        /// <returns></returns>
+        public static GetProjectMainTechnologyResponse GetProjectMainTechnology()
+        {
+            string url = BASE_URL + "project/ProjectMainTechnology";
+            string res = Http.Get(url, null, Headers);
+            return JsonConvert.DeserializeObject<GetProjectMainTechnologyResponse>(res);
+        }
+
+
+
+        public struct GetProjectTypeResponse
+        {
+            public Http.HttpStatus code;
+            public ProjectTypeItem[] projectTypes;
+            public string mesg;
+        }
+        /// <summary>
+        /// 获取项目类型标签
+        /// </summary>
+        /// <returns></returns>
+        public static GetProjectTypeResponse GetProjectType()
+        {
+            string url = BASE_URL + "project/ProjectType";
+            string res = Http.Get(url, null, Headers, Http.ContentType.MULTIPART_FORM_DATA);
+            return JsonConvert.DeserializeObject<GetProjectTypeResponse>(res);
+        }
+
         #endregion
 
 
