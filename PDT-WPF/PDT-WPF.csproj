@@ -326,6 +326,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Dialogs\AddForumTalkTagDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Dialogs\CompetitionSectionDetailDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -353,6 +357,9 @@
     </Compile>
     <Compile Include="Views\Dialogs\AddCompetitionSectionDialoog.xaml.cs">
       <DependentUpon>AddCompetitionSectionDialoog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\AddForumTalkTagDialog.xaml.cs">
+      <DependentUpon>AddForumTalkTagDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\CompetitionSectionDetailDialog.xaml.cs">
       <DependentUpon>CompetitionSectionDetailDialog.xaml</DependentUpon>

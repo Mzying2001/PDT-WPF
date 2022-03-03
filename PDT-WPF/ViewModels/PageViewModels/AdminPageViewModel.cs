@@ -46,6 +46,12 @@ namespace PDT_WPF.ViewModels.PageViewModels
         public RelayCommand<TechnologyTagItem> DeletePersonnelTechnologyTagCmd { get; set; }
         public RelayCommand<TechnologyTagItem> ChangePersonnelTechnologyTagCmd { get; set; }
 
+        public RelayCommand LoadForumTalkTagsCmd { get; set; }
+        public RelayCommand AddForumTalkTagCmd { get; set; }
+        public RelayCommand<TalkTagItem> DeleteForumTalkTagCmd { get; set; }
+        public RelayCommand<TalkTagItem> ChangeForumTalkTagCmd { get; set; }
+        public RelayCommand ViewForumTalkTagApplyListCmd { get; set; }
+
         public RelayCommand AddAdministratorCmd { get; set; }
 
         public RelayCommand OpenUserManagerCmd { get; set; }
@@ -974,6 +980,135 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
         #endregion
 
+        #region 论坛话题标签管理
+
+        public ObservableCollection<TalkTagItem> TalkTags { get; set; }
+
+        private bool _isLoadingTalkTags;
+        /// <summary>
+        /// 是否正在加载论坛话题标签
+        /// </summary>
+        public bool IsLoadingTalkTags
+        {
+            get => _isLoadingTalkTags;
+            set
+            {
+                _isLoadingTalkTags = value;
+                LoadForumTalkTagsCmd.RaiseCanExecuteChanged();
+            }
+        }
+
+        /// <summary>
+        /// 加载论坛话题标签的异步方法
+        /// </summary>
+        /// <param name="callback"></param>
+        private async void LoadTalkTagsAsync(Action<PdtV1.GetForumTalkTagResponse> callback)
+        {
+            try
+            {
+                IsLoadingTalkTags = true;
+                callback(await Task.Run(() => PdtV1.GetForumTalkTag()));
+            }
+            catch
+            {
+                callback(default);
+            }
+            finally
+            {
+                IsLoadingTalkTags = false;
+            }
+        }
+
+        /// <summary>
+        /// 加载论坛话题标签
+        /// </summary>
+        private void LoadTalkTags()
+        {
+            if (TalkTags == null)
+                TalkTags = new ObservableCollection<TalkTagItem>();
+
+            LoadTalkTagsAsync(result =>
+            {
+                if (result.isSuccess)
+                {
+                    TalkTags.Clear();
+                    foreach (var item in result.talkTags)
+                        TalkTags.Add(item);
+                    RaisePropertyChanged(nameof(TalkTags));
+                }
+                else
+                {
+                    MessageBoxHelper.ShowError("获取论坛话题标签失败！");
+                }
+            });
+        }
+
+        /// <summary>
+        /// 添加论坛话题标签
+        /// </summary>
+        private void AddTalkTag()
+        {
+            AddForumTalkTagDialog.ShowDialog((success, talkTag, description) =>
+            {
+                if (success)
+                {
+                    try
+                    {
+                        var res = PdtV1.AddForumTalkTag(talkTag, description);
+                        if (res.isSuccess)
+                        {
+                            LoadTalkTags();
+                        }
+                        else
+                        {
+                            throw new Exception(res.mesg);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBoxHelper.ShowError(e);
+                    }
+                }
+            });
+        }
+
+        /// <summary>
+        /// 删除论坛话题标签
+        /// </summary>
+        /// <param name="talkTag"></param>
+        private void DeleteTalkTag(TalkTagItem talkTag)
+        {
+            if (MessageBoxHelper.ShowQuestion($"确定要删除“{talkTag.TalkTag}”吗？"))
+            {
+                try
+                {
+                    var res = PdtV1.DeleteForumTalkTag(talkTag.TalkTagId);
+                    if (res.isSuccess)
+                    {
+                        LoadTalkTags();
+                    }
+                    else
+                    {
+                        throw new Exception(res.mesg);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBoxHelper.ShowError(e, "删除失败");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 查看论坛话题标签的申请列表
+        /// </summary>
+        private void ViewForumTalkTagApplyList()
+        {
+            MessageBoxHelper.ShowMessage("开发中...");
+        }
+
+        #endregion
+
         #region 后台管理账号
 
         private string _newAdminAccountName;
@@ -1126,6 +1261,11 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
             OpenUserManagerCmd = new RelayCommand(OpenUserManager);
 
+            LoadForumTalkTagsCmd = new RelayCommand(LoadTalkTags, () => !IsLoadingTalkTags);
+            AddForumTalkTagCmd = new RelayCommand(AddTalkTag);
+            DeleteForumTalkTagCmd = new RelayCommand<TalkTagItem>(DeleteTalkTag);
+            ViewForumTalkTagApplyListCmd = new RelayCommand(ViewForumTalkTagApplyList);
+
 
             if (GlobalData.AdminMode)
             {
@@ -1135,6 +1275,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
                 LoadProjectTypes();
                 LoadProjectMatches();
                 LoadTechnologyTags();
+                LoadTalkTags();
             }
         }
     }

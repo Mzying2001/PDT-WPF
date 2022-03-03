@@ -13,6 +13,11 @@
         public int Code { get; set; }
         public string TalkTag { get; set; }
         public string Apply { get; set; }
+        public int Views { get; set; }
+        public int ForumNum { get; set; }
+        public int LikeNum { get; set; }
+        public int FollowNum { get; set; }
+        public object WhoFollow { get; set; }
         public object Forums { get; set; }
     }
 }

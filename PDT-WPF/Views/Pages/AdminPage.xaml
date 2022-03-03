@@ -682,6 +682,126 @@
                 </StackPanel>
             </Expander>
 
+            <!--论坛话题标签管理-->
+            <Expander
+                Header="论坛话题标签管理"
+                Margin="0,5,0,0">
+                <StackPanel
+                    Margin="10">
+                    <StackPanel
+                        Margin="0,0,0,10"
+                        Orientation="Horizontal">
+                        <Button
+                            Content="更新数据"
+                            Command="{Binding LoadForumTalkTagsCmd}"/>
+                        <Button
+                            Margin="10,0,0,0"
+                            Content="添加话题标签"
+                            Command="{Binding AddForumTalkTagCmd}"/>
+                        <Button
+                            Margin="10,0,0,0"
+                            Content="查看申请列表"
+                            Command="{Binding ViewForumTalkTagApplyListCmd}"/>
+                    </StackPanel>
+                    <ListView
+                        MaxHeight="500"
+                        ItemsSource="{Binding TalkTags}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn
+                                    Width="50"
+                                    Header="ID"
+                                    DisplayMemberBinding="{Binding TalkTagId}"/>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="话题标签">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding TalkTag}"
+                                                ToolTip="{Binding TalkTag}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="150"
+                                    Header="描述">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding Apply}"
+                                                ToolTip="{Binding Apply}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="创建日期">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding CreatedAt, Converter={StaticResource DateFormater}}"
+                                                ToolTip="{Binding CreatedAt}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="更新日期">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding UpdatedAt, Converter={StaticResource DateFormater}}"
+                                                ToolTip="{Binding UpdatedAt}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="删除日期">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding DeletedAt, Converter={StaticResource DateFormater}}"
+                                                ToolTip="{Binding DeletedAt}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Header="访问次数"
+                                    DisplayMemberBinding="{Binding Views}"/>
+                                <GridViewColumn
+                                    Header="贴子数"
+                                    DisplayMemberBinding="{Binding ForumNum}"/>
+                                <GridViewColumn
+                                    Header="喜欢人数"
+                                    DisplayMemberBinding="{Binding LikeNum}"/>
+                                <GridViewColumn
+                                    Header="关注人数"
+                                    DisplayMemberBinding="{Binding FollowNum}"/>
+                                <GridViewColumn
+                                    Header="操作">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button
+                                                Margin="10,0,0,0"
+                                                Content="删除"
+                                                Command="{Binding Source={StaticResource Locator}, Path=AdminPage.DeleteForumTalkTagCmd}"
+                                                CommandParameter="{Binding}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </Expander>
+
             <!--后台管理账号-->
             <Expander
                 Header="后台管理账号"

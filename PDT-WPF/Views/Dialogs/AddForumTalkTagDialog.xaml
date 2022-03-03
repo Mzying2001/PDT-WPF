@@ -1,0 +1,45 @@
+﻿<Window x:Class="PDT_WPF.Views.Dialogs.AddForumTalkTagDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PDT_WPF.Views.Dialogs"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        mc:Ignorable="d"
+        
+        x:Name="window"
+        Title="添加话题标签"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen"
+        Closing="WindowClosing">
+
+    <StackPanel
+        Margin="20"
+        Width="200">
+
+        <hc:TextBox
+            x:Name="talkTagBox"
+            hc:InfoElement.Title="话题标签"
+            Text="{Binding ElementName=window, Path=TalkTag, UpdateSourceTrigger=PropertyChanged}"/>
+        <hc:TextBox
+            x:Name="descriptionBox"
+            hc:InfoElement.Title="描述"
+            Text="{Binding ElementName=window, Path=Description, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button
+            Margin="0,20,0,0"
+            Content="添加"
+            Style="{StaticResource ButtonPrimary}"
+            HorizontalAlignment="Stretch"
+            Click="ButtonClick">
+            <Button.IsEnabled>
+                <MultiBinding
+                    Converter="{StaticResource StringArrNotAnyEmpty}">
+                    <Binding Path="Text" ElementName="talkTagBox"/>
+                    <Binding Path="Text" ElementName="descriptionBox"/>
+                </MultiBinding>
+            </Button.IsEnabled>
+        </Button>
+
+    </StackPanel>
+</Window>
