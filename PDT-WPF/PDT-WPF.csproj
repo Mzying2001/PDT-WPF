@@ -384,11 +384,11 @@
       <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Panels\WaterFallPanel.cs" />
-    <Compile Include="Views\Utils\HorizontalScrollBehavior.cs" />
-    <Compile Include="Views\Utils\MessageBoxHelper.cs" />
-    <Compile Include="Views\Utils\PasswordBoxBehavior.cs" />
-    <Compile Include="Views\Utils\PasswordBoxHelper.cs" />
-    <Compile Include="Views\Utils\MyVisualTreeHelper.cs" />
+    <Compile Include="Utils\HorizontalScrollBehavior.cs" />
+    <Compile Include="Utils\MessageBoxHelper.cs" />
+    <Compile Include="Utils\PasswordBoxBehavior.cs" />
+    <Compile Include="Utils\PasswordBoxHelper.cs" />
+    <Compile Include="Utils\MyVisualTreeHelper.cs" />
     <Compile Include="Views\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>

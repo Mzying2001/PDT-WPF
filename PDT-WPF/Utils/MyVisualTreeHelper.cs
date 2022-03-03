@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 
-namespace PDT_WPF.Views.Utils
+namespace PDT_WPF.Utils
 {
     public static class MyVisualTreeHelper
     {

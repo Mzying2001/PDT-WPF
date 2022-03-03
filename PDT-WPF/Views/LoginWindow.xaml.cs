@@ -1,7 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using PDT_WPF.Models;
 using PDT_WPF.Models.Data;
-using PDT_WPF.Views.Utils;
+using PDT_WPF.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;

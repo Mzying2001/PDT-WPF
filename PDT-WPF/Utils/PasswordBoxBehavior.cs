@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Interactivity;
 
-namespace PDT_WPF.Views.Utils
+namespace PDT_WPF.Utils
 {
     /// <summary>
     /// 接收PasswordBox的密码修改事件

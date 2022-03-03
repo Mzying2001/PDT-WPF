@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PDT_WPF.Views"
         xmlns:hc="https://handyorg.github.io/handycontrol"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:Utils="clr-namespace:PDT_WPF.Views.Utils"
+        xmlns:Utils="clr-namespace:PDT_WPF.Utils"
         mc:Ignorable="d"
         
         Title="登录"

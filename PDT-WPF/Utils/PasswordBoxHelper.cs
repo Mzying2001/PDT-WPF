@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace PDT_WPF.Views.Utils
+namespace PDT_WPF.Utils
 {
     /// <summary>
     /// 增加Password扩展属性

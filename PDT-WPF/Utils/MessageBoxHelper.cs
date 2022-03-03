@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace PDT_WPF.Views.Utils
+namespace PDT_WPF.Utils
 {
     public static class MessageBoxHelper
     {
