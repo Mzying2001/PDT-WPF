@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Linq;
 
-namespace PDT_WPF.Models.Converters
+namespace PDT_WPF.Utils.Converters
 {
     public class StringArrNotAnyEmpty : MultiValueConverterBase<string, bool>
     {

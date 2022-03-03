@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace PDT_WPF.Models.Converters
+namespace PDT_WPF.Utils.Converters
 {
     /// <summary>
     /// 用于实现HandyControl的流式布局组数的自适应（ActualWidth -> Groups）

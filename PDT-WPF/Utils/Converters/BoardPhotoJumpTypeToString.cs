@@ -1,7 +1,8 @@
-﻿using System;
+﻿using PDT_WPF.Models;
+using System;
 using System.Globalization;
 
-namespace PDT_WPF.Models.Converters
+namespace PDT_WPF.Utils.Converters
 {
     public class BoardPhotoJumpTypeToString : ValueConverterBase<BoardPhoto.JumpType, string>
     {

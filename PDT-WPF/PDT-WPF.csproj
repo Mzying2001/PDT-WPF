@@ -266,16 +266,16 @@
     </ApplicationDefinition>
     <Compile Include="Models\BoardPhoto.cs" />
     <Compile Include="Models\CompetitionSection.cs" />
-    <Compile Include="Models\Converters\BoolNotOperation.cs" />
-    <Compile Include="Models\Converters\DateFormater.cs" />
-    <Compile Include="Models\Converters\EnumToInt.cs" />
-    <Compile Include="Models\Converters\BoardPhotoJumpTypeToString.cs" />
-    <Compile Include="Models\Converters\HcWaterfallGroupsAdapter.cs" />
-    <Compile Include="Models\Converters\HttpsUrlFormater.cs" />
-    <Compile Include="Models\Converters\MultiValueConverterBase.cs" />
-    <Compile Include="Models\Converters\StringArrNotAnyEmpty.cs" />
-    <Compile Include="Models\Converters\StringNotEmpty.cs" />
-    <Compile Include="Models\Converters\ValueConverterBase.cs" />
+    <Compile Include="Utils\Converters\BoolNotOperation.cs" />
+    <Compile Include="Utils\Converters\DateFormater.cs" />
+    <Compile Include="Utils\Converters\EnumToInt.cs" />
+    <Compile Include="Utils\Converters\BoardPhotoJumpTypeToString.cs" />
+    <Compile Include="Utils\Converters\HcWaterfallGroupsAdapter.cs" />
+    <Compile Include="Utils\Converters\HttpsUrlFormater.cs" />
+    <Compile Include="Utils\Converters\MultiValueConverterBase.cs" />
+    <Compile Include="Utils\Converters\StringArrNotAnyEmpty.cs" />
+    <Compile Include="Utils\Converters\StringNotEmpty.cs" />
+    <Compile Include="Utils\Converters\ValueConverterBase.cs" />
     <Compile Include="Models\Data\GlobalData.cs" />
     <Compile Include="Models\EnumDescription.cs" />
     <Compile Include="Models\ProjectMatch.cs" />
@@ -309,7 +309,7 @@
     <Compile Include="ViewModels\PageViewModels\ProjectLibraryPageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\TalentPoolPageViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
-    <Page Include="Models\Converters\Converters.xaml">
+    <Page Include="Utils\Converters\Converters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

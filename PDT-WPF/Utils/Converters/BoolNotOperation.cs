@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace PDT_WPF.Models.Converters
+namespace PDT_WPF.Utils.Converters
 {
     [Obsolete("使用HandyControl的Boolean2BooleanReConverter替换")]
     public class BoolNotOperation : ValueConverterBase<bool, bool>

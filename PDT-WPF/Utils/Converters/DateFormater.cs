@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace PDT_WPF.Models.Converters
+namespace PDT_WPF.Utils.Converters
 {
     public class DateFormater : ValueConverterBase<string, string>
     {

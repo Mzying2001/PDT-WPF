@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace PDT_WPF.Models.Converters
+namespace PDT_WPF.Utils.Converters
 {
     public class EnumToInt : ValueConverterBase<Enum, int>
     {
