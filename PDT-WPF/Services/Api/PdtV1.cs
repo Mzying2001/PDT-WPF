@@ -556,6 +556,70 @@ namespace PDT_WPF.Services.Api
             return JsonConvert.DeserializeObject<ChangeProjectMainTechnologyResponse>(res);
         }
 
+
+
+        public struct AddProjectTypeResponse
+        {
+            public Http.HttpStatus code;
+            public string mesg;
+        }
+        /// <summary>
+        /// 添加项目类型标签
+        /// </summary>
+        /// <param name="projectType">项目类型</param>
+        /// <returns></returns>
+        public static AddProjectTypeResponse AddProjectType(string projectType)
+        {
+            string url = BASE_URL + "project/ProjectType";
+            string res = Http.Post(url, new Dictionary<string, string>
+            {
+                ["projectType"] = projectType
+            }, Headers, Http.ContentType.MULTIPART_FORM_DATA);
+            return JsonConvert.DeserializeObject<AddProjectTypeResponse>(res);
+        }
+
+
+
+        public struct DeleteProjectTypeResponse
+        {
+            public Http.HttpStatus code;
+            public string mesg;
+        }
+        /// <summary>
+        /// 删除项目类型标签
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static DeleteProjectTypeResponse DeleteProjectType(int id)
+        {
+            string url = BASE_URL + $"project/ProjectType/{id}";
+            string res = Http.Delete(url, null, Headers, Http.ContentType.MULTIPART_FORM_DATA);
+            return JsonConvert.DeserializeObject<DeleteProjectTypeResponse>(res);
+        }
+
+
+
+        public struct ChangeProjectTypeResponse
+        {
+            public Http.HttpStatus code;
+            public string mesg;
+        }
+        /// <summary>
+        /// 修改项目类型标签
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="projectType">项目类型</param>
+        /// <returns></returns>
+        public static ChangeProjectTypeResponse ChangeProjectType(int id, string projectType)
+        {
+            string url = BASE_URL + $"/project/ProjectType/{id}";
+            string res = Http.Put(url, new Dictionary<string, string>
+            {
+                ["projectType"] = projectType
+            }, Headers, Http.ContentType.MULTIPART_FORM_DATA);
+            return JsonConvert.DeserializeObject<ChangeProjectTypeResponse>(res);
+        }
+
         #endregion
 
 
