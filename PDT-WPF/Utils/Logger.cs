@@ -48,7 +48,7 @@ namespace PDT_WPF.Utils
             {
                 writer.Write(">> [{0}] ", DateTime.Now.ToString());
                 writer.Write(type == null ? "" : $"[{type}] ");
-                writer.WriteLine(value?.ToString()?.Replace('\n', ' ') ?? "null");
+                writer.WriteLine(value?.ToString() ?? "null");
                 writer.WriteLine();
             }
         }
