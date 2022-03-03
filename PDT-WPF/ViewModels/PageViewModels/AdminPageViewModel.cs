@@ -46,6 +46,8 @@ namespace PDT_WPF.ViewModels.PageViewModels
         public RelayCommand<TechnologyTagItem> DeletePersonnelTechnologyTagCmd { get; set; }
         public RelayCommand<TechnologyTagItem> ChangePersonnelTechnologyTagCmd { get; set; }
 
+        public RelayCommand AddAdministratorCmd { get; set; }
+
 
 
         /// <summary>
@@ -970,6 +972,110 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
         #endregion
 
+        #region 后台管理账号
+
+        private string _newAdminAccountName;
+        /// <summary>
+        /// 新管理员账号名称
+        /// </summary>
+        public string NewAdminAccountName
+        {
+            get => _newAdminAccountName;
+            set => Set(ref _newAdminAccountName, value);
+        }
+
+        private string _newAdminAccountPassword;
+        /// <summary>
+        /// 新管理员账号密码
+        /// </summary>
+        public string NewAdminAccountPassword
+        {
+            get => _newAdminAccountPassword;
+            set => Set(ref _newAdminAccountPassword, value);
+        }
+
+        private string _newAdminAccountPasswordRepeat;
+        /// <summary>
+        /// 用于验证新管理员账号密码
+        /// </summary>
+        public string NewAdminAccountPasswordRepeat
+        {
+            get => _newAdminAccountPasswordRepeat;
+            set => Set(ref _newAdminAccountPasswordRepeat, value);
+        }
+
+        private string _newAdminAccountDescription;
+        /// <summary>
+        /// 新管理员账号描述
+        /// </summary>
+        public string NewAdminAccountDescription
+        {
+            get => _newAdminAccountDescription;
+            set => Set(ref _newAdminAccountDescription, value);
+        }
+
+        private bool _onAddAdminAccount;
+        /// <summary>
+        /// 是否正在添加管理员账户
+        /// </summary>
+        public bool OnAddAdminAccount
+        {
+            get => _onAddAdminAccount;
+            set
+            {
+                Set(ref _onAddAdminAccount, value);
+                AddAdministratorCmd.RaiseCanExecuteChanged();
+            }
+        }
+
+        /// <summary>
+        /// 添加管理员账户的异步方法
+        /// </summary>
+        private async void AddAdministratorAsync(Action<PdtV1.AddAdministratorResponse> callback)
+        {
+            try
+            {
+                OnAddAdminAccount = true;
+                callback(await Task.Run(() =>
+                    PdtV1.AddAdministrator(NewAdminAccountName, NewAdminAccountPassword, NewAdminAccountDescription)));
+            }
+            catch
+            {
+                callback(default);
+            }
+            finally
+            {
+                OnAddAdminAccount = false;
+            }
+        }
+
+        /// <summary>
+        /// 添加管理员账户
+        /// </summary>
+        private void AddAdministrator()
+        {
+            if (NewAdminAccountPassword == NewAdminAccountPasswordRepeat)
+            {
+                AddAdministratorAsync(result =>
+                {
+                    if (result.code == Services.Http.HttpStatus.OK)
+                    {
+                        MessageBoxHelper.ShowMessage(result.mesg);
+                    }
+                    else
+                    {
+                        MessageBoxHelper.ShowError(result.mesg);
+                    }
+                });
+            }
+            else
+            {
+                MessageBoxHelper.ShowMessage("两次输入的密码不一致");
+            }
+        }
+
+        #endregion
+
 
 
         public AdminPageViewModel()
@@ -1004,6 +1110,8 @@ namespace PDT_WPF.ViewModels.PageViewModels
             AddPersonnelTechnologyTagCmd = new RelayCommand(AddTechnologyTag);
             DeletePersonnelTechnologyTagCmd = new RelayCommand<TechnologyTagItem>(DeleteTechnologyTag);
             ChangePersonnelTechnologyTagCmd = new RelayCommand<TechnologyTagItem>(ChangeTechnologyTag);
+
+            AddAdministratorCmd = new RelayCommand(AddAdministrator, () => !OnAddAdminAccount);
 
 
             if (GlobalData.AdminMode)

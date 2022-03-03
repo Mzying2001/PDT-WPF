@@ -749,6 +749,30 @@ namespace PDT_WPF.Services.Api
             return JsonConvert.DeserializeObject<ChangePersonnelTechnologyTagResponse>(res);
         }
 
+        public struct AddAdministratorResponse
+        {
+            public Http.HttpStatus code;
+            public string mesg;
+        }
+        /// <summary>
+        /// 添加后台管理员账户
+        /// </summary>
+        /// <param name="administratorId">管理员账户名</param>
+        /// <param name="password">管理员账户密码</param>
+        /// <param name="description">管理员账号描述</param>
+        /// <returns></returns>
+        public static AddAdministratorResponse AddAdministrator(string administratorId, string password, string description)
+        {
+            string url = BASE_URL + "administrator/addAdministrator";
+            string res = Http.Post(url, new Dictionary<string, string>
+            {
+                ["administratorId"] = administratorId,
+                ["password"] = password,
+                ["description"] = description
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<AddAdministratorResponse>(res);
+        }
+
         #endregion
 
 

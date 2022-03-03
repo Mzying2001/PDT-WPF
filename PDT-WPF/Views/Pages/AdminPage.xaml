@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:PDT_WPF.Views.Pages"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:hc="https://handyorg.github.io/handycontrol"
+      xmlns:Utils="clr-namespace:PDT_WPF.Utils"
       mc:Ignorable="d"
       
       d:DesignWidth="800"
@@ -692,7 +693,65 @@
                 Margin="0,5,0,0"
                 Expanded="ExpanderExpanded"
                 Collapsed="ExpanderCollapsed">
-                <TextBlock>开发中...</TextBlock>
+                <Grid
+                    Margin="10,30">
+                    <GroupBox
+                        Header="添加管理员账户"
+                        Width="300">
+                        <StackPanel
+                            Margin="10"
+                            IsEnabled="{Binding OnAddAdminAccount, Converter={StaticResource Boolean2BooleanReConverter}}">
+                            <TextBlock
+                                Margin="5"
+                                Text="账户名"/>
+                            <TextBox
+                                x:Name="newAdminAccountNameBox"
+                                Text="{Binding NewAdminAccountName, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock
+                                Margin="5"
+                                Text="密码"/>
+                            <PasswordBox
+                                x:Name="newAdminAccountPasswordBox"
+                                Utils:PasswordBoxHelper.Password="{Binding NewAdminAccountPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <i:Interaction.Behaviors>
+                                    <Utils:PasswordBoxBehavior/>
+                                </i:Interaction.Behaviors>
+                            </PasswordBox>
+                            <TextBlock
+                                Margin="5"
+                                Text="确认密码"/>
+                            <PasswordBox
+                                x:Name="newAdminAccountPasswordRepeatBox"
+                                Utils:PasswordBoxHelper.Password="{Binding NewAdminAccountPasswordRepeat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <i:Interaction.Behaviors>
+                                    <Utils:PasswordBoxBehavior/>
+                                </i:Interaction.Behaviors>
+                            </PasswordBox>
+                            <TextBlock
+                                Margin="5"
+                                Text="账号描述"/>
+                            <TextBox
+                                x:Name="newAdminAccountDescriptionBox"
+                                Text="{Binding NewAdminAccountDescription, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button
+                                Margin="0,30,0,10"
+                                HorizontalAlignment="Stretch"
+                                Content="添加"
+                                Style="{StaticResource ButtonPrimary}"
+                                Command="{Binding AddAdministratorCmd}">
+                                <Button.IsEnabled>
+                                    <MultiBinding
+                                        Converter="{StaticResource StringArrNotAnyEmpty}">
+                                        <Binding Path="Text" ElementName="newAdminAccountNameBox"/>
+                                        <Binding Path="(Utils:PasswordBoxHelper.Password)" ElementName="newAdminAccountPasswordBox"/>
+                                        <Binding Path="(Utils:PasswordBoxHelper.Password)" ElementName="newAdminAccountPasswordRepeatBox"/>
+                                        <Binding Path="Text" ElementName="newAdminAccountDescriptionBox"/>
+                                    </MultiBinding>
+                                </Button.IsEnabled>
+                            </Button>
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
             </Expander>
 
             <Expander
