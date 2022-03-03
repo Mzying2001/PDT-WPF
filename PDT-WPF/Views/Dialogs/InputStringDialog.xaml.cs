@@ -26,6 +26,12 @@ namespace PDT_WPF.Views.Dialogs
         public InputStringDialog()
         {
             InitializeComponent();
+
+            Loaded += (s, e) =>
+            {
+                input.Focus();
+                input.SelectAll();
+            };
         }
 
         private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
