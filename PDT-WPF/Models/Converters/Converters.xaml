@@ -23,6 +23,9 @@
     <local:BoardPhotoJumpTypeToString
         x:Key="BoardPhotoJumpTypeToString"/>
 
+    <local:StringNotEmpty
+        x:Key="StringNotEmpty"/>
+
     <!--判断多个字符串不为空-->
     <local:StringArrNotAnyEmpty
         x:Key="StringArrNotAnyEmpty"/>

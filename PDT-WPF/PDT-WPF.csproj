@@ -274,6 +274,7 @@
     <Compile Include="Models\Converters\HttpsUrlFormater.cs" />
     <Compile Include="Models\Converters\MultiValueConverterBase.cs" />
     <Compile Include="Models\Converters\StringArrNotAnyEmpty.cs" />
+    <Compile Include="Models\Converters\StringNotEmpty.cs" />
     <Compile Include="Models\Converters\ValueConverterBase.cs" />
     <Compile Include="Models\Data\GlobalData.cs" />
     <Compile Include="Models\EnumDescription.cs" />
@@ -328,6 +329,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Dialogs\InputStringDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -350,6 +355,9 @@
     </Compile>
     <Compile Include="Views\Dialogs\CompetitionSectionDetailDialog.xaml.cs">
       <DependentUpon>CompetitionSectionDetailDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\InputStringDialog.xaml.cs">
+      <DependentUpon>InputStringDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\AdminPage.xaml.cs">
       <DependentUpon>AdminPage.xaml</DependentUpon>
