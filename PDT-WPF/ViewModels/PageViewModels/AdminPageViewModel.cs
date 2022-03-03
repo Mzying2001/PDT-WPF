@@ -378,7 +378,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         /// 加载项目主要技术标签的异步方法
         /// </summary>
         /// <param name="callback"></param>
-        public async void LoadProjectMainTechnologiesAsync(Action<PdtV1.GetProjectMainTechnologyResponse> callback)
+        private async void LoadProjectMainTechnologiesAsync(Action<PdtV1.GetProjectMainTechnologyResponse> callback)
         {
             try
             {
@@ -398,7 +398,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         /// <summary>
         /// 加载项目主要技术标签
         /// </summary>
-        public void LoadProjectMainTechnologies()
+        private void LoadProjectMainTechnologies()
         {
             if (ProjectMainTechnologies == null)
                 ProjectMainTechnologies = new ObservableCollection<ProjectMainTechnology>();
@@ -422,7 +422,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         /// <summary>
         /// 添加项目主要技术标签
         /// </summary>
-        public void AddProjectMainTechnology()
+        private void AddProjectMainTechnology()
         {
             InputStringDialog.ShowDialog((success, input) =>
             {
@@ -452,7 +452,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         /// 删除项目主要技术标签
         /// </summary>
         /// <param name="mainTechnology"></param>
-        public void DeleteProjectMainTechnology(ProjectMainTechnology mainTechnology)
+        private void DeleteProjectMainTechnology(ProjectMainTechnology mainTechnology)
         {
             if (MessageBoxHelper.ShowQuestion($"确定要删除“{mainTechnology.MainTechnology}”吗？"))
             {
@@ -479,7 +479,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         /// 修改项目主要技术标签
         /// </summary>
         /// <param name="mainTechnology"></param>
-        public void ChangeProjectMainTechnology(ProjectMainTechnology mainTechnology)
+        private void ChangeProjectMainTechnology(ProjectMainTechnology mainTechnology)
         {
             InputStringDialog.ShowDialog((success, input) =>
             {
@@ -529,7 +529,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         /// 加载项目类型标签的异步方法
         /// </summary>
         /// <param name="callback"></param>
-        public async void LoadProjectTypesAsync(Action<PdtV1.GetProjectTypeResponse> callback)
+        private async void LoadProjectTypesAsync(Action<PdtV1.GetProjectTypeResponse> callback)
         {
             try
             {
@@ -549,7 +549,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         /// <summary>
         /// 加载项目类型标签
         /// </summary>
-        public void LoadProjectTypes()
+        private void LoadProjectTypes()
         {
             if (ProjectTypes == null)
                 ProjectTypes = new ObservableCollection<ProjectTypeItem>();
@@ -573,7 +573,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         /// <summary>
         /// 添加项目类型标签
         /// </summary>
-        public void AddProjectType()
+        private void AddProjectType()
         {
             InputStringDialog.ShowDialog((success, input) =>
             {
@@ -603,7 +603,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         /// 删除项目类型标签
         /// </summary>
         /// <param name="projectType"></param>
-        public void DeleteProjectType(ProjectTypeItem projectType)
+        private void DeleteProjectType(ProjectTypeItem projectType)
         {
             if (MessageBoxHelper.ShowQuestion($"确定要删除“{projectType.ProjectType}”吗？"))
             {
@@ -630,7 +630,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         /// 修改项目类型标签
         /// </summary>
         /// <param name="projectType"></param>
-        public void ChangeProjectType(ProjectTypeItem projectType)
+        private void ChangeProjectType(ProjectTypeItem projectType)
         {
             InputStringDialog.ShowDialog((success, input) =>
             {
