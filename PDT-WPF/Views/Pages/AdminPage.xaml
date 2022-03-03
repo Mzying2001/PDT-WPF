@@ -18,32 +18,30 @@
         VerticalScrollBarVisibility="Auto">
         <StackPanel
             x:Name="containerPanel"
-            Margin="0,0,10,0">
+            Margin="0,0,10,0"
+            IsEnabled="{Binding AdminMode}">
 
             <Expander
                 Header="人工验证获取验证码"
                 Margin="0,5,0,0"
                 Expanded="ExpanderExpanded"
                 Collapsed="ExpanderCollapsed">
-                <Grid
-                    IsEnabled="{Binding AdminMode}">
-                    <StackPanel
-                        Margin="10,20"
-                        Orientation="Horizontal"
-                        IsEnabled="{Binding IsGettingVerificationCode, Converter={StaticResource Boolean2BooleanReConverter}}">
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            Text="学号："/>
-                        <TextBox
-                            x:Name="getVerificationCodeTextBox"
-                            Width="150"/>
-                        <Button
-                            Margin="10,0,0,0"
-                            Content="获取"
-                            Command="{Binding GetVerificationCodeCmd}"
-                            CommandParameter="{Binding ElementName=getVerificationCodeTextBox, Path=Text}"/>
-                    </StackPanel>
-                </Grid>
+                <StackPanel
+                    Margin="10,20"
+                    Orientation="Horizontal"
+                    IsEnabled="{Binding IsGettingVerificationCode, Converter={StaticResource Boolean2BooleanReConverter}}">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Text="学号："/>
+                    <TextBox
+                        x:Name="getVerificationCodeTextBox"
+                        Width="150"/>
+                    <Button
+                        Margin="10,0,0,0"
+                        Content="获取"
+                        Command="{Binding GetVerificationCodeCmd}"
+                        CommandParameter="{Binding ElementName=getVerificationCodeTextBox, Path=Text}"/>
+                </StackPanel>
             </Expander>
 
             <Expander
@@ -51,144 +49,141 @@
                 Margin="0,5,0,0"
                 Expanded="ExpanderExpanded"
                 Collapsed="ExpanderCollapsed">
-                <Grid
-                    IsEnabled="{Binding AdminMode}">
+                <StackPanel
+                    Margin="10">
                     <StackPanel
-                        Margin="10">
-                        <StackPanel
-                            Margin="0,0,0,10"
-                            Orientation="Horizontal">
-                            <Button
-                                Content="更新数据"
-                                Command="{Binding LoadBoardPhotosCmd}"/>
-                            <Button
-                                Margin="10,0,0,0"
-                                Content="添加轮播图"
-                                Command="{Binding AddBoardPhotoCmd}"/>
-                        </StackPanel>
-                        <ListView
-                            MaxHeight="500"
-                            ItemsSource="{Binding BoardPhotos}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn
-                                        Width="50"
-                                        Header="ID"
-                                        DisplayMemberBinding="{Binding ID}"/>
-                                    <GridViewColumn
-                                        Width="100"
-                                        Header="名称">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding Name}"
-                                                    ToolTip="{Binding Name}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Width="100"
-                                        Header="创建日期">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding CreatedAt, Converter={StaticResource DateFormater}}"
-                                                    ToolTip="{Binding CreatedAt}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Width="100"
-                                        Header="更新日期">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding UpdatedAt, Converter={StaticResource DateFormater}}"
-                                                    ToolTip="{Binding UpdatedAt}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Width="100"
-                                        Header="删除日期">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding DeletedAt, Converter={StaticResource DateFormater}}"
-                                                    ToolTip="{Binding DeletedAt}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Width="150"
-                                        Header="图片链接">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock>
-                                                    <Hyperlink
-                                                        ToolTip="{Binding PhotoUrl, Converter={StaticResource HttpsUrlFormater}}"
-                                                        Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListViewItem}, Path=Foreground}"
-                                                        Command="{Binding Source={StaticResource Locator}, Path=AdminPage.OpenLinkCmd}"
-                                                        CommandParameter="{Binding PhotoUrl, Converter={StaticResource HttpsUrlFormater}}">
-                                                        <TextBlock
-                                                            Text="{Binding PhotoUrl}"
-                                                            TextTrimming="CharacterEllipsis"/>
-                                                    </Hyperlink>
-                                                </TextBlock>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Width="150"
-                                        Header="目标链接">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock>
-                                                    <Hyperlink
-                                                        ToolTip="{Binding Link, Converter={StaticResource HttpsUrlFormater}}"
-                                                        Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListViewItem}, Path=Foreground}"
-                                                        Command="{Binding Source={StaticResource Locator},Path=AdminPage.OpenLinkCmd}"
-                                                        CommandParameter="{Binding Link, Converter={StaticResource HttpsUrlFormater}}">
-                                                        <TextBlock
-                                                            Text="{Binding Link}"
-                                                            TextTrimming="CharacterEllipsis"/>
-                                                    </Hyperlink>
-                                                </TextBlock>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Width="75"
-                                        Header="跳转类型">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding Jump, Converter={StaticResource BoardPhotoJumpTypeToString}}"
-                                                    ToolTip="{Binding Jump, Converter={StaticResource EnumToInt}}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Header="操作">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button
-                                                    Content="删除"
-                                                    Command="{Binding Source={StaticResource Locator}, Path=AdminPage.DeleteBoardPhotoCmd}"
-                                                    CommandParameter="{Binding}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
+                        Margin="0,0,0,10"
+                        Orientation="Horizontal">
+                        <Button
+                            Content="更新数据"
+                            Command="{Binding LoadBoardPhotosCmd}"/>
+                        <Button
+                            Margin="10,0,0,0"
+                            Content="添加轮播图"
+                            Command="{Binding AddBoardPhotoCmd}"/>
                     </StackPanel>
-                </Grid>
+                    <ListView
+                        MaxHeight="500"
+                        ItemsSource="{Binding BoardPhotos}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn
+                                    Width="50"
+                                    Header="ID"
+                                    DisplayMemberBinding="{Binding ID}"/>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="名称">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding Name}"
+                                                ToolTip="{Binding Name}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="创建日期">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding CreatedAt, Converter={StaticResource DateFormater}}"
+                                                ToolTip="{Binding CreatedAt}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="更新日期">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding UpdatedAt, Converter={StaticResource DateFormater}}"
+                                                ToolTip="{Binding UpdatedAt}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="删除日期">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding DeletedAt, Converter={StaticResource DateFormater}}"
+                                                ToolTip="{Binding DeletedAt}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="150"
+                                    Header="图片链接">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <Hyperlink
+                                                    ToolTip="{Binding PhotoUrl, Converter={StaticResource HttpsUrlFormater}}"
+                                                    Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListViewItem}, Path=Foreground}"
+                                                    Command="{Binding Source={StaticResource Locator}, Path=AdminPage.OpenLinkCmd}"
+                                                    CommandParameter="{Binding PhotoUrl, Converter={StaticResource HttpsUrlFormater}}">
+                                                    <TextBlock
+                                                        Text="{Binding PhotoUrl}"
+                                                        TextTrimming="CharacterEllipsis"/>
+                                                </Hyperlink>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="150"
+                                    Header="目标链接">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <Hyperlink
+                                                    ToolTip="{Binding Link, Converter={StaticResource HttpsUrlFormater}}"
+                                                    Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListViewItem}, Path=Foreground}"
+                                                    Command="{Binding Source={StaticResource Locator},Path=AdminPage.OpenLinkCmd}"
+                                                    CommandParameter="{Binding Link, Converter={StaticResource HttpsUrlFormater}}">
+                                                    <TextBlock
+                                                        Text="{Binding Link}"
+                                                        TextTrimming="CharacterEllipsis"/>
+                                                </Hyperlink>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="75"
+                                    Header="跳转类型">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding Jump, Converter={StaticResource BoardPhotoJumpTypeToString}}"
+                                                ToolTip="{Binding Jump, Converter={StaticResource EnumToInt}}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Header="操作">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button
+                                                Content="删除"
+                                                Command="{Binding Source={StaticResource Locator}, Path=AdminPage.DeleteBoardPhotoCmd}"
+                                                CommandParameter="{Binding}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
             </Expander>
 
             <Expander
@@ -196,104 +191,101 @@
                 Margin="0,5,0,0"
                 Expanded="ExpanderExpanded"
                 Collapsed="ExpanderCollapsed">
-                <Grid
-                    IsEnabled="{Binding AdminMode}">
+                <StackPanel
+                    Margin="10">
                     <StackPanel
-                        Margin="10">
-                        <StackPanel
-                            Margin="0,0,0,10"
-                            Orientation="Horizontal">
-                            <Button
-                                Content="更新数据"
-                                Command="{Binding LoadCompetitionSectionsCmd}"/>
-                            <Button
-                                Margin="10,0,0,0"
-                                Content="添加比赛信息"
-                                Command="{Binding AddCompetitionSectionCmd}"/>
-                        </StackPanel>
-                        <ListView
-                            MaxHeight="500"
-                            ItemsSource="{Binding CompetitionSections}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn
-                                        Width="50"
-                                        Header="ID"
-                                        DisplayMemberBinding="{Binding ID}"/>
-                                    <GridViewColumn
-                                        Width="100"
-                                        Header="标题">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding Title}"
-                                                    ToolTip="{Binding Title}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Width="100"
-                                        Header="创建日期">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding CreatedAt, Converter={StaticResource DateFormater}}"
-                                                    ToolTip="{Binding CreatedAt}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Width="100"
-                                        Header="更新日期">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding UpdatedAt, Converter={StaticResource DateFormater}}"
-                                                    ToolTip="{Binding UpdatedAt}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Width="100"
-                                        Header="删除日期">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding DeletedAt, Converter={StaticResource DateFormater}}"
-                                                    ToolTip="{Binding DeletedAt}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Header="内容">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button Content="查看"
-                                                        Command="{Binding Source={StaticResource Locator}, Path=HomePage.ShowCompetitionSectionCmd}"
-                                                        CommandParameter="{Binding}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Header="操作">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button
-                                                    Content="删除"
-                                                    Command="{Binding Source={StaticResource Locator}, Path=AdminPage.DeleteCompetitionSectionCmd}"
-                                                    CommandParameter="{Binding}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
+                        Margin="0,0,0,10"
+                        Orientation="Horizontal">
+                        <Button
+                            Content="更新数据"
+                            Command="{Binding LoadCompetitionSectionsCmd}"/>
+                        <Button
+                            Margin="10,0,0,0"
+                            Content="添加比赛信息"
+                            Command="{Binding AddCompetitionSectionCmd}"/>
                     </StackPanel>
-                </Grid>
+                    <ListView
+                        MaxHeight="500"
+                        ItemsSource="{Binding CompetitionSections}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn
+                                    Width="50"
+                                    Header="ID"
+                                    DisplayMemberBinding="{Binding ID}"/>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="标题">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding Title}"
+                                                ToolTip="{Binding Title}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="创建日期">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding CreatedAt, Converter={StaticResource DateFormater}}"
+                                                ToolTip="{Binding CreatedAt}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="更新日期">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding UpdatedAt, Converter={StaticResource DateFormater}}"
+                                                ToolTip="{Binding UpdatedAt}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="删除日期">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding DeletedAt, Converter={StaticResource DateFormater}}"
+                                                ToolTip="{Binding DeletedAt}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Header="内容">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Content="查看"
+                                                    Command="{Binding Source={StaticResource Locator}, Path=HomePage.ShowCompetitionSectionCmd}"
+                                                    CommandParameter="{Binding}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Header="操作">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button
+                                                Content="删除"
+                                                Command="{Binding Source={StaticResource Locator}, Path=AdminPage.DeleteCompetitionSectionCmd}"
+                                                CommandParameter="{Binding}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
             </Expander>
 
             <Expander
@@ -301,102 +293,99 @@
                 Margin="0,5,0,0"
                 Expanded="ExpanderExpanded"
                 Collapsed="ExpanderCollapsed">
-                <Grid
-                    IsEnabled="{Binding AdminMode}">
+                <StackPanel
+                    Margin="10">
                     <StackPanel
-                        Margin="10">
-                        <StackPanel
-                            Margin="0,0,0,10"
-                            Orientation="Horizontal">
-                            <Button
-                                Content="更新数据"
-                                Command="{Binding LoadProjectMainTechnologiesCmd}"/>
-                            <Button
-                                Margin="10,0,0,0"
-                                Content="添加技术标签"
-                                Command="{Binding AddProjectMainTechnologyCmd}"/>
-                        </StackPanel>
-                        <ListView
-                            MaxHeight="500"
-                            ItemsSource="{Binding ProjectMainTechnologies}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn
-                                        Width="50"
-                                        Header="ID"
-                                        DisplayMemberBinding="{Binding ID}"/>
-                                    <GridViewColumn
-                                        Width="100"
-                                        Header="技术标签">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding MainTechnology}"
-                                                    ToolTip="{Binding MainTechnology}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Width="100"
-                                        Header="创建日期">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding CreatedAt, Converter={StaticResource DateFormater}}"
-                                                    ToolTip="{Binding CreatedAt}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Width="100"
-                                        Header="更新日期">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding UpdatedAt, Converter={StaticResource DateFormater}}"
-                                                    ToolTip="{Binding UpdatedAt}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Width="100"
-                                        Header="删除日期">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding DeletedAt, Converter={StaticResource DateFormater}}"
-                                                    ToolTip="{Binding DeletedAt}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Header="操作">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel
-                                                    Orientation="Horizontal">
-                                                    <Button
-                                                        Content="编辑"
-                                                        Command="{Binding Source={StaticResource Locator}, Path=AdminPage.ChangeProjectMainTechnologyCmd}"
-                                                        CommandParameter="{Binding}"/>
-                                                    <Button
-                                                        Margin="10,0,0,0"
-                                                        Content="删除"
-                                                        Command="{Binding Source={StaticResource Locator}, Path=AdminPage.DeleteProjectMainTechnologyCmd}"
-                                                        CommandParameter="{Binding}"/>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
+                        Margin="0,0,0,10"
+                        Orientation="Horizontal">
+                        <Button
+                            Content="更新数据"
+                            Command="{Binding LoadProjectMainTechnologiesCmd}"/>
+                        <Button
+                            Margin="10,0,0,0"
+                            Content="添加技术标签"
+                            Command="{Binding AddProjectMainTechnologyCmd}"/>
                     </StackPanel>
-                </Grid>
+                    <ListView
+                        MaxHeight="500"
+                        ItemsSource="{Binding ProjectMainTechnologies}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn
+                                    Width="50"
+                                    Header="ID"
+                                    DisplayMemberBinding="{Binding ID}"/>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="技术标签">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding MainTechnology}"
+                                                ToolTip="{Binding MainTechnology}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="创建日期">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding CreatedAt, Converter={StaticResource DateFormater}}"
+                                                ToolTip="{Binding CreatedAt}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="更新日期">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding UpdatedAt, Converter={StaticResource DateFormater}}"
+                                                ToolTip="{Binding UpdatedAt}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="删除日期">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding DeletedAt, Converter={StaticResource DateFormater}}"
+                                                ToolTip="{Binding DeletedAt}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Header="操作">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel
+                                                Orientation="Horizontal">
+                                                <Button
+                                                    Content="编辑"
+                                                    Command="{Binding Source={StaticResource Locator}, Path=AdminPage.ChangeProjectMainTechnologyCmd}"
+                                                    CommandParameter="{Binding}"/>
+                                                <Button
+                                                    Margin="10,0,0,0"
+                                                    Content="删除"
+                                                    Command="{Binding Source={StaticResource Locator}, Path=AdminPage.DeleteProjectMainTechnologyCmd}"
+                                                    CommandParameter="{Binding}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
             </Expander>
 
             <Expander
@@ -404,102 +393,99 @@
                 Margin="0,5,0,0"
                 Expanded="ExpanderExpanded"
                 Collapsed="ExpanderCollapsed">
-                <Grid
-                    IsEnabled="{Binding AdminMode}">
+                <StackPanel
+                    Margin="10">
                     <StackPanel
-                        Margin="10">
-                        <StackPanel
-                            Margin="0,0,0,10"
-                            Orientation="Horizontal">
-                            <Button
-                                Content="更新数据"
-                                Command="{Binding LoadProjectTypesCmd}"/>
-                            <Button
-                                Margin="10,0,0,0"
-                                Content="添加项目类型标签"
-                                Command="{Binding AddProjectTypeCmd}"/>
-                        </StackPanel>
-                        <ListView
-                            MaxHeight="500"
-                            ItemsSource="{Binding ProjectTypes}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn
-                                        Width="50"
-                                        Header="ID"
-                                        DisplayMemberBinding="{Binding ID}"/>
-                                    <GridViewColumn
-                                        Width="100"
-                                        Header="项目类型标签">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding ProjectType}"
-                                                    ToolTip="{Binding ProjectType}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Width="100"
-                                        Header="创建日期">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding CreatedAt, Converter={StaticResource DateFormater}}"
-                                                    ToolTip="{Binding CreatedAt}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Width="100"
-                                        Header="更新日期">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding UpdatedAt, Converter={StaticResource DateFormater}}"
-                                                    ToolTip="{Binding UpdatedAt}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Width="100"
-                                        Header="删除日期">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding DeletedAt, Converter={StaticResource DateFormater}}"
-                                                    ToolTip="{Binding DeletedAt}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Header="操作">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel
-                                                    Orientation="Horizontal">
-                                                    <Button
-                                                        Content="编辑"
-                                                        Command="{Binding Source={StaticResource Locator}, Path=AdminPage.ChangeProjectTypeCmd}"
-                                                        CommandParameter="{Binding}"/>
-                                                    <Button
-                                                        Margin="10,0,0,0"
-                                                        Content="删除"
-                                                        Command="{Binding Source={StaticResource Locator}, Path=AdminPage.DeleteProjectTypeCmd}"
-                                                        CommandParameter="{Binding}"/>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
+                        Margin="0,0,0,10"
+                        Orientation="Horizontal">
+                        <Button
+                            Content="更新数据"
+                            Command="{Binding LoadProjectTypesCmd}"/>
+                        <Button
+                            Margin="10,0,0,0"
+                            Content="添加项目类型标签"
+                            Command="{Binding AddProjectTypeCmd}"/>
                     </StackPanel>
-                </Grid>
+                    <ListView
+                        MaxHeight="500"
+                        ItemsSource="{Binding ProjectTypes}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn
+                                    Width="50"
+                                    Header="ID"
+                                    DisplayMemberBinding="{Binding ID}"/>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="项目类型标签">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding ProjectType}"
+                                                ToolTip="{Binding ProjectType}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="创建日期">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding CreatedAt, Converter={StaticResource DateFormater}}"
+                                                ToolTip="{Binding CreatedAt}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="更新日期">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding UpdatedAt, Converter={StaticResource DateFormater}}"
+                                                ToolTip="{Binding UpdatedAt}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="删除日期">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding DeletedAt, Converter={StaticResource DateFormater}}"
+                                                ToolTip="{Binding DeletedAt}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Header="操作">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel
+                                                Orientation="Horizontal">
+                                                <Button
+                                                    Content="编辑"
+                                                    Command="{Binding Source={StaticResource Locator}, Path=AdminPage.ChangeProjectTypeCmd}"
+                                                    CommandParameter="{Binding}"/>
+                                                <Button
+                                                    Margin="10,0,0,0"
+                                                    Content="删除"
+                                                    Command="{Binding Source={StaticResource Locator}, Path=AdminPage.DeleteProjectTypeCmd}"
+                                                    CommandParameter="{Binding}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
             </Expander>
 
             <Expander
@@ -507,102 +493,99 @@
                 Margin="0,5,0,0"
                 Expanded="ExpanderExpanded"
                 Collapsed="ExpanderCollapsed">
-                <Grid
-                    IsEnabled="{Binding AdminMode}">
+                <StackPanel
+                    Margin="10">
                     <StackPanel
-                        Margin="10">
-                        <StackPanel
-                            Margin="0,0,0,10"
-                            Orientation="Horizontal">
-                            <Button
-                                Content="更新数据"
-                                Command="{Binding LoadProjectMatchesCmd}"/>
-                            <Button
-                                Margin="10,0,0,0"
-                                Content="添加项目赛事"
-                                Command="{Binding AddProjectMatchCmd}"/>
-                        </StackPanel>
-                        <ListView
-                            MaxHeight="500"
-                            ItemsSource="{Binding ProjectMatches}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn
-                                        Width="50"
-                                        Header="ID"
-                                        DisplayMemberBinding="{Binding MatchId}"/>
-                                    <GridViewColumn
-                                        Width="100"
-                                        Header="项目赛事">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding MatchName}"
-                                                    ToolTip="{Binding MatchName}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Width="100"
-                                        Header="创建日期">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding CreatedAt, Converter={StaticResource DateFormater}}"
-                                                    ToolTip="{Binding CreatedAt}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Width="100"
-                                        Header="更新日期">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding UpdatedAt, Converter={StaticResource DateFormater}}"
-                                                    ToolTip="{Binding UpdatedAt}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Width="100"
-                                        Header="删除日期">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    TextTrimming="CharacterEllipsis"
-                                                    Text="{Binding DeletedAt, Converter={StaticResource DateFormater}}"
-                                                    ToolTip="{Binding DeletedAt}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Header="操作">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel
-                                                    Orientation="Horizontal">
-                                                    <Button
-                                                        Content="编辑"
-                                                        Command="{Binding Source={StaticResource Locator}, Path=AdminPage.ChangeProjectMatchCmd}"
-                                                        CommandParameter="{Binding}"/>
-                                                    <Button
-                                                        Margin="10,0,0,0"
-                                                        Content="删除"
-                                                        Command="{Binding Source={StaticResource Locator}, Path=AdminPage.DeleteProjectMatchCmd}"
-                                                        CommandParameter="{Binding}"/>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
+                        Margin="0,0,0,10"
+                        Orientation="Horizontal">
+                        <Button
+                            Content="更新数据"
+                            Command="{Binding LoadProjectMatchesCmd}"/>
+                        <Button
+                            Margin="10,0,0,0"
+                            Content="添加项目赛事"
+                            Command="{Binding AddProjectMatchCmd}"/>
                     </StackPanel>
-                </Grid>
+                    <ListView
+                        MaxHeight="500"
+                        ItemsSource="{Binding ProjectMatches}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn
+                                    Width="50"
+                                    Header="ID"
+                                    DisplayMemberBinding="{Binding MatchId}"/>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="项目赛事">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding MatchName}"
+                                                ToolTip="{Binding MatchName}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="创建日期">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding CreatedAt, Converter={StaticResource DateFormater}}"
+                                                ToolTip="{Binding CreatedAt}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="更新日期">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding UpdatedAt, Converter={StaticResource DateFormater}}"
+                                                ToolTip="{Binding UpdatedAt}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="100"
+                                    Header="删除日期">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                TextTrimming="CharacterEllipsis"
+                                                Text="{Binding DeletedAt, Converter={StaticResource DateFormater}}"
+                                                ToolTip="{Binding DeletedAt}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Header="操作">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel
+                                                Orientation="Horizontal">
+                                                <Button
+                                                    Content="编辑"
+                                                    Command="{Binding Source={StaticResource Locator}, Path=AdminPage.ChangeProjectMatchCmd}"
+                                                    CommandParameter="{Binding}"/>
+                                                <Button
+                                                    Margin="10,0,0,0"
+                                                    Content="删除"
+                                                    Command="{Binding Source={StaticResource Locator}, Path=AdminPage.DeleteProjectMatchCmd}"
+                                                    CommandParameter="{Binding}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
             </Expander>
 
             <Expander
@@ -610,10 +593,7 @@
                 Margin="0,5,0,0"
                 Expanded="ExpanderExpanded"
                 Collapsed="ExpanderCollapsed">
-                <Grid
-                    IsEnabled="{Binding AdminMode}">
-                    <TextBlock>开发中...</TextBlock>
-                </Grid>
+                <TextBlock>开发中...</TextBlock>
             </Expander>
 
             <Expander
@@ -621,10 +601,7 @@
                 Margin="0,5,0,0"
                 Expanded="ExpanderExpanded"
                 Collapsed="ExpanderCollapsed">
-                <Grid
-                    IsEnabled="{Binding AdminMode}">
-                    <TextBlock>开发中...</TextBlock>
-                </Grid>
+                <TextBlock>开发中...</TextBlock>
             </Expander>
 
             <Expander
@@ -632,10 +609,7 @@
                 Margin="0,5,0,0"
                 Expanded="ExpanderExpanded"
                 Collapsed="ExpanderCollapsed">
-                <Grid
-                    IsEnabled="{Binding AdminMode}">
-                    <TextBlock>开发中...</TextBlock>
-                </Grid>
+                <TextBlock>开发中...</TextBlock>
             </Expander>
 
         </StackPanel>
