@@ -31,6 +31,11 @@ namespace PDT_WPF.ViewModels.PageViewModels
         public RelayCommand<ProjectMainTechnology> DeleteProjectMainTechnologyCmd { get; set; }
         public RelayCommand<ProjectMainTechnology> ChangeProjectMainTechnologyCmd { get; set; }
 
+        public RelayCommand LoadProjectTypesCmd { get; set; }
+        public RelayCommand AddProjectTypeCmd { get; set; }
+        public RelayCommand<ProjectTypeItem> DeleteProjectTypeCmd { get; set; }
+        public RelayCommand<ProjectTypeItem> ChangeProjectTypeCmd { get; set; }
+
 
 
         /// <summary>
@@ -502,6 +507,157 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
         #endregion
 
+        #region 项目类型标签管理
+
+        public ObservableCollection<ProjectTypeItem> ProjectTypes { get; set; }
+
+        private bool _isLoadingProjectTypes;
+        /// <summary>
+        /// 是否正在加载项目类型标签
+        /// </summary>
+        public bool IsLoadingProjectTypes
+        {
+            get => _isLoadingProjectTypes;
+            set
+            {
+                _isLoadingProjectTypes = value;
+                LoadProjectTypesCmd.RaiseCanExecuteChanged();
+            }
+        }
+
+        /// <summary>
+        /// 加载项目类型标签的异步方法
+        /// </summary>
+        /// <param name="callback"></param>
+        public async void LoadProjectTypesAsync(Action<PdtV1.GetProjectTypeResponse> callback)
+        {
+            try
+            {
+                IsLoadingProjectTypes = true;
+                callback(await Task.Run(() => PdtV1.GetProjectType()));
+            }
+            catch
+            {
+                callback(default);
+            }
+            finally
+            {
+                IsLoadingProjectTypes = false;
+            }
+        }
+
+        /// <summary>
+        /// 加载项目类型标签
+        /// </summary>
+        public void LoadProjectTypes()
+        {
+            if (ProjectTypes == null)
+                ProjectTypes = new ObservableCollection<ProjectTypeItem>();
+
+            LoadProjectTypesAsync(result =>
+            {
+                if (result.code == Services.Http.HttpStatus.OK)
+                {
+                    ProjectTypes.Clear();
+                    foreach (var item in result.projectTypes)
+                        ProjectTypes.Add(item);
+                    RaisePropertyChanged(nameof(ProjectTypes));
+                }
+                else
+                {
+                    MessageBoxHelper.ShowError("获取项目类型标签失败！");
+                }
+            });
+        }
+
+        /// <summary>
+        /// 添加项目类型标签
+        /// </summary>
+        public void AddProjectType()
+        {
+            InputStringDialog.ShowDialog((success, input) =>
+            {
+                if (success)
+                {
+                    try
+                    {
+                        var res = PdtV1.AddProjectType(input);
+                        if (res.code == Services.Http.HttpStatus.OK)
+                        {
+                            LoadProjectTypes();
+                        }
+                        else
+                        {
+                            throw new Exception(res.mesg);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBoxHelper.ShowError(e);
+                    }
+                }
+            }, "请输入新的项目类型标签");
+        }
+
+        /// <summary>
+        /// 删除项目类型标签
+        /// </summary>
+        /// <param name="projectType"></param>
+        public void DeleteProjectType(ProjectTypeItem projectType)
+        {
+            if (MessageBoxHelper.ShowQuestion($"确定要删除“{projectType.ProjectType}”吗？"))
+            {
+                try
+                {
+                    var res = PdtV1.DeleteProjectType(projectType.ID);
+                    if (res.code == Services.Http.HttpStatus.OK)
+                    {
+                        LoadProjectTypes();
+                    }
+                    else
+                    {
+                        throw new Exception(res.mesg);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBoxHelper.ShowError(e, "删除失败");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 修改项目类型标签
+        /// </summary>
+        /// <param name="projectType"></param>
+        public void ChangeProjectType(ProjectTypeItem projectType)
+        {
+            InputStringDialog.ShowDialog((success, input) =>
+            {
+                if (success)
+                {
+                    try
+                    {
+                        var res = PdtV1.ChangeProjectType(projectType.ID, input);
+                        if (res.code == Services.Http.HttpStatus.OK)
+                        {
+                            LoadProjectTypes();
+                        }
+                        else
+                        {
+                            throw new Exception(res.mesg);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBoxHelper.ShowError(e);
+                    }
+                }
+            }, "修改项目类型标签", projectType.ProjectType);
+        }
+
+        #endregion
+
 
 
         public AdminPageViewModel()
@@ -522,11 +678,18 @@ namespace PDT_WPF.ViewModels.PageViewModels
             DeleteProjectMainTechnologyCmd = new RelayCommand<ProjectMainTechnology>(DeleteProjectMainTechnology);
             ChangeProjectMainTechnologyCmd = new RelayCommand<ProjectMainTechnology>(ChangeProjectMainTechnology);
 
+            LoadProjectTypesCmd = new RelayCommand(LoadProjectTypes, () => !IsLoadingProjectTypes);
+            AddProjectTypeCmd = new RelayCommand(AddProjectType);
+            DeleteProjectTypeCmd = new RelayCommand<ProjectTypeItem>(DeleteProjectType);
+            ChangeProjectTypeCmd = new RelayCommand<ProjectTypeItem>(ChangeProjectType);
+
+
             if (GlobalData.AdminMode)
             {
                 LoadBoardPhotos();
                 LoadCompetitionSections();
                 LoadProjectMainTechnologies();
+                LoadProjectTypes();
             }
         }
     }

@@ -574,7 +574,7 @@ namespace PDT_WPF.Services.Api
             string res = Http.Post(url, new Dictionary<string, string>
             {
                 ["projectType"] = projectType
-            }, Headers, Http.ContentType.MULTIPART_FORM_DATA);
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<AddProjectTypeResponse>(res);
         }
 
@@ -593,7 +593,7 @@ namespace PDT_WPF.Services.Api
         public static DeleteProjectTypeResponse DeleteProjectType(int id)
         {
             string url = BASE_URL + $"project/ProjectType/{id}";
-            string res = Http.Delete(url, null, Headers, Http.ContentType.MULTIPART_FORM_DATA);
+            string res = Http.Delete(url, null, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<DeleteProjectTypeResponse>(res);
         }
 
@@ -616,7 +616,7 @@ namespace PDT_WPF.Services.Api
             string res = Http.Put(url, new Dictionary<string, string>
             {
                 ["projectType"] = projectType
-            }, Headers, Http.ContentType.MULTIPART_FORM_DATA);
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<ChangeProjectTypeResponse>(res);
         }
 
