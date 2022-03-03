@@ -46,13 +46,16 @@ namespace PDT_WPF.Utils
             if (!opened)
                 return;
 
-            if (type == null)
+            lock (writer)
             {
-                writer.WriteLine(UnshiftTime(value?.ToString() ?? "null"));
-            }
-            else
-            {
-                writer.WriteLine(UnshiftTime($"[{type}] {value?.ToString() ?? "null"}"));
+                if (type == null)
+                {
+                    writer.WriteLine(UnshiftTime(value?.ToString() ?? "null"));
+                }
+                else
+                {
+                    writer.WriteLine(UnshiftTime($"[{type}] {value?.ToString() ?? "null"}"));
+                }
             }
         }
 
