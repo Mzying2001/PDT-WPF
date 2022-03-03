@@ -41,6 +41,11 @@ namespace PDT_WPF.ViewModels.PageViewModels
         public RelayCommand<ProjectMatch> DeleteProjectMatchCmd { get; set; }
         public RelayCommand<ProjectMatch> ChangeProjectMatchCmd { get; set; }
 
+        public RelayCommand LoadPersonnelTechnologyTagsCmd { get; set; }
+        public RelayCommand AddPersonnelTechnologyTagCmd { get; set; }
+        public RelayCommand<TechnologyTagItem> DeletePersonnelTechnologyTagCmd { get; set; }
+        public RelayCommand<TechnologyTagItem> ChangePersonnelTechnologyTagCmd { get; set; }
+
 
 
         /// <summary>
@@ -814,6 +819,157 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
         #endregion
 
+        #region 人才技能标签管理
+
+        public ObservableCollection<TechnologyTagItem> TechnologyTags { get; set; }
+
+        private bool _isLoadingTechnologyTags;
+        /// <summary>
+        /// 是否正在加载人才技能标签
+        /// </summary>
+        public bool IsLoadingTechnologyTags
+        {
+            get => _isLoadingTechnologyTags;
+            set
+            {
+                _isLoadingTechnologyTags = value;
+                LoadPersonnelTechnologyTagsCmd.RaiseCanExecuteChanged();
+            }
+        }
+
+        /// <summary>
+        /// 加载人才技能标签的异步方法
+        /// </summary>
+        /// <param name="callback"></param>
+        private async void LoadTechnologyTagsAsync(Action<PdtV1.GetPersonnelTechnologyTagsResponse> callback)
+        {
+            try
+            {
+                IsLoadingTechnologyTags = true;
+                callback(await Task.Run(() => PdtV1.GetPersonnelTechnologyTags()));
+            }
+            catch
+            {
+                callback(default);
+            }
+            finally
+            {
+                IsLoadingTechnologyTags = false;
+            }
+        }
+
+        /// <summary>
+        /// 加载人才技能标签
+        /// </summary>
+        private void LoadTechnologyTags()
+        {
+            if (TechnologyTags == null)
+                TechnologyTags = new ObservableCollection<TechnologyTagItem>();
+
+            LoadTechnologyTagsAsync(result =>
+            {
+                if (result.code == Services.Http.HttpStatus.OK)
+                {
+                    TechnologyTags.Clear();
+                    foreach (var item in result.mainTechnologys)
+                        TechnologyTags.Add(item);
+                    RaisePropertyChanged(nameof(TechnologyTags));
+                }
+                else
+                {
+                    MessageBoxHelper.ShowError("获取人才技能标签失败！");
+                }
+            });
+        }
+
+        /// <summary>
+        /// 添加人才技能标签
+        /// </summary>
+        private void AddTechnologyTag()
+        {
+            InputStringDialog.ShowDialog((success, input) =>
+            {
+                if (success)
+                {
+                    try
+                    {
+                        var res = PdtV1.AddPersonnelTechnologyTag(input);
+                        if (res.code == Services.Http.HttpStatus.OK)
+                        {
+                            LoadTechnologyTags();
+                        }
+                        else
+                        {
+                            throw new Exception(res.mesg);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBoxHelper.ShowError(e);
+                    }
+                }
+            }, "请输入新的技能标签");
+        }
+
+        /// <summary>
+        /// 删除人才技能标签
+        /// </summary>
+        /// <param name="technologyTag"></param>
+        private void DeleteTechnologyTag(TechnologyTagItem technologyTag)
+        {
+            if (MessageBoxHelper.ShowQuestion($"确定要删除“{technologyTag.TechnologyTag}”吗？"))
+            {
+                try
+                {
+                    var res = PdtV1.DeletePersonnelTechnologyTag(technologyTag.TechnologyTagId);
+                    if (res.code == Services.Http.HttpStatus.OK)
+                    {
+                        LoadTechnologyTags();
+                    }
+                    else
+                    {
+                        throw new Exception(res.mesg);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBoxHelper.ShowError(e, "删除失败");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 修改人才技能标签
+        /// </summary>
+        /// <param name="technologyTag"></param>
+        private void ChangeTechnologyTag(TechnologyTagItem technologyTag)
+        {
+            InputStringDialog.ShowDialog((success, input) =>
+            {
+                if (success)
+                {
+                    try
+                    {
+                        var res = PdtV1.ChangePersonnelTechnologyTag(technologyTag.TechnologyTagId, input);
+                        if (res.code == Services.Http.HttpStatus.OK)
+                        {
+                            LoadTechnologyTags();
+                        }
+                        else
+                        {
+                            throw new Exception(res.mesg);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBoxHelper.ShowError(e);
+                    }
+                }
+            }, "修改技能标签", technologyTag.TechnologyTag);
+        }
+
+        #endregion
+
 
 
         public AdminPageViewModel()
@@ -844,6 +1000,11 @@ namespace PDT_WPF.ViewModels.PageViewModels
             DeleteProjectMatchCmd = new RelayCommand<ProjectMatch>(DeleteProjectMatch);
             ChangeProjectMatchCmd = new RelayCommand<ProjectMatch>(ChangeProjectMatch);
 
+            LoadPersonnelTechnologyTagsCmd = new RelayCommand(LoadTechnologyTags, () => !IsLoadingTechnologyTags);
+            AddPersonnelTechnologyTagCmd = new RelayCommand(AddTechnologyTag);
+            DeletePersonnelTechnologyTagCmd = new RelayCommand<TechnologyTagItem>(DeleteTechnologyTag);
+            ChangePersonnelTechnologyTagCmd = new RelayCommand<TechnologyTagItem>(ChangeTechnologyTag);
+
 
             if (GlobalData.AdminMode)
             {
@@ -852,6 +1013,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
                 LoadProjectMainTechnologies();
                 LoadProjectTypes();
                 LoadProjectMatches();
+                LoadTechnologyTags();
             }
         }
     }
