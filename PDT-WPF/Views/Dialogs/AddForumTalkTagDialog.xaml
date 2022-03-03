@@ -15,7 +15,7 @@
         Closing="WindowClosing">
 
     <StackPanel
-        Margin="20"
+        Margin="30"
         Width="200">
 
         <hc:TextBox
