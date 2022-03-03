@@ -759,7 +759,13 @@
                 Margin="0,5,0,0"
                 Expanded="ExpanderExpanded"
                 Collapsed="ExpanderCollapsed">
-                <TextBlock>开发中...</TextBlock>
+                <StackPanel
+                    Margin="10"
+                    Orientation="Horizontal">
+                    <Button
+                        Content="打开用户管理"
+                        Command="{Binding OpenUserManagerCmd}"/>
+                </StackPanel>
             </Expander>
 
         </StackPanel>

@@ -48,6 +48,8 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
         public RelayCommand AddAdministratorCmd { get; set; }
 
+        public RelayCommand OpenUserManagerCmd { get; set; }
+
 
 
         /// <summary>
@@ -1076,6 +1078,15 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
         #endregion
 
+        #region 用户管理
+
+        private void OpenUserManager()
+        {
+            MessageBoxHelper.ShowMessage("开发中...");
+        }
+
+        #endregion
+
 
 
         public AdminPageViewModel()
@@ -1112,6 +1123,8 @@ namespace PDT_WPF.ViewModels.PageViewModels
             ChangePersonnelTechnologyTagCmd = new RelayCommand<TechnologyTagItem>(ChangeTechnologyTag);
 
             AddAdministratorCmd = new RelayCommand(AddAdministrator, () => !OnAddAdminAccount);
+
+            OpenUserManagerCmd = new RelayCommand(OpenUserManager);
 
 
             if (GlobalData.AdminMode)
