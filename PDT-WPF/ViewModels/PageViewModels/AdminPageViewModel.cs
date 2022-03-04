@@ -56,6 +56,8 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
         public RelayCommand OpenUserManagerCmd { get; set; }
 
+        public RelayCommand OpenForumExamineToolCmd { get; set; }
+
 
 
         /// <summary>
@@ -1213,6 +1215,15 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
         #endregion
 
+        #region 帖子审核
+
+        private void OpenForumExamineTool()
+        {
+            MessageBoxHelper.ShowMessage("开发中...");
+        }
+
+        #endregion
+
         #region 用户管理
 
         private void OpenUserManager()
@@ -1265,6 +1276,8 @@ namespace PDT_WPF.ViewModels.PageViewModels
             AddForumTalkTagCmd = new RelayCommand(AddTalkTag);
             DeleteForumTalkTagCmd = new RelayCommand<TalkTagItem>(DeleteTalkTag);
             ViewForumTalkTagApplyListCmd = new RelayCommand(ViewForumTalkTagApplyList);
+
+            OpenForumExamineToolCmd = new RelayCommand(OpenForumExamineTool);
 
 
             if (GlobalData.AdminMode)

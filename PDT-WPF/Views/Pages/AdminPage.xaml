@@ -867,6 +867,19 @@
                 </Grid>
             </Expander>
 
+            <!--帖子审核-->
+            <Expander
+                Header="帖子审核"
+                Margin="0,5,0,0">
+                <StackPanel
+                    Margin="10"
+                    Orientation="Horizontal">
+                    <Button
+                        Content="打开帖子审核工具"
+                        Command="{Binding OpenForumExamineToolCmd}"/>
+                </StackPanel>
+            </Expander>
+
             <!--用户管理-->
             <Expander
                 Header="用户管理"
@@ -875,7 +888,7 @@
                     Margin="10"
                     Orientation="Horizontal">
                     <Button
-                        Content="打开用户管理"
+                        Content="打开用户管理工具"
                         Command="{Binding OpenUserManagerCmd}"/>
                 </StackPanel>
             </Expander>
