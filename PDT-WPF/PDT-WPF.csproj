@@ -309,7 +309,11 @@
     <Compile Include="ViewModels\PageViewModels\PersonalCenterPageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\ProjectLibraryPageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\TalentPoolPageViewModel.cs" />
+    <Compile Include="ViewModels\TalkTagApplicationManagerViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\TalkTagApplicationManager.xaml.cs">
+      <DependentUpon>TalkTagApplicationManager.xaml</DependentUpon>
+    </Compile>
     <Page Include="Utils\Converters\Converters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -433,6 +437,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\WelcomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TalkTagApplicationManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

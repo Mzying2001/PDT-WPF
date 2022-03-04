@@ -110,6 +110,11 @@ namespace PDT_WPF.ViewModels
             get => new AddCompetitionSectionDialogViewModel();
         }
 
+        public TalkTagApplicationManagerViewModel TalkTagApplicationManager
+        {
+            get => new TalkTagApplicationManagerViewModel();
+        }
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

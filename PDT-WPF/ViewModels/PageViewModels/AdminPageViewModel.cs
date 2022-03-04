@@ -1104,7 +1104,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         /// </summary>
         private void ViewForumTalkTagApplyList()
         {
-            MessageBoxHelper.ShowMessage("开发中...");
+            Views.TalkTagApplicationManager.Show();
         }
 
         #endregion

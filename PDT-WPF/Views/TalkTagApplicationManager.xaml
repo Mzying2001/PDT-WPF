@@ -1,0 +1,89 @@
+﻿<Window x:Class="PDT_WPF.Views.TalkTagApplicationManager"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PDT_WPF.Views"
+        xmlns:Models="clr-namespace:PDT_WPF.Models"
+        mc:Ignorable="d"
+        
+        x:Name="window"
+        Title="话题标签申请管理"
+        Width="450"
+        Height="500"
+        MinWidth="300"
+        MinHeight="300"
+        WindowStartupLocation="CenterScreen"
+        DataContext="{Binding Source={StaticResource Locator}, Path=TalkTagApplicationManager, Mode=OneTime}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel
+            Grid.Row="0"
+            Margin="10"
+            Orientation="Horizontal">
+            <Button
+                Content="刷新"
+                Command="{Binding LoadTalkTagApplicationsCmd}"/>
+        </StackPanel>
+
+        <ScrollViewer
+            Grid.Row="1">
+            <ItemsControl
+                ItemsSource="{Binding TalkTagApplications}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate
+                        DataType="{x:Type Models:TalkTagItem}">
+                        <Border
+                            MaxWidth="500"
+                            Padding="20"
+                            Margin="10,0,5,0"
+                            CornerRadius="10"
+                            Background="White"
+                            Effect="{StaticResource EffectShadow2}">
+                            <StackPanel>
+                                <StackPanel
+                                    Orientation="Horizontal">
+                                    <TextBlock
+                                        Text="#"
+                                        FontSize="30"
+                                        Foreground="Gray"/>
+                                    <TextBlock
+                                        Text="{Binding TalkTag}"
+                                        FontSize="20"
+                                        Margin="10,0,0,0"
+                                        VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <TextBlock
+                                    Text="{Binding Apply}"
+                                    Margin="5,10"
+                                    TextWrapping="Wrap"/>
+                                <StackPanel
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Right">
+                                    <Button
+                                        Padding="20,0"
+                                        Content="接受"
+                                        Style="{StaticResource ButtonPrimary}"
+                                        Command="{Binding ElementName=window, Path=DataContext.AcceptTalkTagCmd}"
+                                        CommandParameter="{Binding}"/>
+                                    <Button
+                                        Padding="20,0"
+                                        Margin="10,0,0,0"
+                                        Content="拒绝"
+                                        Command="{Binding ElementName=window, Path=DataContext.RejectTalkTagCmd}"
+                                        CommandParameter="{Binding}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+    </Grid>
+</Window>
