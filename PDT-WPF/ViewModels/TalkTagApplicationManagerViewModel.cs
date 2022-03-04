@@ -104,8 +104,17 @@ namespace PDT_WPF.ViewModels
                     var res = PdtV1.ProcessTalkTagAppy(talkTag.TalkTagId, true);
                     if (res.isSuccess)
                     {
-                        LoadTalkTagApplications();
                         MessageBoxHelper.ShowMessage($"已接受“{talkTag.TalkTag}”。");
+
+                        if (TalkTagApplications.Count == 1)
+                        {
+                            TalkTagApplications.Clear();
+                            RaisePropertyChanged(nameof(TalkTagApplications));
+                        }
+                        else
+                        {
+                            LoadTalkTagApplications();
+                        }
                     }
                     else
                     {
@@ -132,8 +141,17 @@ namespace PDT_WPF.ViewModels
                     var res = PdtV1.ProcessTalkTagAppy(talkTag.TalkTagId, false);
                     if (res.isSuccess)
                     {
-                        LoadTalkTagApplications();
                         MessageBoxHelper.ShowMessage($"已拒绝“{talkTag.TalkTag}”。");
+
+                        if (TalkTagApplications.Count == 1)
+                        {
+                            TalkTagApplications.Clear();
+                            RaisePropertyChanged(nameof(TalkTagApplications));
+                        }
+                        else
+                        {
+                            LoadTalkTagApplications();
+                        }
                     }
                     else
                     {
