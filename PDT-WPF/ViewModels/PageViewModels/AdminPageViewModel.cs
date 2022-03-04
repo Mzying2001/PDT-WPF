@@ -1219,7 +1219,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
         private void OpenForumExamineTool()
         {
-            MessageBoxHelper.ShowMessage("开发中...");
+            Views.ForumExamineTool.Show();
         }
 
         #endregion

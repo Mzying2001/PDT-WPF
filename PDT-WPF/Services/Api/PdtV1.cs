@@ -949,7 +949,7 @@ namespace PDT_WPF.Services.Api
         /// <returns></returns>
         public static ProcessUnapprovedForumPostsResponse ProcessUnapprovedForumPosts(int forumId, bool agree)
         {
-            string url = "forum/agreeForum";
+            string url = BASE_URL + "forum/agreeForum";
             string res = Http.Post(url, new Dictionary<string, string>
             {
                 ["forumId"] = forumId.ToString(),

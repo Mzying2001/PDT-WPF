@@ -18,13 +18,22 @@
     <!--枚举转整数-->
     <local:EnumToInt
         x:Key="EnumToInt"/>
-    
+
     <!--获取轮播图跳转类型名称-->
     <local:BoardPhotoJumpTypeToString
         x:Key="BoardPhotoJumpTypeToString"/>
 
+    <!--字符串不为空-->
     <local:StringNotEmpty
         x:Key="StringNotEmpty"/>
+
+    <!--整数不为负数-->
+    <local:IntNotNegative
+        x:Key="IntNotNegative"/>
+
+    <!--非负时可见-->
+    <local:VisiableIfNotNegative
+        x:Key="VisiableIfNotNegative"/>
 
     <!--判断多个字符串不为空-->
     <local:StringArrNotAnyEmpty

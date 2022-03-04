@@ -275,6 +275,7 @@
     <Compile Include="Utils\Converters\BoardPhotoJumpTypeToString.cs" />
     <Compile Include="Utils\Converters\HcWaterfallGroupsAdapter.cs" />
     <Compile Include="Utils\Converters\HttpsUrlFormater.cs" />
+    <Compile Include="Utils\Converters\IntNotNegative.cs" />
     <Compile Include="Utils\Converters\MultiValueConverterBase.cs" />
     <Compile Include="Utils\Converters\StringArrNotAnyEmpty.cs" />
     <Compile Include="Utils\Converters\StringNotEmpty.cs" />
@@ -283,6 +284,7 @@
     <Compile Include="Models\EnumDescription.cs" />
     <Compile Include="Models\ProjectMatch.cs" />
     <Compile Include="Models\ProjectTypeItem.cs" />
+    <Compile Include="Utils\Converters\VisiableIfNotNegative.cs" />
     <Compile Include="Utils\ErrorFormater.cs" />
     <Compile Include="Utils\FileUtility.cs" />
     <Compile Include="Models\ProjectMainTechnology.cs" />
@@ -302,6 +304,7 @@
     <Compile Include="Utils\Logger.cs" />
     <Compile Include="ViewModels\DialogViewModels\AddBoardPhotoDialogViewModel.cs" />
     <Compile Include="ViewModels\DialogViewModels\AddCompetitionSectionDialogViewModel.cs" />
+    <Compile Include="ViewModels\ForumExamineToolViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\AdminPageViewModel.cs" />
@@ -313,6 +316,12 @@
     <Compile Include="ViewModels\PageViewModels\TalentPoolPageViewModel.cs" />
     <Compile Include="ViewModels\TalkTagApplicationManagerViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\ForumExamineTool.xaml.cs">
+      <DependentUpon>ForumExamineTool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HcImageViewer.xaml.cs">
+      <DependentUpon>HcImageViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TalkTagApplicationManager.xaml.cs">
       <DependentUpon>TalkTagApplicationManager.xaml</DependentUpon>
     </Compile>
@@ -341,6 +350,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Dialogs\InputStringDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ForumExamineTool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HcImageViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
