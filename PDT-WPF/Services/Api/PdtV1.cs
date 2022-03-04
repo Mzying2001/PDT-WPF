@@ -464,6 +464,31 @@ namespace PDT_WPF.Services.Api
             return JsonConvert.DeserializeObject<GetForumTalkTagResponse>(res);
         }
 
+
+
+        public struct GetForumResponse
+        {
+            public ForumPost[] forums;
+            public bool isSuccess;
+            public string mesg;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="page">页码</param>
+        /// <param name="sortRule">排序方式 0:时间降序,1:热度降序,2:时间升序,3:热度升序</param>
+        /// <returns></returns>
+        public static GetForumResponse GetForum(int page, int sortRule)
+        {
+            string url = BASE_URL + "forum/getForum";
+            string res = Http.Post(url, new Dictionary<string, string>
+            {
+                ["page"] = page.ToString(),
+                ["sortRule"] = sortRule.ToString()
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<GetForumResponse>(res);
+        }
+
         #endregion
 
 
@@ -884,6 +909,53 @@ namespace PDT_WPF.Services.Api
                 ["talkTagId"] = talkTagId.ToString()
             }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<DeleteForumTalkTagResponse>(res);
+        }
+
+
+
+        public struct GetUnapprovedForumPostsResponse
+        {
+            public ForumPost[] forums;
+            public bool isSuccess;
+            public string mesg;
+        }
+        /// <summary>
+        /// 获取未操作的论坛列表
+        /// </summary>
+        /// <param name="page">页码</param>
+        /// <returns></returns>
+        public static GetUnapprovedForumPostsResponse GetUnapprovedForumPosts(int page)
+        {
+            var url = BASE_URL + "forum/getUnForum";
+            var res = Http.Post(url, new Dictionary<string, string>
+            {
+                ["page"] = page.ToString()
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<GetUnapprovedForumPostsResponse>(res);
+        }
+
+
+
+        public struct ProcessUnapprovedForumPostsResponse
+        {
+            public bool isSuccess;
+            public string mesg;
+        }
+        /// <summary>
+        /// 同意发布帖子
+        /// </summary>
+        /// <param name="forumId">帖子id</param>
+        /// <param name="agree">是否同意</param>
+        /// <returns></returns>
+        public static ProcessUnapprovedForumPostsResponse ProcessUnapprovedForumPosts(int forumId, bool agree)
+        {
+            string url = "forum/agreeForum";
+            string res = Http.Post(url, new Dictionary<string, string>
+            {
+                ["forumId"] = forumId.ToString(),
+                ["code"] = agree ? "1" : "0"
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<ProcessUnapprovedForumPostsResponse>(res);
         }
 
         #endregion

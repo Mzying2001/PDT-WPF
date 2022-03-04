@@ -266,6 +266,8 @@
     </ApplicationDefinition>
     <Compile Include="Models\BoardPhoto.cs" />
     <Compile Include="Models\CompetitionSection.cs" />
+    <Compile Include="Models\CustomTagItem.cs" />
+    <Compile Include="Models\ForumPost.cs" />
     <Compile Include="Models\TalkTagItem.cs" />
     <Compile Include="Utils\Converters\BoolNotOperation.cs" />
     <Compile Include="Utils\Converters\DateFormater.cs" />
