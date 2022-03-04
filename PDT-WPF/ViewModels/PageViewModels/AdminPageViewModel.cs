@@ -515,7 +515,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         {
             InputStringDialog.ShowDialog((success, input) =>
             {
-                if (success)
+                if (success && input != mainTechnology.MainTechnology)
                 {
                     try
                     {
@@ -666,7 +666,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         {
             InputStringDialog.ShowDialog((success, input) =>
             {
-                if (success)
+                if (success && input != projectType.ProjectType)
                 {
                     try
                     {
@@ -817,7 +817,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         {
             InputStringDialog.ShowDialog((success, input) =>
             {
-                if (success)
+                if (success && input != projectMatch.MatchName)
                 {
                     try
                     {
@@ -968,7 +968,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         {
             InputStringDialog.ShowDialog((success, input) =>
             {
-                if (success)
+                if (success && input != technologyTag.TechnologyTag)
                 {
                     try
                     {
