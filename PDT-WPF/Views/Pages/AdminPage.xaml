@@ -127,7 +127,7 @@
                                                 <Hyperlink
                                                     ToolTip="{Binding PhotoUrl, Converter={StaticResource HttpsUrlFormater}}"
                                                     Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListViewItem}, Path=Foreground}"
-                                                    Command="{Binding Source={StaticResource Locator}, Path=AdminPage.OpenLinkCmd}"
+                                                    Command="{Binding Source={StaticResource Locator}, Path=AdminPage.ViewPhotoCmd}"
                                                     CommandParameter="{Binding PhotoUrl, Converter={StaticResource HttpsUrlFormater}}">
                                                     <TextBlock
                                                         Text="{Binding PhotoUrl}"

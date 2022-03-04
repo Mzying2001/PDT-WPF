@@ -17,6 +17,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
     {
         public RelayCommand<string> GetVerificationCodeCmd { get; set; }
         public RelayCommand<string> OpenLinkCmd { get; set; }
+        public RelayCommand<string> ViewPhotoCmd { get; set; }
 
         public RelayCommand LoadBoardPhotosCmd { get; set; }
         public RelayCommand<BoardPhoto> DeleteBoardPhotoCmd { get; set; }
@@ -262,6 +263,15 @@ namespace PDT_WPF.ViewModels.PageViewModels
                     NotifyHomepageDataUpdated();
                 }
             });
+        }
+
+        /// <summary>
+        /// 查看图片
+        /// </summary>
+        /// <param name="url"></param>
+        private void ViewPhoto(string url)
+        {
+            Views.HcImageViewer.Show(url);
         }
 
         #endregion
@@ -1239,6 +1249,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         {
             GetVerificationCodeCmd = new RelayCommand<string>(GetVerificationCode);
             OpenLinkCmd = new RelayCommand<string>(OpenLink);
+            ViewPhotoCmd = new RelayCommand<string>(ViewPhoto);
 
             LoadBoardPhotosCmd = new RelayCommand(LoadBoardPhotos, () => !IsLoadingBoardPhotos);
             DeleteBoardPhotoCmd = new RelayCommand<BoardPhoto>(DeleteBoardPhoto);
