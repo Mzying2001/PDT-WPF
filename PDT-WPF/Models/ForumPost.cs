@@ -15,7 +15,7 @@
         public string Content { get; set; }
         public CustomTagItem[] CustomTags { get; set; }
         public TalkTagItem[] TalkTags { get; set; }
-        public string[] ForumPhotos { get; set; }
+        public ForumPhoto[] ForumPhotos { get; set; }
         public object ForumComments { get; set; }
         public object WhoFollow { get; set; }
         public int CommentNum { get; set; }

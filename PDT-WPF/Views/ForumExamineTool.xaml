@@ -189,14 +189,15 @@
                                         ItemsSource="{Binding ForumPhotos}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate
-                                                DataType="{x:Type sys:String}">
+                                                DataType="{x:Type Models:ForumPhoto}">
                                                 <TextBlock
+                                                    Margin="2"
                                                     ToolTip="点击查看图片">
                                                     <Hyperlink
                                                         Command="{Binding Source={StaticResource Locator}, Path=ForumExamineTool.ViewImageCmd}"
-                                                        CommandParameter="{Binding}">
+                                                        CommandParameter="{Binding PhotoPath, Converter={StaticResource HttpsUrlFormater}}">
                                                         <TextBlock
-                                                            Text="{Binding}"
+                                                            Text="{Binding PhotoPath}"
                                                             TextTrimming="CharacterEllipsis"/>
                                                     </Hyperlink>
                                                 </TextBlock>
