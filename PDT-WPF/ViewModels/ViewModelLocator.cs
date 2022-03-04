@@ -53,6 +53,7 @@ namespace PDT_WPF.ViewModels
             SimpleIoc.Default.Register<MessagePageViewModel>();
             SimpleIoc.Default.Register<PersonalCenterPageViewModel>();
             SimpleIoc.Default.Register<AdminPageViewModel>();
+            SimpleIoc.Default.Register<TalkTagApplicationManagerViewModel>();
         }
 
         public MainViewModel Main
@@ -100,6 +101,11 @@ namespace PDT_WPF.ViewModels
             get => ServiceLocator.Current.GetInstance<AdminPageViewModel>();
         }
 
+        public TalkTagApplicationManagerViewModel TalkTagApplicationManager
+        {
+            get => ServiceLocator.Current.GetInstance<TalkTagApplicationManagerViewModel>();
+        }
+
         public AddBoardPhotoDialogViewModel AddBoardPhotoDialog
         {
             get => new AddBoardPhotoDialogViewModel();
@@ -108,11 +114,6 @@ namespace PDT_WPF.ViewModels
         public AddCompetitionSectionDialogViewModel AddCompetitionSectionDialog
         {
             get => new AddCompetitionSectionDialogViewModel();
-        }
-
-        public TalkTagApplicationManagerViewModel TalkTagApplicationManager
-        {
-            get => new TalkTagApplicationManagerViewModel();
         }
 
         public static void Cleanup()

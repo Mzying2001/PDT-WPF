@@ -14,7 +14,7 @@
         MinWidth="300"
         MinHeight="300"
         WindowStartupLocation="CenterScreen"
-        DataContext="{Binding Source={StaticResource Locator}, Path=TalkTagApplicationManager, Mode=OneTime}">
+        DataContext="{Binding Source={StaticResource Locator}, Path=TalkTagApplicationManager}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -70,13 +70,13 @@
                                         Padding="20,0"
                                         Content="接受"
                                         Style="{StaticResource ButtonPrimary}"
-                                        Command="{Binding ElementName=window, Path=DataContext.AcceptTalkTagCmd}"
+                                        Command="{Binding Source={StaticResource Locator}, Path=TalkTagApplicationManager.AcceptTalkTagCmd}"
                                         CommandParameter="{Binding}"/>
                                     <Button
                                         Padding="20,0"
                                         Margin="10,0,0,0"
                                         Content="拒绝"
-                                        Command="{Binding ElementName=window, Path=DataContext.RejectTalkTagCmd}"
+                                        Command="{Binding Source={StaticResource Locator}, Path=TalkTagApplicationManager.RejectTalkTagCmd}"
                                         CommandParameter="{Binding}"/>
                                 </StackPanel>
                             </StackPanel>
