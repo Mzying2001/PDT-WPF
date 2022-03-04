@@ -5,6 +5,13 @@ namespace PDT_WPF.Utils.Converters
 {
     public class DateFormater : ValueConverterBase<string, string>
     {
+        private int GetGapDay(DateTime start, DateTime end)
+        {
+            DateTime a = new DateTime(start.Year, start.Month, start.Day);
+            DateTime b = new DateTime(end.Year, end.Month, end.Day);
+            return (int)(b - a).TotalDays;
+        }
+
         public override string Convert(string value, object parameter, CultureInfo culture)
         {
             try
@@ -13,6 +20,8 @@ namespace PDT_WPF.Utils.Converters
 
                 DateTime now = DateTime.Now;
                 TimeSpan gap = now - d;
+
+                int gapDay = GetGapDay(d, now);
 
                 if (gap.TotalSeconds < 60)
                 {
@@ -26,17 +35,17 @@ namespace PDT_WPF.Utils.Converters
                 {
                     return $"{gap.Hours}小时前";
                 }
-                else if ((int)gap.TotalDays == 1)
+                else if (gapDay == 1)
                 {
                     return "昨天";
                 }
-                else if ((int)gap.TotalDays == 2)
+                else if (gapDay == 2)
                 {
                     return "前天";
                 }
-                else if (gap.TotalDays <= 7)
+                else if (gapDay <= 7)
                 {
-                    return $"{(int)gap.TotalDays}天前";
+                    return $"{gapDay}天前";
                 }
                 else
                 {
