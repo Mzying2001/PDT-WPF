@@ -20,6 +20,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <StackPanel
@@ -41,7 +42,7 @@
                         <Border
                             MaxWidth="500"
                             Padding="20"
-                            Margin="10,0,5,0"
+                            Margin="10,5"
                             CornerRadius="10"
                             Background="White"
                             Effect="{StaticResource EffectShadow2}">
@@ -84,6 +85,12 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
+
+        <TextBlock
+            Grid.Row="2"
+            Margin="10,5"
+            Foreground="Gray"
+            Text="注：同意话题标签后在后台管理界面需要手动更新数据。"/>
 
     </Grid>
 </Window>

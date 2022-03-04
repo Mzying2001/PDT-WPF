@@ -73,6 +73,11 @@ namespace PDT_WPF.ViewModels
                         foreach (var item in result.talkTags)
                             TalkTagApplications.Add(item);
                         RaisePropertyChanged(nameof(TalkTagApplications));
+
+                        if (TalkTagApplications.Count == 0)
+                        {
+                            MessageBoxHelper.ShowMessage("目前无用户申请新的话题标签。");
+                        }
                     }
                     else
                     {
