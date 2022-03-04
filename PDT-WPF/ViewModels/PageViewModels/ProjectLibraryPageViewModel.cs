@@ -4,10 +4,7 @@ using PDT_WPF.Models;
 using PDT_WPF.Services.Api;
 using PDT_WPF.Utils;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 namespace PDT_WPF.ViewModels.PageViewModels
 {
@@ -69,7 +66,6 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
         private void LoadMoreProjects()
         {
-            //MessageBoxHelper.ShowMessage(Page.ToString());
             GetProjectListAsync(result =>
             {
                 if (result.isSuccess)
@@ -79,7 +75,14 @@ namespace PDT_WPF.ViewModels.PageViewModels
                 }
                 else
                 {
-                    MessageBoxHelper.ShowError(result.mesg);
+                    if (result.mesg == "获取项目列表失败:已无更多项目!")
+                    {
+                        MessageBoxHelper.ShowMessage("已无更多项目。");
+                    }
+                    else
+                    {
+                        MessageBoxHelper.ShowError(result.mesg);
+                    }
                 }
             });
         }

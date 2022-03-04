@@ -87,9 +87,16 @@ namespace PDT_WPF.ViewModels
                         RaisePropertyChanged(nameof(ForumPosts));
                         Page = page;
                     }
-                    else if (page == FirstPage && result.mesg == "获取未操作的论坛列表失败:已无更多帖子")
+                    else if (result.mesg == "获取未操作的论坛列表失败:已无更多帖子")
                     {
-                        MessageBoxHelper.ShowMessage("目前没有帖子需要审核。");
+                        if (page == FirstPage)
+                        {
+                            MessageBoxHelper.ShowMessage("目前没有帖子需要审核。");
+                        }
+                        else
+                        {
+                            MessageBoxHelper.ShowMessage("已无更多帖子。");
+                        }
                     }
                     else
                     {

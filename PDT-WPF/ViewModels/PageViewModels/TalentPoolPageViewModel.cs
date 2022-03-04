@@ -75,7 +75,14 @@ namespace PDT_WPF.ViewModels.PageViewModels
                 }
                 else
                 {
-                    MessageBoxHelper.ShowError(result.mesg);
+                    if (result.mesg == "获取人才信息列表失败:已无更多人才")
+                    {
+                        MessageBoxHelper.ShowMessage("已经全部加载。");
+                    }
+                    else
+                    {
+                        MessageBoxHelper.ShowError(result.mesg);
+                    }
                 }
             });
         }
