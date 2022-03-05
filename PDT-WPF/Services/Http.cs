@@ -100,6 +100,11 @@ namespace PDT_WPF.Services
             {
                 response = (HttpWebResponse)e.Response;
             }
+            catch (Exception e)
+            {
+                Logger.WriteError(e);
+                throw;
+            }
 
             using (var stream = response.GetResponseStream())
             using (var reader = new StreamReader(stream, Encoding.UTF8))
@@ -152,6 +157,11 @@ namespace PDT_WPF.Services
             catch (WebException e)
             {
                 response = (HttpWebResponse)e.Response;
+            }
+            catch (Exception e)
+            {
+                Logger.WriteError(e);
+                throw;
             }
 
             using (var stream = response.GetResponseStream())
@@ -206,6 +216,11 @@ namespace PDT_WPF.Services
             {
                 response = (HttpWebResponse)e.Response;
             }
+            catch (Exception e)
+            {
+                Logger.WriteError(e);
+                throw;
+            }
 
             using (var stream = response.GetResponseStream())
             using (var reader = new StreamReader(stream, Encoding.UTF8))
@@ -248,6 +263,11 @@ namespace PDT_WPF.Services
             catch (WebException e)
             {
                 response = (HttpWebResponse)e.Response;
+            }
+            catch (Exception e)
+            {
+                Logger.WriteError(e);
+                throw;
             }
 
             using (var stream = response.GetResponseStream())
@@ -307,6 +327,11 @@ namespace PDT_WPF.Services
             catch (WebException e)
             {
                 response = (HttpWebResponse)e.Response;
+            }
+            catch (Exception e)
+            {
+                Logger.WriteError(e);
+                throw;
             }
 
             using (var stream = response.GetResponseStream())
