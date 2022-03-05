@@ -91,6 +91,8 @@ namespace PDT_WPF.ViewModels
                     {
                         if (page == FirstPage)
                         {
+                            ForumPosts.Clear();
+                            RaisePropertyChanged(nameof(ForumPosts));
                             MessageBoxHelper.ShowMessage("目前没有帖子需要审核。");
                         }
                         else
