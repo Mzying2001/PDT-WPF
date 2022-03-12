@@ -442,6 +442,25 @@ namespace PDT_WPF.Services.Api
             return JsonConvert.DeserializeObject<GetPersonnelTechnologyTagsResponse>(res);
         }
 
+
+
+        public struct GetPersonalLabelResponse
+        {
+            public Http.HttpStatus code;
+            public PersonalLabelItem[] personalLabel;
+            public string mesg;
+        }
+        /// <summary>
+        /// 获取人才个人标签
+        /// </summary>
+        /// <returns></returns>
+        public static GetPersonalLabelResponse GetPersonalLabel()
+        {
+            string url = BASE_URL + "personnel/personalLabel";
+            string res = Http.Get(url, null, Headers, Http.ContentType.MULTIPART_FORM_DATA);
+            return JsonConvert.DeserializeObject<GetPersonalLabelResponse>(res);
+        }
+
         #endregion
 
 
@@ -956,6 +975,70 @@ namespace PDT_WPF.Services.Api
                 ["code"] = agree ? "1" : "0"
             }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<ProcessUnapprovedForumPostsResponse>(res);
+        }
+
+
+
+        public struct AddPersonalLabelResponse
+        {
+            public Http.HttpStatus code;
+            public string mesg;
+        }
+        /// <summary>
+        /// 添加人才个人标签
+        /// </summary>
+        /// <param name="personalLabel">人才个人标签</param>
+        /// <returns></returns>
+        public static AddPersonalLabelResponse AddPersonalLabel(string personalLabel)
+        {
+            string url = BASE_URL + "personnel/personalLabel";
+            string res = Http.Post(url, new Dictionary<string, string>
+            {
+                ["personalLabel"] = personalLabel
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<AddPersonalLabelResponse>(res);
+        }
+
+
+
+        public struct DeletePersonalLabelResponse
+        {
+            public Http.HttpStatus code;
+            public string mesg;
+        }
+        /// <summary>
+        /// 删除人才个人标签
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static DeletePersonalLabelResponse DeletePersonalLabel(int id)
+        {
+            string url = BASE_URL + $"personnel/personalLabel/{id}";
+            string res = Http.Delete(url, null, Headers, Http.ContentType.MULTIPART_FORM_DATA);
+            return JsonConvert.DeserializeObject<DeletePersonalLabelResponse>(res);
+        }
+
+
+
+        public struct ChangePersonalLabelResponse
+        {
+            public Http.HttpStatus code;
+            public string mesg;
+        }
+        /// <summary>
+        /// 修改人才个人标签
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="personalLabel">人才个人标签</param>
+        /// <returns></returns>
+        public static ChangePersonalLabelResponse ChangePersonalLabel(int id, string personalLabel)
+        {
+            string url = BASE_URL + $"personnel/personalLabel/{id}";
+            string res = Http.Put(url, new Dictionary<string, string>
+            {
+                ["personalLabel"] = personalLabel
+            }, Headers, Http.ContentType.MULTIPART_FORM_DATA);
+            return JsonConvert.DeserializeObject<ChangePersonalLabelResponse>(res);
         }
 
         #endregion

@@ -21,9 +21,11 @@
         public string ProjectExperience { get; set; }
         public string AwardRecord { get; set; }
         public string Hobby { get; set; }
+        public string Other { get; set; }
         public int LikeNum { get; set; }
         public int CollectNum { get; set; }
         public TechnologyTagItem[] TechnologyTags { get; set; }
+        public PersonalLabelItem[] PersonalLabels { get; set; }
         public object[] PersonnelAttachments { get; set; }
         public object UsersWhoCollectIt { get; set; }
     }

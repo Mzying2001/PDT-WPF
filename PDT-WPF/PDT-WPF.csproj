@@ -269,6 +269,7 @@
     <Compile Include="Models\CustomTagItem.cs" />
     <Compile Include="Models\ForumPhoto.cs" />
     <Compile Include="Models\ForumPost.cs" />
+    <Compile Include="Models\PersonalLabelItem.cs" />
     <Compile Include="Models\TalkTagItem.cs" />
     <Compile Include="Utils\Converters\BoolNotOperation.cs" />
     <Compile Include="Utils\Converters\DateFormater.cs" />
