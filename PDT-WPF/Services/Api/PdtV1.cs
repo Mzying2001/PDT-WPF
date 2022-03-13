@@ -1037,7 +1037,7 @@ namespace PDT_WPF.Services.Api
             string res = Http.Put(url, new Dictionary<string, string>
             {
                 ["personalLabel"] = personalLabel
-            }, Headers, Http.ContentType.MULTIPART_FORM_DATA);
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<ChangePersonalLabelResponse>(res);
         }
 

@@ -47,6 +47,11 @@ namespace PDT_WPF.ViewModels.PageViewModels
         public RelayCommand<TechnologyTagItem> DeletePersonnelTechnologyTagCmd { get; set; }
         public RelayCommand<TechnologyTagItem> ChangePersonnelTechnologyTagCmd { get; set; }
 
+        public RelayCommand LoadPersonalLabelsCmd { get; set; }
+        public RelayCommand AddPersonalLabelCmd { get; set; }
+        public RelayCommand<PersonalLabelItem> DeletePersonalLabelCmd { get; set; }
+        public RelayCommand<PersonalLabelItem> ChangePersonalLabelCmd { get; set; }
+
         public RelayCommand LoadForumTalkTagsCmd { get; set; }
         public RelayCommand AddForumTalkTagCmd { get; set; }
         public RelayCommand<TalkTagItem> DeleteForumTalkTagCmd { get; set; }
@@ -992,6 +997,157 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
         #endregion
 
+        #region 人才个人标签管理
+
+        public ObservableCollection<PersonalLabelItem> PersonalLabels { get; set; }
+
+        private bool _isLoadingPersonalLabels;
+        /// <summary>
+        /// 是否正在加载人才技能标签
+        /// </summary>
+        public bool IsLoadingPersonalLabels
+        {
+            get => _isLoadingPersonalLabels;
+            set
+            {
+                _isLoadingPersonalLabels = value;
+                LoadPersonalLabelsCmd.RaiseCanExecuteChanged();
+            }
+        }
+
+        /// <summary>
+        /// 加载人才个人标签的异步方法
+        /// </summary>
+        /// <param name="callback"></param>
+        private async void LoadPersonalLabelsAsync(Action<PdtV1.GetPersonalLabelResponse> callback)
+        {
+            try
+            {
+                IsLoadingPersonalLabels = true;
+                callback(await Task.Run(() => PdtV1.GetPersonalLabel()));
+            }
+            catch
+            {
+                callback(default);
+            }
+            finally
+            {
+                IsLoadingPersonalLabels = false;
+            }
+        }
+
+        /// <summary>
+        /// 加载人才个人标签
+        /// </summary>
+        private void LoadPersonalLabels()
+        {
+            if (PersonalLabels == null)
+                PersonalLabels = new ObservableCollection<PersonalLabelItem>();
+
+            LoadPersonalLabelsAsync(result =>
+            {
+                if (result.code == Services.Http.HttpStatus.OK)
+                {
+                    PersonalLabels.Clear();
+                    foreach (var item in result.personalLabel)
+                        PersonalLabels.Add(item);
+                    RaisePropertyChanged(nameof(PersonalLabels));
+                }
+                else
+                {
+                    MessageBoxHelper.ShowError("获取人才个人标签失败！");
+                }
+            });
+        }
+
+        /// <summary>
+        /// 添加人才个人标签
+        /// </summary>
+        private void AddPersonalLabel()
+        {
+            InputStringDialog.ShowDialog((success, input) =>
+            {
+                if (success)
+                {
+                    try
+                    {
+                        var res = PdtV1.AddPersonalLabel(input);
+                        if (res.code == Services.Http.HttpStatus.OK)
+                        {
+                            LoadPersonalLabels();
+                        }
+                        else
+                        {
+                            throw new Exception(res.mesg);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBoxHelper.ShowError(e);
+                    }
+                }
+            }, "请输入新的个人标签");
+        }
+
+        /// <summary>
+        /// 删除人才个人标签
+        /// </summary>
+        /// <param name="personalLabel"></param>
+        private void DeletePersonalLabel(PersonalLabelItem personalLabel)
+        {
+            if (MessageBoxHelper.ShowQuestion($"确定要删除“{personalLabel.PersonalLabel}”吗？"))
+            {
+                try
+                {
+                    var res = PdtV1.DeletePersonalLabel(personalLabel.ID);
+                    if (res.code == Services.Http.HttpStatus.OK)
+                    {
+                        LoadPersonalLabels();
+                    }
+                    else
+                    {
+                        throw new Exception(res.mesg);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBoxHelper.ShowError(e, "删除失败");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 修改人才个人标签
+        /// </summary>
+        /// <param name="personalLabel"></param>
+        private void ChangePersonalLabel(PersonalLabelItem personalLabel)
+        {
+            InputStringDialog.ShowDialog((success, input) =>
+            {
+                if (success && input != personalLabel.PersonalLabel)
+                {
+                    try
+                    {
+                        var res = PdtV1.ChangePersonalLabel(personalLabel.ID, input);
+                        if (res.code == Services.Http.HttpStatus.OK)
+                        {
+                            LoadPersonalLabels();
+                        }
+                        else
+                        {
+                            throw new Exception(res.mesg);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBoxHelper.ShowError(e);
+                    }
+                }
+            }, "修改个人标签", personalLabel.PersonalLabel);
+        }
+
+        #endregion
+
         #region 论坛话题标签管理
 
         public ObservableCollection<TalkTagItem> TalkTags { get; set; }
@@ -1264,6 +1420,11 @@ namespace PDT_WPF.ViewModels.PageViewModels
             DeleteProjectMainTechnologyCmd = new RelayCommand<ProjectMainTechnology>(DeleteProjectMainTechnology);
             ChangeProjectMainTechnologyCmd = new RelayCommand<ProjectMainTechnology>(ChangeProjectMainTechnology);
 
+            LoadPersonalLabelsCmd = new RelayCommand(LoadPersonalLabels, () => !IsLoadingPersonalLabels);
+            AddPersonalLabelCmd = new RelayCommand(AddPersonalLabel);
+            DeletePersonalLabelCmd = new RelayCommand<PersonalLabelItem>(DeletePersonalLabel);
+            ChangePersonalLabelCmd = new RelayCommand<PersonalLabelItem>(ChangePersonalLabel);
+
             LoadProjectTypesCmd = new RelayCommand(LoadProjectTypes, () => !IsLoadingProjectTypes);
             AddProjectTypeCmd = new RelayCommand(AddProjectType);
             DeleteProjectTypeCmd = new RelayCommand<ProjectTypeItem>(DeleteProjectType);
@@ -1296,6 +1457,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
                 LoadBoardPhotos();
                 LoadCompetitionSections();
                 LoadProjectMainTechnologies();
+                LoadPersonalLabels();
                 LoadProjectTypes();
                 LoadProjectMatches();
                 LoadTechnologyTags();
