@@ -492,7 +492,7 @@ namespace PDT_WPF.Services.Api
             public string mesg;
         }
         /// <summary>
-        /// 
+        /// 获取论坛列表
         /// </summary>
         /// <param name="page">页码</param>
         /// <param name="sortRule">排序方式 0:时间降序,1:热度降序,2:时间升序,3:热度升序</param>
