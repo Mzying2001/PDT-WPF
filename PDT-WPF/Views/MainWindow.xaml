@@ -21,6 +21,27 @@
         <!--欢迎页-->
         <Pages:WelcomePage x:Key="WelcomePage"/>
 
+        <!--主页-->
+        <Pages:HomePage x:Key="HomePage"/>
+
+        <!--项目库-->
+        <Pages:ProjectLibraryPage x:Key="ProjectLibraryPage"/>
+
+        <!--人才库-->
+        <Pages:TalentPoolPage x:Key="TalentPoolPage"/>
+
+        <!--论坛-->
+        <Pages:ForumPage x:Key="ForumPage"/>
+
+        <!--信息-->
+        <Pages:MessagePage x:Key="MessagePage"/>
+
+        <!--个人中心-->
+        <Pages:PersonalCenterPage x:Key="PersonalCenterPage"/>
+
+        <!--后台管理-->
+        <Pages:AdminPage x:Key="AdminPage"/>
+
         <!--单击用户头像弹出的菜单-->
         <ContextMenu
             x:Key="UserContextMenu"
@@ -30,7 +51,7 @@
                 Header="个人中心"
                 IsEnabled="{Binding Source={x:Static Data:GlobalData.AdminMode}, Converter={StaticResource Boolean2BooleanReConverter}}"
                 Command="{Binding SwitchPageCmd}"
-                CommandParameter="PersonalCenterPage"/>
+                CommandParameter="{StaticResource PersonalCenterPage}"/>
             <Separator/>
             <MenuItem
                 Header="退出登录"
@@ -42,7 +63,8 @@
     <Window.InputBindings>
         <KeyBinding
             Key="Esc"
-            Command="{Binding ExitPageCmd}"/>
+            Command="{Binding SwitchPageCmd}"
+            CommandParameter="{StaticResource WelcomePage}"/>
     </Window.InputBindings>
 
     <Grid>
@@ -96,7 +118,7 @@
                     IsSelected="True"
                     Header="主页"
                     Command="{Binding SwitchPageCmd}"
-                    CommandParameter="HomePage">
+                    CommandParameter="{StaticResource HomePage}">
                     <hc:SideMenuItem.Icon>
                         <svgc:SvgViewbox
                             Width="18"
@@ -106,7 +128,7 @@
                 <hc:SideMenuItem
                     Header="项目库"
                     Command="{Binding SwitchPageCmd}"
-                    CommandParameter="ProjectLibraryPage">
+                    CommandParameter="{StaticResource ProjectLibraryPage}">
                     <hc:SideMenuItem.Icon>
                         <svgc:SvgViewbox
                             Width="18"
@@ -116,7 +138,7 @@
                 <hc:SideMenuItem
                     Header="人才库"
                     Command="{Binding SwitchPageCmd}"
-                    CommandParameter="TalentPoolPage">
+                    CommandParameter="{StaticResource TalentPoolPage}">
                     <hc:SideMenuItem.Icon>
                         <svgc:SvgViewbox
                             Width="18"
@@ -126,7 +148,7 @@
                 <hc:SideMenuItem
                     Header="论坛"
                     Command="{Binding SwitchPageCmd}"
-                    CommandParameter="ForumPage">
+                    CommandParameter="{StaticResource ForumPage}">
                     <hc:SideMenuItem.Icon>
                         <svgc:SvgViewbox
                             Width="18"
@@ -136,7 +158,7 @@
                 <hc:SideMenuItem
                     Header="信息"
                     Command="{Binding SwitchPageCmd}"
-                    CommandParameter="MessagePage">
+                    CommandParameter="{StaticResource MessagePage}">
                     <hc:SideMenuItem.Icon>
                         <svgc:SvgViewbox
                             Width="18"
@@ -147,7 +169,7 @@
                     Header="个人中心"
                     Visibility="{Binding Source={x:Static Data:GlobalData.AdminMode}, Converter={StaticResource Boolean2VisibilityReConverter}}"
                     Command="{Binding SwitchPageCmd}"
-                    CommandParameter="PersonalCenterPage">
+                    CommandParameter="{StaticResource PersonalCenterPage}">
                     <hc:SideMenuItem.Icon>
                         <svgc:SvgViewbox
                             Width="18"
@@ -158,7 +180,7 @@
                     Header="后台管理"
                     Visibility="{Binding Source={x:Static Data:GlobalData.AdminMode}, Converter={StaticResource Boolean2VisibilityConverter}}"
                     Command="{Binding SwitchPageCmd}"
-                    CommandParameter="AdminPage">
+                    CommandParameter="{StaticResource AdminPage}">
                     <hc:SideMenuItem.Icon>
                         <svgc:SvgViewbox
                             Width="18"
@@ -182,7 +204,8 @@
             Grid.Column="2"
             Style="{StaticResource BaseStyle}"
             Content="{Binding CurrentPage, TargetNullValue={StaticResource WelcomePage}}"
-            NavigationUIVisibility="Hidden"/>
+            NavigationUIVisibility="Hidden"
+            Navigated="MainFrame_Navigated"/>
 
     </Grid>
 </Window>
