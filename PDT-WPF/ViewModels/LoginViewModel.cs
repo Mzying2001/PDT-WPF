@@ -142,6 +142,7 @@ namespace PDT_WPF.ViewModels
         {
             LoginAsync(result =>
             {
+                GlobalData.IsLogined = result.Success;
                 Messenger.Default.Send(result, MessageTokens.LOGIN_RESULT);
             });
         }
@@ -196,6 +197,7 @@ namespace PDT_WPF.ViewModels
         {
             AdminLoginAsync(result =>
             {
+                GlobalData.IsLogined = result.Success;
                 Messenger.Default.Send(result, MessageTokens.LOGIN_RESULT);
             });
         }

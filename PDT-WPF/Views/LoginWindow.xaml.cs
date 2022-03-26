@@ -2,19 +2,7 @@
 using PDT_WPF.Models;
 using PDT_WPF.Models.Data;
 using PDT_WPF.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PDT_WPF.Views
 {
@@ -23,12 +11,16 @@ namespace PDT_WPF.Views
     /// </summary>
     public partial class LoginWindow : Window
     {
+        private static Window openedWindow;
+
         public LoginWindow()
         {
             InitializeComponent();
 
             accountBox.Focus();
             accountBox.SelectAll();
+
+            Closing += (s, e) => openedWindow = null;
 
             Messenger.Default.Register<LoginResult>(this, MessageTokens.LOGIN_RESULT, ProcessLoginResult);
             Unloaded += (s, e) => Messenger.Default.Unregister(this);
@@ -38,12 +30,26 @@ namespace PDT_WPF.Views
         {
             if (result.Success)
             {
-                new MainWindow().Show();
+                MainWindow.Show();
                 Close();
             }
             else
             {
                 MessageBoxHelper.ShowError(result.Message, "登录失败");
+            }
+        }
+
+        public static new void Show()
+        {
+            if (openedWindow == null)
+            {
+                openedWindow = new LoginWindow();
+                openedWindow.Show();
+            }
+            else
+            {
+                openedWindow.Topmost = true;
+                openedWindow.Topmost = false;
             }
         }
     }

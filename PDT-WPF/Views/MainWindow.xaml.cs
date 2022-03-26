@@ -12,6 +12,8 @@ namespace PDT_WPF.Views
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static Window openedWindow;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -58,7 +60,22 @@ namespace PDT_WPF.Views
                 WindowState = WindowState.Normal;
             LocalData.Settings.MainWindowSizeInfo = WindowSizeInfo.GetSizeInfo(this);
 
+            openedWindow = null;
             base.OnClosing(e);
+        }
+
+        public static new void Show()
+        {
+            if (openedWindow == null)
+            {
+                openedWindow = new MainWindow();
+                openedWindow.Show();
+            }
+            else
+            {
+                openedWindow.Topmost = true;
+                openedWindow.Topmost = false;
+            }
         }
     }
 }

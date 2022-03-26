@@ -5,6 +5,8 @@
     /// </summary>
     public static class GlobalData
     {
+        public static bool IsLogined { get; set; }
+
         public static User CurrentUser { get; set; }
         public static bool AdminMode { get; set; }
 
