@@ -48,8 +48,7 @@ namespace PDT_WPF.Views
             }
             else
             {
-                openedWindow.Topmost = true;
-                openedWindow.Topmost = false;
+                WindowHelper.SetForeground(openedWindow);
             }
         }
     }

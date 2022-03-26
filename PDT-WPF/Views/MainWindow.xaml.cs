@@ -1,5 +1,6 @@
 ﻿using PDT_WPF.Models;
 using PDT_WPF.Models.Data;
+using PDT_WPF.Utils;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -73,8 +74,7 @@ namespace PDT_WPF.Views
             }
             else
             {
-                openedWindow.Topmost = true;
-                openedWindow.Topmost = false;
+                WindowHelper.SetForeground(openedWindow);
             }
         }
     }

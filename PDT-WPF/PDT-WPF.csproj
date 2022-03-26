@@ -305,6 +305,7 @@
     <Compile Include="Services\Http.cs" />
     <Compile Include="Utils\Logger.cs" />
     <Compile Include="Utils\WinApi.cs" />
+    <Compile Include="Utils\WindowHelper.cs" />
     <Compile Include="ViewModels\DialogViewModels\AddBoardPhotoDialogViewModel.cs" />
     <Compile Include="ViewModels\DialogViewModels\AddCompetitionSectionDialogViewModel.cs" />
     <Compile Include="ViewModels\ForumExamineToolViewModel.cs" />
