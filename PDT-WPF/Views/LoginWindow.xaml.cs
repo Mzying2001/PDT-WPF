@@ -48,6 +48,8 @@ namespace PDT_WPF.Views
             }
             else
             {
+                if (openedWindow.WindowState == WindowState.Minimized)
+                    openedWindow.WindowState = WindowState.Normal;
                 WindowHelper.SetForeground(openedWindow);
             }
         }
