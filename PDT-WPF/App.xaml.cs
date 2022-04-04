@@ -73,7 +73,7 @@ namespace PDT_WPF
         private static Process GetStartedProcess()
         {
             Process cur = Process.GetCurrentProcess();
-            return (from p in Process.GetProcesses() where p.ProcessName == cur.ProcessName && p.Id != cur.Id select p).SingleOrDefault();
+            return (from p in Process.GetProcesses() where p.ProcessName == cur.ProcessName && p.Id != cur.Id select p).FirstOrDefault();
         }
     }
 }
