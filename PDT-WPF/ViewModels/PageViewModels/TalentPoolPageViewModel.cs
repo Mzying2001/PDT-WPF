@@ -32,6 +32,13 @@ namespace PDT_WPF.ViewModels.PageViewModels
             }
         }
 
+        private bool _allLoaded;
+        public bool AllLoaded
+        {
+            get => _allLoaded;
+            set => Set(ref _allLoaded, value);
+        }
+
 
         private async void GetPersonnelListAsync(Action<PdtV1.GetPersonnelListResponse> callback)
         {
@@ -66,6 +73,9 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
         private void LoadMorePersonnels()
         {
+            if (IsLoading)
+                return;
+
             GetPersonnelListAsync(result =>
             {
                 if (result.isSuccess)
@@ -77,7 +87,8 @@ namespace PDT_WPF.ViewModels.PageViewModels
                 {
                     if (result.mesg == "获取人才信息列表失败:已无更多人才")
                     {
-                        MessageBoxHelper.ShowMessage("已经全部加载。");
+                        //MessageBoxHelper.ShowMessage("已经全部加载。");
+                        AllLoaded = true;
                     }
                     else
                     {
@@ -89,6 +100,11 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
         private void ReloadPersonnelList()
         {
+            if (IsLoading)
+                return;
+
+            AllLoaded = false;
+
             int tmp = Page;
             Page = 0;
             GetPersonnelListAsync(result =>

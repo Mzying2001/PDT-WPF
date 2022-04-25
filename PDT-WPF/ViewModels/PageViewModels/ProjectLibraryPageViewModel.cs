@@ -6,6 +6,7 @@ using PDT_WPF.Utils;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+
 namespace PDT_WPF.ViewModels.PageViewModels
 {
     public class ProjectLibraryPageViewModel : ViewModelBase
@@ -31,6 +32,13 @@ namespace PDT_WPF.ViewModels.PageViewModels
                     ReloadProjectListCmd.RaiseCanExecuteChanged();
                 }
             }
+        }
+
+        private bool _allLoaded;
+        public bool AllLoaded
+        {
+            get => _allLoaded;
+            set => Set(ref _allLoaded, value);
         }
 
         private async void GetProjectListAsync(Action<PdtV1.GetProjectListResponse> callback)
@@ -66,6 +74,9 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
         private void LoadMoreProjects()
         {
+            if (IsLoading)
+                return;
+
             GetProjectListAsync(result =>
             {
                 if (result.isSuccess)
@@ -77,7 +88,8 @@ namespace PDT_WPF.ViewModels.PageViewModels
                 {
                     if (result.mesg == "获取项目列表失败:已无更多项目!")
                     {
-                        MessageBoxHelper.ShowMessage("已无更多项目。");
+                        //MessageBoxHelper.ShowMessage("已无更多项目。");
+                        AllLoaded = true;
                     }
                     else
                     {
@@ -89,6 +101,11 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
         private void ReloadProjectList()
         {
+            if (IsLoading)
+                return;
+
+            AllLoaded = false;
+
             int tmp = Page;
             Page = 0;
             GetProjectListAsync(result =>

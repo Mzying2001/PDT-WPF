@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:PDT_WPF.Views.Pages"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:hc="https://handyorg.github.io/handycontrol"
+      xmlns:Utils="clr-namespace:PDT_WPF.Utils"
       xmlns:Models="clr-namespace:PDT_WPF.Models"
       xmlns:Panels="clr-namespace:PDT_WPF.Views.Panels"
       xmlns:Controls="clr-namespace:PDT_WPF.Views.Controls"
@@ -38,7 +39,11 @@
         <hc:ScrollViewer
             x:Name="sv"
             Grid.Row="1"
-            IsInertiaEnabled="True">
+            IsInertiaEnabled="True"
+            Utils:ScrollViewerHelper.ReachEndCommand="{Binding LoadMorePersonnelsCmd}">
+            <i:Interaction.Behaviors>
+                <Utils:ScrollViewerBehavior/>
+            </i:Interaction.Behaviors>
             <StackPanel
                 Grid.Row="1">
 
@@ -141,7 +146,15 @@
                     Margin="20"
                     HorizontalAlignment="Center"
                     Content="加载更多..."
-                    Command="{Binding LoadMorePersonnelsCmd}"/>
+                    Command="{Binding LoadMorePersonnelsCmd}"
+                    Visibility="{Binding AllLoaded, Converter={StaticResource Boolean2VisibilityReConverter}}"/>
+
+                <TextBlock
+                    Margin="20"
+                    HorizontalAlignment="Center"
+                    Text="已全部加载"
+                    Foreground="Gray"
+                    Visibility="{Binding AllLoaded, Converter={StaticResource Boolean2VisibilityConverter}}"/>
 
             </StackPanel>
         </hc:ScrollViewer>
