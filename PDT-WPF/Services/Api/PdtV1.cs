@@ -508,6 +508,25 @@ namespace PDT_WPF.Services.Api
             return JsonConvert.DeserializeObject<GetForumResponse>(res);
         }
 
+
+
+        public struct GetTopForumResponse
+        {
+            public bool isSuccess;
+            public string mesg;
+            public ForumPost[] topforums;
+        }
+        /// <summary>
+        /// 获取置顶帖子
+        /// </summary>
+        /// <returns></returns>
+        public static GetTopForumResponse GetTopForum()
+        {
+            string url = BASE_URL + "forum/getTopForum";
+            string res = Http.Get(url, null, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<GetTopForumResponse>(res);
+        }
+
         #endregion
 
 
@@ -1074,7 +1093,7 @@ namespace PDT_WPF.Services.Api
         /// <summary>
         /// 忽略被举报的帖子
         /// </summary>
-        /// <param name="id">帖子id</param>
+        /// <param name="id">举报id</param>
         /// <returns></returns>
         public static IgnoreForumResponse IgnoreForum(int id)
         {
@@ -1096,7 +1115,7 @@ namespace PDT_WPF.Services.Api
         /// <summary>
         /// 删除帖子(同时忽略该帖所有举报)
         /// </summary>
-        /// <param name="id">帖子id</param>
+        /// <param name="id">举报id</param>
         /// <returns></returns>
         public static DeleteTipForumResponse DeleteTipForum(int id)
         {
@@ -1106,6 +1125,50 @@ namespace PDT_WPF.Services.Api
                 ["Id"] = id.ToString()
             }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
             return JsonConvert.DeserializeObject<DeleteTipForumResponse>(res);
+        }
+
+
+
+        public struct TopForumResponse
+        {
+            public bool isSuccess;
+            public string mesg;
+        }
+        /// <summary>
+        /// 置顶帖子
+        /// </summary>
+        /// <param name="forumId">帖子id</param>
+        /// <returns></returns>
+        public static TopForumResponse TopForum(int forumId)
+        {
+            string url = BASE_URL + "forum/topForum";
+            string res = Http.Post(url, new Dictionary<string, string>
+            {
+                ["forumId"] = forumId.ToString()
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<TopForumResponse>(res);
+        }
+
+
+
+        public struct UnTopForumResponse
+        {
+            public bool isSuccess;
+            public string mesg;
+        }
+        /// <summary>
+        /// 取消置顶帖子
+        /// </summary>
+        /// <param name="forumId">帖子id</param>
+        /// <returns></returns>
+        public static UnTopForumResponse UnTopForum(int forumId)
+        {
+            string url = BASE_URL + "forum/unTopForum";
+            string res = Http.Post(url, new Dictionary<string, string>
+            {
+                ["forumId"] = forumId.ToString()
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<UnTopForumResponse>(res);
         }
 
         #endregion
