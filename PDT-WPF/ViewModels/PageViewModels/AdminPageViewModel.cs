@@ -64,6 +64,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
         public RelayCommand OpenForumExamineToolCmd { get; set; }
         public RelayCommand OpenForumReportManagerCmd { get; set; }
+        public RelayCommand OpenForumToppingManagerCmd { get; set; }
 
 
 
@@ -1382,7 +1383,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
         #endregion
 
-        #region 帖子审核
+        #region 论坛管理
 
         private void OpenForumExamineTool()
         {
@@ -1392,6 +1393,11 @@ namespace PDT_WPF.ViewModels.PageViewModels
         private void OpenForumReportManager()
         {
             Views.ForumReportManager.Show();
+        }
+
+        private void OpenForumToppingManager()
+        {
+            Views.ForumToppingManager.Show();
         }
 
         #endregion
@@ -1457,6 +1463,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
 
             OpenForumExamineToolCmd = new RelayCommand(OpenForumExamineTool);
             OpenForumReportManagerCmd = new RelayCommand(OpenForumReportManager);
+            OpenForumToppingManagerCmd = new RelayCommand(OpenForumToppingManager);
 
 
             if (GlobalData.AdminMode)

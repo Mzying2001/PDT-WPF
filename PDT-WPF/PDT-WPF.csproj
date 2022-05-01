@@ -313,6 +313,7 @@
     <Compile Include="ViewModels\DialogViewModels\AddCompetitionSectionDialogViewModel.cs" />
     <Compile Include="ViewModels\ForumExamineToolViewModel.cs" />
     <Compile Include="ViewModels\ForumReportManagerViewModel.cs" />
+    <Compile Include="ViewModels\ForumToppingManagerViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\AdminPageViewModel.cs" />
@@ -329,6 +330,9 @@
     </Compile>
     <Compile Include="Views\ForumReportManager.xaml.cs">
       <DependentUpon>ForumReportManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ForumToppingManager.xaml.cs">
+      <DependentUpon>ForumToppingManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HcImageViewer.xaml.cs">
       <DependentUpon>HcImageViewer.xaml</DependentUpon>
@@ -369,6 +373,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ForumReportManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ForumToppingManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

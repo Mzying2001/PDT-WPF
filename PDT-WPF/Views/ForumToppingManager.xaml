@@ -1,0 +1,109 @@
+﻿<Window x:Class="PDT_WPF.Views.ForumToppingManager"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PDT_WPF.Views"
+        mc:Ignorable="d"
+        
+        Title="帖子置顶管理"
+        Width="700"
+        Height="500"
+        WindowStartupLocation="CenterScreen"
+        DataContext="{Binding Source={StaticResource Locator}, Path=ForumToppingManager}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Margin="20,10,20,5"
+            Orientation="Horizontal">
+            <Button
+                Content="刷新"
+                HorizontalAlignment="Left"
+                Command="{Binding RefreshCmd}"
+                IsEnabled="{Binding IsLoading, Converter={StaticResource Boolean2BooleanReConverter}}"/>
+        </StackPanel>
+
+        <Grid
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="20,0,20,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel
+                Grid.Row="0"
+                Margin="5"
+                Orientation="Horizontal">
+                <TextBlock>帖子列表</TextBlock>
+                <TextBlock
+                    Margin="10,0,0,0">
+                    <Hyperlink
+                        Command="{Binding LoadMorePostsCmd}"
+                        IsEnabled="{Binding IsLoadingForum, Converter={StaticResource Boolean2BooleanReConverter}}">
+                        <TextBlock>加载更多</TextBlock>
+                    </Hyperlink>
+                </TextBlock>
+            </StackPanel>
+            <ListBox
+                x:Name="forumListBox"
+                Grid.Row="1"
+                ItemsSource="{Binding ForumPosts}"
+                DisplayMemberPath="Title"/>
+        </Grid>
+
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="1"
+            Orientation="Vertical"
+            VerticalAlignment="Center"
+            IsEnabled="{Binding IsLoading, Converter={StaticResource Boolean2BooleanReConverter}}">
+            <Button
+                Content=">>"
+                ToolTip="置顶"
+                Command="{Binding AddTopForumPostCmd}"
+                CommandParameter="{Binding ElementName=forumListBox, Path=SelectedValue}"
+                IsEnabled="{Binding ElementName=forumListBox, Path=SelectedIndex, Converter={StaticResource IntNotNegative}}"/>
+            <Button
+                Margin="0,20,0,0"
+                Content="&lt;&lt;"
+                ToolTip="取消置顶"
+                Command="{Binding CancelTopForumPostCmd}"
+                CommandParameter="{Binding ElementName=topListBox, Path=SelectedValue}"
+                IsEnabled="{Binding ElementName=topListBox, Path=SelectedIndex, Converter={StaticResource IntNotNegative}}"/>
+        </StackPanel>
+
+        <Grid
+            Grid.Row="1"
+            Grid.Column="2"
+            Margin="20,0,20,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                Margin="5"
+                Text="已置顶帖子"/>
+            <ListBox
+                x:Name="topListBox"
+                Grid.Row="1"
+                ItemsSource="{Binding TopForumPosts}"
+                DisplayMemberPath="Title"/>
+        </Grid>
+
+    </Grid>
+</Window>

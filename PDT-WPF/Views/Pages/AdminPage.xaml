@@ -966,20 +966,27 @@
                 </Grid>
             </Expander>
 
-            <!--帖子审核-->
+            <!--论坛管理-->
             <Expander
-                Header="帖子审核"
+                Header="论坛管理"
                 Margin="0,5,0,0">
                 <StackPanel
                     Margin="10"
-                    Orientation="Horizontal">
+                    Orientation="Vertical">
                     <Button
                         Content="打开帖子审核工具"
-                        Command="{Binding OpenForumExamineToolCmd}"/>
+                        Command="{Binding OpenForumExamineToolCmd}"
+                        HorizontalAlignment="Left"/>
                     <Button
-                        Margin="10,0,0,0"
+                        Margin="0,10,0,0"
+                        Content="管理置顶帖子"
+                        Command="{Binding OpenForumToppingManagerCmd}"
+                        HorizontalAlignment="Left"/>
+                    <Button
+                        Margin="0,10,0,0"
                         Content="管理论坛举报"
-                        Command="{Binding OpenForumReportManagerCmd}"/>
+                        Command="{Binding OpenForumReportManagerCmd}"
+                        HorizontalAlignment="Left"/>
                 </StackPanel>
             </Expander>
 
