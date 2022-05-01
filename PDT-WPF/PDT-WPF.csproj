@@ -269,6 +269,7 @@
     <Compile Include="Models\CustomTagItem.cs" />
     <Compile Include="Models\ForumPhoto.cs" />
     <Compile Include="Models\ForumPost.cs" />
+    <Compile Include="Models\ForumReport.cs" />
     <Compile Include="Models\PersonalLabelItem.cs" />
     <Compile Include="Models\TalkTagItem.cs" />
     <Compile Include="Utils\Converters\BoolNotOperation.cs" />
@@ -311,6 +312,7 @@
     <Compile Include="ViewModels\DialogViewModels\AddBoardPhotoDialogViewModel.cs" />
     <Compile Include="ViewModels\DialogViewModels\AddCompetitionSectionDialogViewModel.cs" />
     <Compile Include="ViewModels\ForumExamineToolViewModel.cs" />
+    <Compile Include="ViewModels\ForumReportManagerViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\AdminPageViewModel.cs" />
@@ -324,6 +326,9 @@
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\ForumExamineTool.xaml.cs">
       <DependentUpon>ForumExamineTool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ForumReportManager.xaml.cs">
+      <DependentUpon>ForumReportManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HcImageViewer.xaml.cs">
       <DependentUpon>HcImageViewer.xaml</DependentUpon>
@@ -360,6 +365,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ForumExamineTool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ForumReportManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

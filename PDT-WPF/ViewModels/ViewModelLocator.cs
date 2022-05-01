@@ -55,6 +55,7 @@ namespace PDT_WPF.ViewModels
             SimpleIoc.Default.Register<AdminPageViewModel>();
             SimpleIoc.Default.Register<TalkTagApplicationManagerViewModel>();
             SimpleIoc.Default.Register<ForumExamineToolViewModel>();
+            SimpleIoc.Default.Register<ForumReportManagerViewModel>();
         }
 
         public MainViewModel Main
@@ -110,6 +111,11 @@ namespace PDT_WPF.ViewModels
         public ForumExamineToolViewModel ForumExamineTool
         {
             get => ServiceLocator.Current.GetInstance<ForumExamineToolViewModel>();
+        }
+
+        public ForumReportManagerViewModel ForumReportManager
+        {
+            get => ServiceLocator.Current.GetInstance<ForumReportManagerViewModel>();
         }
 
         public AddBoardPhotoDialogViewModel AddBoardPhotoDialog

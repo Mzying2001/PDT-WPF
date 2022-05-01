@@ -976,6 +976,10 @@
                     <Button
                         Content="打开帖子审核工具"
                         Command="{Binding OpenForumExamineToolCmd}"/>
+                    <Button
+                        Margin="10,0,0,0"
+                        Content="管理论坛举报"
+                        Command="{Binding OpenForumReportManagerCmd}"/>
                 </StackPanel>
             </Expander>
 

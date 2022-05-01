@@ -1047,7 +1047,7 @@ namespace PDT_WPF.Services.Api
         {
             public bool isSuccess;
             public string mesg;
-            public ForumPost[] tipforums;
+            public ForumReport[] tipforums;
         }
         /// <summary>
         /// 获取被举报的帖子列表

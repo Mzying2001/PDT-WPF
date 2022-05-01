@@ -63,6 +63,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
         public RelayCommand OpenUserManagerCmd { get; set; }
 
         public RelayCommand OpenForumExamineToolCmd { get; set; }
+        public RelayCommand OpenForumReportManagerCmd { get; set; }
 
 
 
@@ -1388,6 +1389,11 @@ namespace PDT_WPF.ViewModels.PageViewModels
             Views.ForumExamineTool.Show();
         }
 
+        private void OpenForumReportManager()
+        {
+            Views.ForumReportManager.Show();
+        }
+
         #endregion
 
         #region 用户管理
@@ -1450,6 +1456,7 @@ namespace PDT_WPF.ViewModels.PageViewModels
             ViewForumTalkTagApplyListCmd = new RelayCommand(ViewForumTalkTagApplyList);
 
             OpenForumExamineToolCmd = new RelayCommand(OpenForumExamineTool);
+            OpenForumReportManagerCmd = new RelayCommand(OpenForumReportManager);
 
 
             if (GlobalData.AdminMode)
