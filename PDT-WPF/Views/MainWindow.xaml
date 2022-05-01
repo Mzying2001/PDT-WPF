@@ -46,6 +46,8 @@
         <ContextMenu
             x:Key="UserContextMenu"
             Placement="Bottom"
+            VerticalOffset="-8"
+            HorizontalOffset="-8"
             DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
             <MenuItem
                 Header="个人中心"
