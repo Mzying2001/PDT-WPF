@@ -1041,6 +1041,73 @@ namespace PDT_WPF.Services.Api
             return JsonConvert.DeserializeObject<ChangePersonalLabelResponse>(res);
         }
 
+
+
+        public struct GetTipForumResponse
+        {
+            public bool isSuccess;
+            public string mesg;
+            public ForumPost[] tipforums;
+        }
+        /// <summary>
+        /// 获取被举报的帖子列表
+        /// </summary>
+        /// <param name="page">页码</param>
+        /// <returns></returns>
+        public static GetTipForumResponse GetTipForum(int page)
+        {
+            string url = BASE_URL + "forum/getTipForum";
+            string res = Http.Post(url, new Dictionary<string, string>
+            {
+                ["page"] = page.ToString()
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<GetTipForumResponse>(res);
+        }
+
+
+
+        public struct IgnoreForumResponse
+        {
+            public bool isSuccess;
+            public string mesg;
+        }
+        /// <summary>
+        /// 忽略被举报的帖子
+        /// </summary>
+        /// <param name="id">帖子id</param>
+        /// <returns></returns>
+        public static IgnoreForumResponse IgnoreForum(int id)
+        {
+            string url = BASE_URL + "forum/ignoreForum";
+            string res = Http.Post(url, new Dictionary<string, string>
+            {
+                ["Id"] = id.ToString()
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<IgnoreForumResponse>(res);
+        }
+
+
+
+        public struct DeleteTipForumResponse
+        {
+            public bool isSuccess;
+            public string mesg;
+        };
+        /// <summary>
+        /// 删除帖子(同时忽略该帖所有举报)
+        /// </summary>
+        /// <param name="id">帖子id</param>
+        /// <returns></returns>
+        public static DeleteTipForumResponse DeleteTipForum(int id)
+        {
+            string url = BASE_URL + "forum/deleteTipForum";
+            string res = Http.Post(url, new Dictionary<string, string>
+            {
+                ["Id"] = id.ToString()
+            }, Headers, Http.ContentType.APPLICATION_X_WWW_FORM_URLENCODED);
+            return JsonConvert.DeserializeObject<DeleteTipForumResponse>(res);
+        }
+
         #endregion
 
 
