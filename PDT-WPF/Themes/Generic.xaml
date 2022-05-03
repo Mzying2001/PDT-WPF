@@ -36,13 +36,13 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation
-                                            To="-2"
-                                            Duration="0:0:0.25"
+                                            To="-3"
+                                            Duration="0:0:0.15"
                                             Storyboard.TargetName="tt"
                                             Storyboard.TargetProperty="Y"/>
                                         <DoubleAnimation
                                             To="0.2"
-                                            Duration="0:0:0.25"
+                                            Duration="0:0:0.15"
                                             Storyboard.TargetName="dse"
                                             Storyboard.TargetProperty="(DropShadowEffect.Opacity)"/>
                                     </Storyboard>
@@ -54,12 +54,12 @@
                                     <Storyboard>
                                         <DoubleAnimation
                                             To="0"
-                                            Duration="0:0:0.25"
+                                            Duration="0:0:0.15"
                                             Storyboard.TargetName="tt"
                                             Storyboard.TargetProperty="Y"/>
                                         <DoubleAnimation
                                             To="0.1"
-                                            Duration="0:0:0.25"
+                                            Duration="0:0:0.15"
                                             Storyboard.TargetName="dse"
                                             Storyboard.TargetProperty="(DropShadowEffect.Opacity)"/>
                                     </Storyboard>
